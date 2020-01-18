@@ -60,6 +60,9 @@ Bool Cd(U8 *dirname=NULL,Bool make_dirs=FALSE)
 	case FSt_FAT32:
 	  res=FAT32Cd(buf,cur_dir_clus);
 	  break;
+	case FSt_ISO9660:
+	  res=ISO1Cd(buf,cur_dir_clus);
+	  break;
 	default:
 	  PrintErr("File System Not Supported\n");
 	  res=FALSE;
@@ -170,7 +173,7 @@ Bool DirMk(U8 *filename,I64 entry_cnt=0)
   if (dirc=DirContextNew(filename)) {
     if (*dirc->mask) {
       if (!FileNameChk(dirc->mask))
-	PrintErr("Invalid FileName: \"%s\".\n",dirc->mask);
+	PrintErr("Invalid FileName.\n");
       else {
 	"Make Directory:%s\n",filename;
 	name=MStrUtil(dirc->mask,
@@ -181,6 +184,9 @@ Bool DirMk(U8 *filename,I64 entry_cnt=0)
 	    break;
 	  case FSt_FAT32:
 	    res=FAT32MkDir(dirc->dv,Fs->cur_dir,name,entry_cnt);
+	    break;
+	  case FSt_ISO9660:
+	    PrintErr("Not Writable\n");
 	    break;
 	  default:
 	    PrintErr("File System Not Supported\n");

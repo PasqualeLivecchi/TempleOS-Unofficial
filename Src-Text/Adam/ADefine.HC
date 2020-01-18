@@ -4,7 +4,7 @@ U0 LoadDocDefines()
 {
   CBinFile *bfh=mem_boot_base-sizeof(CBinFile);
 
-  DefinePrint("DD_OS_NAME_VERSION","TempleOS V%0.2f",sys_os_version);
+  DefinePrint("DD_OS_NAME_VERSION","TempleOS (U) V%0.2f",sys_os_version);
   DefinePrint("DD_TEMPLEOS_AGE","%0.1f",
 	(Now-Str2Date("8/1/2003"))/ToF64(1<<32)/CDATE_YEAR_DAYS);
 
@@ -15,7 +15,8 @@ U0 LoadDocDefines()
   //$LK,"DD_BOOT_HIGH_LOC_DVD",A="FF:::/Adam/Opt/Boot/BootDVD.HC,DD_BOOT_HIGH_LOC_DVD"$
 
 $TR,"LineRep"$
-$ID,2$DefinePrint("DD_TEMPLEOS_LOC","80,849");
+$ID,2$DefinePrint("DD_TEMPLEOS_LOC","117,338");
+DefinePrint("DD_TEMPLEOS_LOC_OFFICIAL","82,110");
 $ID,-2$
   DefinePrint("DD_MP_VECT","%08X",MP_VECT_ADDR);
   DefinePrint("DD_MP_VECT_END","%08X",

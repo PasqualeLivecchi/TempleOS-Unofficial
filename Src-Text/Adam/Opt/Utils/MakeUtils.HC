@@ -12,4 +12,5 @@ Cd(__DIR__);;
 #include "ToDolDoc"
 #include "ToTXT"
 #include "TOS"
+#include "FileBMP"
 Cd("..");;

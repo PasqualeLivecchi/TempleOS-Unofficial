@@ -6,6 +6,7 @@ I64 ClusNumNext(CDrv *dv,I64 c,I64 cnt=1)
   try {
     unlock=DrvLock(dv);
     switch (dv->fs_type) {
+      case FSt_ISO9660:
       case FSt_REDSEA:
 	c+=cnt;
 	break;
@@ -34,6 +35,7 @@ I64 Clus2Blk(CDrv *dv,I64 c)
   switch (dv->fs_type) {
     case FSt_REDSEA:
       return c;
+    case FSt_ISO9660:
     case FSt_FAT32:
       return dv->data_area+c*dv->spc;
     default:
@@ -50,6 +52,10 @@ I64 ClusBlkRead(CDrv *dv,U8 *buf,I64 c,I64 blks)
   try {
     unlock=DrvLock(dv);
     switch (dv->fs_type) {
+      case FSt_ISO9660:
+	BlkRead(dv,buf,dv->data_area+c*dv->spc,blks);
+	c+=(blks+dv->spc-1)/dv->spc;
+	break;
       case FSt_REDSEA:
 	BlkRead(dv,buf,c,blks);
 	c+=blks;
