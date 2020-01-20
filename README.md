@@ -40,5 +40,7 @@ I hope to make things easier on new users by doing the following:
 - Terry's Supplemental discs 1-3 on the *_Sup releases
 - Terry's Supplementals, [hgbd](https://github.com/tosrevive/hgbd) (Host guest block device driver), [virtio](https://github.com/tosrevive/bdt-virtio-blk) (virtio block device driver), and [Micropython](https://github.com/tosrevive/micropython-tos) on the *_Plus releases
 
+### Credits
 
-
+- Thanks to Terry for [Temple OS](http://templeos.org)
+- Thanks to Alec/Tsheiks/obecebo? for [hgbd](https://github.com/tosrevive/hgbd) and [bdt-virtio-blk](https://github.com/tosrevive/bdt-virtio-blk).  I hope you and your Temple OS based OS [Erythos](https://github.com/obecebo/erythros) come back someday.
