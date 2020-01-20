@@ -1,8 +1,5 @@
 # TempleOS-Unofficial
 
-
-![Python on Temple OS (U)](https://raw.githubusercontent.com/tosrevive/TempleOS-Unofficial/master/screenshot.png?)
-
 This is an unofficial continuation of Temple OS
 
 [Releases](https://github.com/tosrevive/TempleOS-Unofficial/releases)
@@ -39,6 +36,13 @@ I hope to make things easier on new users by doing the following:
 
 - Terry's Supplemental discs 1-3 on the *_Sup releases
 - Terry's Supplementals, [hgbd](https://github.com/tosrevive/hgbd) (Host guest block device driver), [virtio](https://github.com/tosrevive/bdt-virtio-blk) (virtio block device driver), and [Micropython](https://github.com/tosrevive/micropython-tos) on the *_Plus releases
+
+### Screenshots
+
+![HGBD on Temple OS (U)](https://raw.githubusercontent.com/tosrevive/TempleOS-Unofficial/master/screenshot2.png?)
+
+![Python on Temple OS (U)](https://raw.githubusercontent.com/tosrevive/TempleOS-Unofficial/master/screenshot.png?)
+
 
 ### Credits
 
