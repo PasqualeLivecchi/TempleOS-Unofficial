@@ -1,5 +1,8 @@
 # TempleOS-Unofficial
 
+
+![Python on Temple OS (U)](https://raw.githubusercontent.com/tosrevive/TempleOS-Unofficial/master/screenshot.png?)
+
 This is an unofficial continuation of Temple OS
 
 [Releases](https://github.com/tosrevive/TempleOS-Unofficial/releases)
