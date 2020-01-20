@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<html style="background-color:#FFFFFF;">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
+<title>The Temple Operating System</title>
+<meta name="keywords" content="Operating System,64-Bit,64 Bit,Temple,OS,TempleOS,Free,Open Source,Public Domain,x86_64">
+<meta name="generator" content="TempleOS (U) V5.04">
+<style type="text/css">
+.cB0{color:#000000;background-color:#55ffff;}
+.cB1{color:#0000aa;background-color:#55ffff;}
+.cB2{color:#00aa00;background-color:#55ffff;}
+.cB5{color:#aa00aa;background-color:#55ffff;}
+.cB6{color:#aa5500;background-color:#55ffff;}
+.cB7{color:#aaaaaa;background-color:#55ffff;}
+.cB9{color:#5555ff;background-color:#55ffff;}
+.cBB{color:#55ffff;background-color:#55ffff;}
+.cF0{color:#000000;background-color:#ffffff;}
+.cF1{color:#0000aa;background-color:#ffffff;}
+.cF2{color:#00aa00;background-color:#ffffff;}
+.cF3{color:#00aaaa;background-color:#ffffff;}
+.cF4{color:#aa0000;background-color:#ffffff;}
+.cF5{color:#aa00aa;background-color:#ffffff;}
+.cF6{color:#aa5500;background-color:#ffffff;}
+.cF7{color:#aaaaaa;background-color:#ffffff;}
+.cF8{color:#555555;background-color:#ffffff;}
+.cF9{color:#5555ff;background-color:#ffffff;}
+.cFA{color:#55ff55;background-color:#ffffff;}
+.cFB{color:#55ffff;background-color:#ffffff;}
+.cFC{color:#ff5555;background-color:#ffffff;}
+.cFD{color:#ff55ff;background-color:#ffffff;}
+.cFE{color:#ffff55;background-color:#ffffff;}
+.cFF{color:#ffffff;background-color:#ffffff;}
+</style>
+</head>
+<body style="background-color:#55FFFF; border-style:solid;
+	  border-width:8px; border-color:#0000AA;
+	  margin-left:auto; margin-right:auto; width:800px; ">
+<pre style="font-family:courier;font-size:10pt">
+<div style="margin-left:auto; margin-right:auto; width: 640px;">
+<a name="l1"></a><span class=cB0>
+<a name="l2"></a>
+<a name="l3"></a></span><span class=cB1>U0</span><span class=cB0> FillTriF64(</span><span class=cB1>F64</span><span class=cB0> x1,</span><span class=cB1>F64</span><span class=cB0> y1,</span><span class=cB1>F64</span><span class=cB0> x2,</span><span class=cB1>F64</span><span class=cB0> y2,</span><span class=cB1>F64</span><span class=cB0> x3,</span><span class=cB1>F64</span><span class=cB0> y3)
+<a name="l4"></a>{
+<a name="l5"></a>  </span><span class=cB1>F64</span><span class=cB0> x,y,x_left,x_right,inverse_slope_left,inverse_slope_right;
+<a name="l6"></a>
+<a name="l7"></a>  x_left =x1;
+<a name="l8"></a>  x_right=x1;
+<a name="l9"></a>  inverse_slope_left =(x3-x1)/(y3-y1);
+<a name="l10"></a>  inverse_slope_right=(x2-x1)/(y2-y1);
+<a name="l11"></a>  </span><span class=cB1>for</span><span class=cB0> (y=y1;y&lt;=y2;y++) </span><span class=cB7>{</span><span class=cB0>
+<a name="l12"></a>    </span><span class=cB1>for</span><span class=cB0> (x=x_left;x&lt;=x_right;x++)
+<a name="l13"></a>      </span><span class=cB5>GrPlot</span><span class=cB0>(,x,y);
+<a name="l14"></a>    x_left +=inverse_slope_left;
+<a name="l15"></a>    x_right+=inverse_slope_right;
+<a name="l16"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l17"></a>
+<a name="l18"></a>  inverse_slope_right=(x3-x2)/(y3-y2);
+<a name="l19"></a>  </span><span class=cB1>for</span><span class=cB0> (;y&lt;=y3;y++) </span><span class=cB7>{</span><span class=cB0>
+<a name="l20"></a>    </span><span class=cB1>for</span><span class=cB0> (x=x_left;x&lt;=x_right;x++)
+<a name="l21"></a>      </span><span class=cB5>GrPlot</span><span class=cB0>(,x,y);
+<a name="l22"></a>    x_left +=inverse_slope_left;
+<a name="l23"></a>    x_right+=inverse_slope_right;
+<a name="l24"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l25"></a>}
+<a name="l26"></a>
+<a name="l27"></a></span><span class=cB1>U0</span><span class=cB0> FillTriI64(</span><span class=cB9>I64</span><span class=cB0> x1,</span><span class=cB9>I64</span><span class=cB0> y1,</span><span class=cB9>I64</span><span class=cB0> x2,</span><span class=cB9>I64</span><span class=cB0> y2,</span><span class=cB9>I64</span><span class=cB0> x3,</span><span class=cB9>I64</span><span class=cB0> y3)
+<a name="l28"></a>{ </span><span class=cB2>//Fixed radix point</span><span class=cB0>
+<a name="l29"></a>  </span><span class=cB9>I64</span><span class=cB0> x,y,x_left,x_right,inverse_slope_left,inverse_slope_right;
+<a name="l30"></a>
+<a name="l31"></a>  x_left =x1&lt;&lt;32;
+<a name="l32"></a>  x_right=x1&lt;&lt;32;
+<a name="l33"></a>  inverse_slope_left =(x3-x1)&lt;&lt;32/(y3-y1);
+<a name="l34"></a>  inverse_slope_right=(x2-x1)&lt;&lt;32/(y2-y1);
+<a name="l35"></a>  </span><span class=cB1>for</span><span class=cB0> (y=y1;y&lt;=y2;y++) </span><span class=cB7>{</span><span class=cB0>
+<a name="l36"></a>    </span><span class=cB1>for</span><span class=cB0> (x=x_left&gt;&gt;32;x&lt;=x_right&gt;&gt;32;x++)
+<a name="l37"></a>      </span><span class=cB5>GrPlot</span><span class=cB0>(,x,y);
+<a name="l38"></a>    x_left +=inverse_slope_left;
+<a name="l39"></a>    x_right+=inverse_slope_right;
+<a name="l40"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l41"></a>
+<a name="l42"></a>  inverse_slope_right=(x3-x2)&lt;&lt;32/(y3-y2);
+<a name="l43"></a>  </span><span class=cB1>for</span><span class=cB0> (;y&lt;=y3;y++) </span><span class=cB7>{</span><span class=cB0>
+<a name="l44"></a>    </span><span class=cB1>for</span><span class=cB0> (x=x_left&gt;&gt;32;x&lt;=x_right&gt;&gt;32;x++)
+<a name="l45"></a>      </span><span class=cB5>GrPlot</span><span class=cB0>(,x,y);
+<a name="l46"></a>    x_left +=inverse_slope_left;
+<a name="l47"></a>    x_right+=inverse_slope_right;
+<a name="l48"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l49"></a>}
+<a name="l50"></a>
+<a name="l51"></a></span><span class=cB1>U0</span><span class=cB0> Main()
+<a name="l52"></a>{
+<a name="l53"></a>  </span><span class=cB1>F64</span><span class=cB0> t0,tf;
+<a name="l54"></a>  </span><span class=cB9>I64</span><span class=cB0> i,x1,y1,x2,y2,x3,y3;
+<a name="l55"></a>
+<a name="l56"></a>  </span><span class=cB5>SettingsPush</span><span class=cB0>;
+<a name="l57"></a>  </span><span class=cB5>WinMax</span><span class=cB0>;
+<a name="l58"></a>  </span><span class=cB5>WinBorder</span><span class=cB0>;
+<a name="l59"></a>  </span><span class=cB5>DocClear</span><span class=cB0>;
+<a name="l60"></a>
+<a name="l61"></a>  </span><span class=cB1>while</span><span class=cB0> (!</span><span class=cBB>ms</span><span class=cB0>.lb)
+<a name="l62"></a>    </span><span class=cB5>Yield</span><span class=cB0>;
+<a name="l63"></a>  x1=</span><span class=cBB>ms</span><span class=cB0>.pos.x;
+<a name="l64"></a>  y1=</span><span class=cBB>ms</span><span class=cB0>.pos.y;
+<a name="l65"></a>  </span><span class=cB1>while</span><span class=cB0> (</span><span class=cBB>ms</span><span class=cB0>.lb)
+<a name="l66"></a>    </span><span class=cB5>Yield</span><span class=cB0>;
+<a name="l67"></a>  </span><span class=cB5>GrCircle</span><span class=cB0>(,x1,y1,10);
+<a name="l68"></a>
+<a name="l69"></a>  </span><span class=cB1>while</span><span class=cB0> (!</span><span class=cBB>ms</span><span class=cB0>.lb)
+<a name="l70"></a>    </span><span class=cB5>Yield</span><span class=cB0>;
+<a name="l71"></a>  x2=</span><span class=cBB>ms</span><span class=cB0>.pos.x;
+<a name="l72"></a>  y2=</span><span class=cBB>ms</span><span class=cB0>.pos.y;
+<a name="l73"></a>  </span><span class=cB1>while</span><span class=cB0> (</span><span class=cBB>ms</span><span class=cB0>.lb)
+<a name="l74"></a>    </span><span class=cB5>Yield</span><span class=cB0>;
+<a name="l75"></a>  </span><span class=cB5>GrCircle</span><span class=cB0>(,x2,y2,10);
+<a name="l76"></a>
+<a name="l77"></a>
+<a name="l78"></a>  </span><span class=cB1>while</span><span class=cB0> (!</span><span class=cBB>ms</span><span class=cB0>.lb)
+<a name="l79"></a>    </span><span class=cB5>Yield</span><span class=cB0>;
+<a name="l80"></a>  x3=</span><span class=cBB>ms</span><span class=cB0>.pos.x;
+<a name="l81"></a>  y3=</span><span class=cBB>ms</span><span class=cB0>.pos.y;
+<a name="l82"></a>  </span><span class=cB1>while</span><span class=cB0> (</span><span class=cBB>ms</span><span class=cB0>.lb)
+<a name="l83"></a>    </span><span class=cB5>Yield</span><span class=cB0>;
+<a name="l84"></a>  </span><span class=cB5>GrCircle</span><span class=cB0>(,x3,y3,10);
+<a name="l85"></a>
+<a name="l86"></a>  t0=</span><span class=cB5>tS</span><span class=cB0>;
+<a name="l87"></a>  </span><span class=cB1>for</span><span class=cB0> (i=0;i&lt;10000;i++)
+<a name="l88"></a>    FillTriF64(x1,y1,x2,y2,x3,y3);
+<a name="l89"></a>  tf=</span><span class=cB5>tS</span><span class=cB0>;
+<a name="l90"></a>  </span><span class=cB6>&quot;Time:%12.6f\n&quot;</span><span class=cB0>,tf-t0;
+<a name="l91"></a>
+<a name="l92"></a>  t0=</span><span class=cB5>tS</span><span class=cB0>;
+<a name="l93"></a>  </span><span class=cB1>for</span><span class=cB0> (i=0;i&lt;10000;i++)
+<a name="l94"></a>    FillTriI64(x1,y1,x2,y2,x3,y3);
+<a name="l95"></a>  tf=</span><span class=cB5>tS</span><span class=cB0>;
+<a name="l96"></a>  </span><span class=cB6>&quot;Time:%12.6f\n&quot;</span><span class=cB0>,tf-t0;
+<a name="l97"></a>
+<a name="l98"></a>  t0=</span><span class=cB5>tS</span><span class=cB0>;
+<a name="l99"></a>  </span><span class=cB1>for</span><span class=cB0> (i=0;i&lt;10000;i++)
+<a name="l100"></a>    FillTriF64(x1,y1,x2,y2,x3,y3);
+<a name="l101"></a>  tf=</span><span class=cB5>tS</span><span class=cB0>;
+<a name="l102"></a>  </span><span class=cB6>&quot;Time:%12.6f\n&quot;</span><span class=cB0>,tf-t0;
+<a name="l103"></a>
+<a name="l104"></a>  t0=</span><span class=cB5>tS</span><span class=cB0>;
+<a name="l105"></a>  </span><span class=cB1>for</span><span class=cB0> (i=0;i&lt;10000;i++)
+<a name="l106"></a>    FillTriI64(x1,y1,x2,y2,x3,y3);
+<a name="l107"></a>  tf=</span><span class=cB5>tS</span><span class=cB0>;
+<a name="l108"></a>  </span><span class=cB6>&quot;Time:%12.6f\n&quot;</span><span class=cB0>,tf-t0;
+<a name="l109"></a>
+<a name="l110"></a>  </span><span class=cB5>PressAKey</span><span class=cB0>;
+<a name="l111"></a>  </span><span class=cB5>DCFill</span><span class=cB0>;
+<a name="l112"></a>
+<a name="l113"></a>  </span><span class=cB5>SettingsPop</span><span class=cB0>;
+<a name="l114"></a>}
+<a name="l115"></a>
+<a name="l116"></a>Main;</span></div></pre></body>
+</html>

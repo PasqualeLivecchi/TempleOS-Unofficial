@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+<html style="background-color:#FFFFFF;">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
+<title>The Temple Operating System</title>
+<meta name="keywords" content="Operating System,64-Bit,64 Bit,Temple,OS,TempleOS,Free,Open Source,Public Domain,x86_64">
+<meta name="generator" content="TempleOS (U) V5.04">
+<style type="text/css">
+.cB0{color:#000000;background-color:#55ffff;}
+.cB1{color:#0000aa;background-color:#55ffff;}
+.cB2{color:#00aa00;background-color:#55ffff;}
+.cB3{color:#00aaaa;background-color:#55ffff;}
+.cB4{color:#aa0000;background-color:#55ffff;}
+.cB5{color:#aa00aa;background-color:#55ffff;}
+.cB6{color:#aa5500;background-color:#55ffff;}
+.cB7{color:#aaaaaa;background-color:#55ffff;}
+.cB9{color:#5555ff;background-color:#55ffff;}
+.cBB{color:#55ffff;background-color:#55ffff;}
+.cF0{color:#000000;background-color:#ffffff;}
+.cF1{color:#0000aa;background-color:#ffffff;}
+.cF2{color:#00aa00;background-color:#ffffff;}
+.cF3{color:#00aaaa;background-color:#ffffff;}
+.cF4{color:#aa0000;background-color:#ffffff;}
+.cF5{color:#aa00aa;background-color:#ffffff;}
+.cF6{color:#aa5500;background-color:#ffffff;}
+.cF7{color:#aaaaaa;background-color:#ffffff;}
+.cF8{color:#555555;background-color:#ffffff;}
+.cF9{color:#5555ff;background-color:#ffffff;}
+.cFA{color:#55ff55;background-color:#ffffff;}
+.cFB{color:#55ffff;background-color:#ffffff;}
+.cFC{color:#ff5555;background-color:#ffffff;}
+.cFD{color:#ff55ff;background-color:#ffffff;}
+.cFE{color:#ffff55;background-color:#ffffff;}
+.cFF{color:#ffffff;background-color:#ffffff;}
+</style>
+</head>
+<body style="background-color:#55FFFF; border-style:solid;
+	  border-width:8px; border-color:#0000AA;
+	  margin-left:auto; margin-right:auto; width:800px; ">
+<pre style="font-family:courier;font-size:10pt">
+<div style="margin-left:auto; margin-right:auto; width: 640px;">
+<a name="l1"></a><span class=cB2>//5 has graphics</span><span class=cB0>
+<a name="l2"></a>
+<a name="l3"></a></span><span class=cB1>F64</span><span class=cB0> t0=</span><span class=cB5>Beat</span><span class=cB0>;
+<a name="l4"></a>
+<a name="l5"></a></span><span class=cB1>U0</span><span class=cB0> MyCircle3(</span><span class=cB9>CDC</span><span class=cB0> *dc,</span><span class=cB9>I64</span><span class=cB0> x,</span><span class=cB9>I64</span><span class=cB0> y,</span><span class=cB9>I64</span><span class=cB0> z,</span><span class=cB9>I64</span><span class=cB0> r)
+<a name="l6"></a>{
+<a name="l7"></a>  </span><span class=cB1>F64</span><span class=cB0> theta,dtheta=1.0/r;
+<a name="l8"></a>  </span><span class=cB1>for</span><span class=cB0> (theta=0;theta&lt;2*</span><span class=cB3>pi</span><span class=cB0>;theta+=dtheta)
+<a name="l9"></a>    </span><span class=cB5>GrPlot3</span><span class=cB0>(dc,x+r*</span><span class=cB5>Cos</span><span class=cB7>(</span><span class=cB0>theta</span><span class=cB7>)</span><span class=cB0>,y+r*</span><span class=cB5>Sin</span><span class=cB7>(</span><span class=cB0>theta</span><span class=cB7>)</span><span class=cB0>,z);
+<a name="l10"></a>}
+<a name="l11"></a>
+<a name="l12"></a></span><span class=cB1>U0</span><span class=cB0> MyCylinder(</span><span class=cB9>CDC</span><span class=cB0> *dc,</span><span class=cB9>I64</span><span class=cB0> x,</span><span class=cB9>I64</span><span class=cB0> y,</span><span class=cB9>I64</span><span class=cB0> z1,</span><span class=cB9>I64</span><span class=cB0> z2,</span><span class=cB9>I64</span><span class=cB0> r)
+<a name="l13"></a>{
+<a name="l14"></a>  </span><span class=cB9>I64</span><span class=cB0> z;
+<a name="l15"></a>  </span><span class=cB1>for</span><span class=cB0> (z=z1;z&lt;z2;z++)
+<a name="l16"></a>    MyCircle3(dc,x,y,z,r);
+<a name="l17"></a>}
+<a name="l18"></a>
+<a name="l19"></a></span><span class=cB1>U0</span><span class=cB0> </span><span class=cB5>DrawIt</span><span class=cB0>(</span><span class=cB9>CTask</span><span class=cB0> *,</span><span class=cB9>CDC</span><span class=cB0> *dc)
+<a name="l20"></a>{
+<a name="l21"></a>  </span><span class=cB1>F64</span><span class=cB0> dt=</span><span class=cB5>Beat</span><span class=cB0>-t0,r1=12,r2=10,w1=25,w2=20,w3=18;
+<a name="l22"></a>
+<a name="l23"></a>  </span><span class=cB5>DCDepthBufAlloc</span><span class=cB0>(dc);
+<a name="l24"></a>  dc-&gt;x=300;
+<a name="l25"></a>  dc-&gt;y=35;
+<a name="l26"></a>  dc-&gt;z=</span><span class=cB3>GR_Z_ALL</span><span class=cB0>;
+<a name="l27"></a>  dc-&gt;flags|=</span><span class=cB3>DCF_TRANSFORMATION</span><span class=cB0>;
+<a name="l28"></a>  </span><span class=cB5>Mat4x4RotX</span><span class=cB0>(dc-&gt;r,</span><span class=cB5>Sin</span><span class=cB7>(</span><span class=cB3>pi</span><span class=cB0>*dt/4</span><span class=cB7>)</span><span class=cB0>/8);
+<a name="l29"></a>  </span><span class=cB5>Mat4x4RotY</span><span class=cB0>(dc-&gt;r,</span><span class=cB3>pi</span><span class=cB0>*dt/16);
+<a name="l30"></a>
+<a name="l31"></a>  w1+=3*</span><span class=cB5>Sin</span><span class=cB0>(</span><span class=cB3>pi</span><span class=cB0>*dt/3);
+<a name="l32"></a>
+<a name="l33"></a>  dc-&gt;color=</span><span class=cB3>BROWN</span><span class=cB0>;
+<a name="l34"></a>  MyCylinder(dc,0,0,-w3,w3,r2);
+<a name="l35"></a>
+<a name="l36"></a>  dc-&gt;color=</span><span class=cB3>YELLOW</span><span class=cB0>;
+<a name="l37"></a>  MyCylinder(dc,0,0,-w1-w2/2+0,-w1-w2/2+1,r1);
+<a name="l38"></a>  dc-&gt;color=</span><span class=cB3>BLACK</span><span class=cB0>;
+<a name="l39"></a>  MyCylinder(dc,0,0,-w1-w2/2+1,-w1-w2/2+2,r1);
+<a name="l40"></a>  dc-&gt;color=</span><span class=cB3>LTGRAY</span><span class=cB0>;
+<a name="l41"></a>  MyCylinder(dc,0,0,-w1-w2/2+2,-w1+w2/2-2,r1);
+<a name="l42"></a>  dc-&gt;color=</span><span class=cB3>BLACK</span><span class=cB0>;
+<a name="l43"></a>  MyCylinder(dc,0,0,-w1+w2/2-2,-w1+w2/2-1,r1);
+<a name="l44"></a>  dc-&gt;color=</span><span class=cB3>YELLOW</span><span class=cB0>;
+<a name="l45"></a>  MyCylinder(dc,0,0,-w1+w2/2-1,-w1+w2/2,r1);
+<a name="l46"></a>
+<a name="l47"></a>  dc-&gt;color=</span><span class=cB3>BLACK</span><span class=cB0>;
+<a name="l48"></a>  </span><span class=cB5>GrLine3</span><span class=cB0>(dc,r1,0,-w1-w2/2+1, r1,0,-w1-w2/2+w2-2);
+<a name="l49"></a>
+<a name="l50"></a>  dc-&gt;color=</span><span class=cB3>YELLOW</span><span class=cB0>;
+<a name="l51"></a>  MyCylinder(dc,0,0,w1-w2/2+0,w1-w2/2+1,r1);
+<a name="l52"></a>  dc-&gt;color=</span><span class=cB3>BLACK</span><span class=cB0>;
+<a name="l53"></a>  MyCylinder(dc,0,0,w1-w2/2+1,w1-w2/2+2,r1);
+<a name="l54"></a>  dc-&gt;color=</span><span class=cB3>LTGRAY</span><span class=cB0>;
+<a name="l55"></a>  MyCylinder(dc,0,0,w1-w2/2+2,w1+w2/2-2,r1);
+<a name="l56"></a>  dc-&gt;color=</span><span class=cB3>BLACK</span><span class=cB0>;
+<a name="l57"></a>  MyCylinder(dc,0,0,w1+w2/2-2,w1+w2/2-1,r1);
+<a name="l58"></a>  dc-&gt;color=</span><span class=cB3>YELLOW</span><span class=cB0>;
+<a name="l59"></a>  MyCylinder(dc,0,0,w1+w2/2-1,w1+w2/2,r1);
+<a name="l60"></a>
+<a name="l61"></a>  dc-&gt;color=</span><span class=cB3>BLACK</span><span class=cB0>;
+<a name="l62"></a>  </span><span class=cB5>GrLine3</span><span class=cB0>(dc,r1,0,w1-w2/2+1, r1,0,w1-w2/2+w2-2);
+<a name="l63"></a>}
+<a name="l64"></a>
+<a name="l65"></a></span><span class=cB1>U0</span><span class=cB0> Song()
+<a name="l66"></a>{
+<a name="l67"></a>  </span><span class=cB5>SettingsPush</span><span class=cB0>; </span><span class=cB2>//See </span><a href="https://tosrevive.github.io/TempleOS-Unofficial/Wb/Adam/TaskSettings.html#l3"><span class=cB4>SettingsPush</span></a><span class=cB0>
+<a name="l68"></a>  </span><span class=cB5>Fs</span><span class=cB0>-&gt;draw_it=&amp;</span><span class=cB5>DrawIt</span><span class=cB0>;
+<a name="l69"></a>  </span><span class=cB5>Fs</span><span class=cB0>-&gt;task_end_cb=&amp;</span><span class=cB5>SndTaskEndCB</span><span class=cB0>;
+<a name="l70"></a>  </span><span class=cB5>MusicSettingsRst</span><span class=cB0>;
+<a name="l71"></a>  </span><span class=cBB>music</span><span class=cB0>.tempo= 2.480;
+<a name="l72"></a>  </span><span class=cBB>music</span><span class=cB0>.stacatto_factor= 0.824;
+<a name="l73"></a>  </span><span class=cB1>try</span><span class=cB0> </span><span class=cB7>{</span><span class=cB0>
+<a name="l74"></a>    </span><span class=cB1>while</span><span class=cB0> (!</span><span class=cB5>ScanKey</span><span class=cB0>) {
+<a name="l75"></a>      t0=</span><span class=cB5>Beat</span><span class=cB0>;
+<a name="l76"></a>      </span><span class=cB5>Play</span><span class=cB0>(</span><span class=cB6>&quot;4eG5sE4AeA5DDG4qG5sFGeCG4B5sDE4eG5E4B&quot;</span><span class=cB0>,
+<a name="l77"></a>            </span><span class=cB6>&quot;Was \0 \0Ga\0li\0le\0o \0 \0wrong?\n\0&quot;</span><span class=cB0>
+<a name="l78"></a>            </span><span class=cB6>&quot; \0 \0 \0 \0 \0 \0 \0 \0 \0 \0&quot;</span><span class=cB0>);
+<a name="l79"></a>      </span><span class=cB5>Play</span><span class=cB0>(</span><span class=cB6>&quot;4G5sE4AeA5DsDDeG4qG5sFGeCG4B5sDE4eG5E4B&quot;</span><span class=cB0>,
+<a name="l80"></a>            </span><span class=cB6>&quot;His \0 \0brain \0 \0was \0might\0 \0y \0strong.\n\0&quot;</span><span class=cB0>
+<a name="l81"></a>            </span><span class=cB6>&quot; \0 \0 \0 \0 \0 \0 \0 \0 \0 \0&quot;</span><span class=cB0>);
+<a name="l82"></a>      </span><span class=cB5>Play</span><span class=cB0>(</span><span class=cB6>&quot;5etEDEAGFeEGqDsDG4eAsA5G4A5G4qA5eEC&quot;</span><span class=cB0>,
+<a name="l83"></a>            </span><span class=cB6>&quot;Did \0you \0 \0real\0ly \0want \0to \0 \0win?\n\0&quot;</span><span class=cB0>
+<a name="l84"></a>            </span><span class=cB6>&quot; \0 \0 \0 \0 \0 \0 \0 \0 \0 \0&quot;</span><span class=cB0>);
+<a name="l85"></a>      </span><span class=cB5>Play</span><span class=cB0>(</span><span class=cB6>&quot;5etEDEAGFeEGqDsDG4eAsA5G4A5G4qA5eEC&quot;</span><span class=cB0>,
+<a name="l86"></a>            </span><span class=cB6>&quot;We \0have \0 \0us, \0a \0real \0Huck \0 \0Finn.\n\0&quot;</span><span class=cB0>
+<a name="l87"></a>            </span><span class=cB6>&quot; \0 \0 \0 \0 \0 \0 \0 \0 \0 \0&quot;</span><span class=cB0>);
+<a name="l88"></a>    }
+<a name="l89"></a>  </span><span class=cB7>}</span><span class=cB0> </span><span class=cB1>catch</span><span class=cB0>
+<a name="l90"></a>    </span><span class=cB5>PutExcept</span><span class=cB0>;
+<a name="l91"></a>  </span><span class=cB5>SettingsPop</span><span class=cB0>;
+<a name="l92"></a>}
+<a name="l93"></a>
+<a name="l94"></a>Song;
+</span></div></pre></body>
+</html>

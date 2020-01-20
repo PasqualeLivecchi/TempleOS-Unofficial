@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html style="background-color:#FFFFFF;">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
+<title>The Temple Operating System</title>
+<meta name="keywords" content="Operating System,64-Bit,64 Bit,Temple,OS,TempleOS,Free,Open Source,Public Domain,x86_64">
+<meta name="generator" content="TempleOS (U) V5.04">
+<style type="text/css">
+.cB0{color:#000000;background-color:#55ffff;}
+.cB1{color:#0000aa;background-color:#55ffff;}
+.cB2{color:#00aa00;background-color:#55ffff;}
+.cB5{color:#aa00aa;background-color:#55ffff;}
+.cB6{color:#aa5500;background-color:#55ffff;}
+.cB7{color:#aaaaaa;background-color:#55ffff;}
+.cBB{color:#55ffff;background-color:#55ffff;}
+.cF0{color:#000000;background-color:#ffffff;}
+.cF1{color:#0000aa;background-color:#ffffff;}
+.cF2{color:#00aa00;background-color:#ffffff;}
+.cF3{color:#00aaaa;background-color:#ffffff;}
+.cF4{color:#aa0000;background-color:#ffffff;}
+.cF5{color:#aa00aa;background-color:#ffffff;}
+.cF6{color:#aa5500;background-color:#ffffff;}
+.cF7{color:#aaaaaa;background-color:#ffffff;}
+.cF8{color:#555555;background-color:#ffffff;}
+.cF9{color:#5555ff;background-color:#ffffff;}
+.cFA{color:#55ff55;background-color:#ffffff;}
+.cFB{color:#55ffff;background-color:#ffffff;}
+.cFC{color:#ff5555;background-color:#ffffff;}
+.cFD{color:#ff55ff;background-color:#ffffff;}
+.cFE{color:#ffff55;background-color:#ffffff;}
+.cFF{color:#ffffff;background-color:#ffffff;}
+</style>
+</head>
+<body style="background-color:#55FFFF; border-style:solid;
+	  border-width:8px; border-color:#0000AA;
+	  margin-left:auto; margin-right:auto; width:800px; ">
+<pre style="font-family:courier;font-size:10pt">
+<div style="margin-left:auto; margin-right:auto; width: 640px;">
+<a name="l1"></a><span class=cB2>//5 has words</span><span class=cB0>
+<a name="l2"></a></span><span class=cB1>U0</span><span class=cB0> Song()
+<a name="l3"></a>{
+<a name="l4"></a>  </span><span class=cB5>Fs</span><span class=cB0>-&gt;task_end_cb=&amp;</span><span class=cB5>SndTaskEndCB</span><span class=cB0>;
+<a name="l5"></a>  </span><span class=cB5>MusicSettingsRst</span><span class=cB0>;
+<a name="l6"></a>  </span><span class=cBB>music</span><span class=cB0>.tempo= 2.480;
+<a name="l7"></a>  </span><span class=cBB>music</span><span class=cB0>.stacatto_factor= 0.802;
+<a name="l8"></a>  </span><span class=cB1>try</span><span class=cB0> </span><span class=cB7>{</span><span class=cB0>
+<a name="l9"></a>    </span><span class=cB1>while</span><span class=cB0> (!</span><span class=cB5>ScanKey</span><span class=cB0>) {
+<a name="l10"></a>      </span><span class=cB5>DocClear</span><span class=cB0>;
+<a name="l11"></a>      </span><span class=cB5>Play</span><span class=cB0>(</span><span class=cB6>&quot;5qDsCCCC4eBB5CCqDsCCCC4eBB5CC&quot;</span><span class=cB0>,
+<a name="l12"></a>            </span><span class=cB6>&quot;I'm \0 \0 \0 \0 \0on \0my \0way.\n\0&quot;</span><span class=cB0>
+<a name="l13"></a>            </span><span class=cB6>&quot; \0Got \0a \0 \0 \0 \0bus\0y \0day.\n\0 \0&quot;</span><span class=cB0>);
+<a name="l14"></a>      </span><span class=cB5>Play</span><span class=cB0>(</span><span class=cB6>&quot;4sBBBBeAAsBAGAqAsBBBBeAAsBAGAqA&quot;</span><span class=cB0>,
+<a name="l15"></a>            </span><span class=cB6>&quot;Woe, \0 \0 \0 \0I \0for\0got \0 \0to \0 \0pray.\n\0&quot;</span><span class=cB0>
+<a name="l16"></a>            </span><span class=cB6>&quot;What's \0 \0 \0 \0God \0 \0have \0 \0to \0 \0say?\n\0&quot;</span><span class=cB0>);
+<a name="l17"></a>      </span><span class=cB6>&quot;$GREEN$God talking...\n$FG$&quot;</span><span class=cB0>;
+<a name="l18"></a>      </span><span class=cB5>Play</span><span class=cB0>(</span><span class=cB6>&quot;4AeBG5GGqE4etG5F4B5eFGqFeEC&quot;</span><span class=cB0>,
+<a name="l19"></a>            </span><span class=cB6>&quot;$RED$Oh, \0 \0 \0hi-\0a \0you!\n\0What\0ch\0u \0been \0&quot;</span><span class=cB0>
+<a name="l20"></a>            </span><span class=cB6>&quot; \0do\0ing?\n\0 \0&quot;</span><span class=cB0>);
+<a name="l21"></a>      </span><span class=cB5>Play</span><span class=cB0>(</span><span class=cB6>&quot;4qAeBG5GGqE4etG5F4B5eFGqFeEC&quot;</span><span class=cB0>,
+<a name="l22"></a>            </span><span class=cB6>&quot;Oh, \0 \0 \0hi-\0a \0you!\n\0What\0ch\0u \0been \0 \0&quot;</span><span class=cB0>
+<a name="l23"></a>            </span><span class=cB6>&quot;do\0ing?$FG$\n\0 \0&quot;</span><span class=cB0>);
+<a name="l24"></a>    }
+<a name="l25"></a>  </span><span class=cB7>}</span><span class=cB0> </span><span class=cB1>catch</span><span class=cB0>
+<a name="l26"></a>    </span><span class=cB5>PutExcept</span><span class=cB0>;
+<a name="l27"></a>  </span><span class=cB5>Snd</span><span class=cB0>;
+<a name="l28"></a>}
+<a name="l29"></a>
+<a name="l30"></a>Song;
+</span></div></pre></body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE HTML>
+<html style="background-color:#FFFFFF;">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
+<title>The Temple Operating System</title>
+<meta name="keywords" content="Operating System,64-Bit,64 Bit,Temple,OS,TempleOS,Free,Open Source,Public Domain,x86_64">
+<meta name="generator" content="TempleOS (U) V5.04">
+<style type="text/css">
+.cB0{color:#000000;background-color:#55ffff;}
+.cB1{color:#0000aa;background-color:#55ffff;}
+.cB2{color:#00aa00;background-color:#55ffff;}
+.cB3{color:#00aaaa;background-color:#55ffff;}
+.cB4{color:#aa0000;background-color:#55ffff;}
+.cB5{color:#aa00aa;background-color:#55ffff;}
+.cB6{color:#aa5500;background-color:#55ffff;}
+.cB7{color:#aaaaaa;background-color:#55ffff;}
+.cB9{color:#5555ff;background-color:#55ffff;}
+.cBA{color:#55ff55;background-color:#55ffff;}
+.cBB{color:#55ffff;background-color:#55ffff;}
+.cF0{color:#000000;background-color:#ffffff;}
+.cF1{color:#0000aa;background-color:#ffffff;}
+.cF2{color:#00aa00;background-color:#ffffff;}
+.cF3{color:#00aaaa;background-color:#ffffff;}
+.cF4{color:#aa0000;background-color:#ffffff;}
+.cF5{color:#aa00aa;background-color:#ffffff;}
+.cF6{color:#aa5500;background-color:#ffffff;}
+.cF7{color:#aaaaaa;background-color:#ffffff;}
+.cF8{color:#555555;background-color:#ffffff;}
+.cF9{color:#5555ff;background-color:#ffffff;}
+.cFA{color:#55ff55;background-color:#ffffff;}
+.cFB{color:#55ffff;background-color:#ffffff;}
+.cFC{color:#ff5555;background-color:#ffffff;}
+.cFD{color:#ff55ff;background-color:#ffffff;}
+.cFE{color:#ffff55;background-color:#ffffff;}
+.cFF{color:#ffffff;background-color:#ffffff;}
+</style>
+</head>
+<body style="background-color:#55FFFF; border-style:solid;
+	  border-width:8px; border-color:#0000AA;
+	  margin-left:auto; margin-right:auto; width:800px; ">
+<pre style="font-family:courier;font-size:10pt">
+<div style="margin-left:auto; margin-right:auto; width: 640px;">
+<a name="l1"></a><span class=cB2>//5 has graphics</span><span class=cB0>
+<a name="l2"></a></span><span class=cBA>
+<a name="l3"></a>&lt;1&gt;/* Graphics Not Rendered in HTML */</span><span class=cB0>
+<a name="l4"></a>
+<a name="l5"></a>
+<a name="l6"></a>
+<a name="l7"></a>
+<a name="l8"></a>
+<a name="l9"></a>
+<a name="l10"></a>
+<a name="l11"></a>
+<a name="l12"></a>
+<a name="l13"></a>
+<a name="l14"></a>
+<a name="l15"></a>
+<a name="l16"></a>
+<a name="l17"></a>
+<a name="l18"></a>
+<a name="l19"></a>
+<a name="l20"></a>
+<a name="l21"></a>
+<a name="l22"></a>
+<a name="l23"></a>
+<a name="l24"></a>
+<a name="l25"></a>
+<a name="l26"></a>
+<a name="l27"></a>
+<a name="l28"></a>
+<a name="l29"></a>
+<a name="l30"></a>
+<a name="l31"></a>
+<a name="l32"></a>
+<a name="l33"></a>
+<a name="l34"></a>
+<a name="l35"></a>
+<a name="l36"></a>
+<a name="l37"></a>
+<a name="l38"></a>
+<a name="l39"></a>
+<a name="l40"></a>
+<a name="l41"></a>
+<a name="l42"></a>
+<a name="l43"></a>
+<a name="l44"></a>
+<a name="l45"></a>
+<a name="l46"></a>
+<a name="l47"></a>
+<a name="l48"></a>
+<a name="l49"></a>
+<a name="l50"></a>
+<a name="l51"></a>
+<a name="l52"></a>
+<a name="l53"></a>
+<a name="l54"></a>
+<a name="l55"></a>
+<a name="l56"></a>
+<a name="l57"></a>
+<a name="l58"></a>
+<a name="l59"></a>
+<a name="l60"></a>
+<a name="l61"></a>
+<a name="l62"></a></span><span class=cBA>
+<a name="l63"></a>&lt;2&gt;/* Graphics Not Rendered in HTML */</span><span class=cB0>
+<a name="l64"></a>
+<a name="l65"></a>
+<a name="l66"></a>
+<a name="l67"></a>
+<a name="l68"></a>
+<a name="l69"></a>
+<a name="l70"></a>
+<a name="l71"></a>
+<a name="l72"></a>
+<a name="l73"></a></span><span class=cB1>U0</span><span class=cB0> </span><span class=cB5>DrawIt</span><span class=cB0>(</span><span class=cB9>CTask</span><span class=cB0> *,</span><span class=cB9>CDC</span><span class=cB0> *dc)
+<a name="l74"></a>{
+<a name="l75"></a>  </span><span class=cB5>Sprite3</span><span class=cB0>(dc,216,0,0,</span><span class=cBA>&lt;2&gt;</span><span class=cB0>);
+<a name="l76"></a>}
+<a name="l77"></a>
+<a name="l78"></a></span><span class=cB1>U0</span><span class=cB0> Song()
+<a name="l79"></a>{
+<a name="l80"></a>  </span><span class=cB5>SettingsPush</span><span class=cB0>; </span><span class=cB2>//See </span><a href="https://tosrevive.github.io/TempleOS-Unofficial/Wb/Adam/TaskSettings.html#l3"><span class=cB4>SettingsPush</span></a><span class=cB0>
+<a name="l81"></a>  </span><span class=cB5>Fs</span><span class=cB0>-&gt;text_attr=</span><span class=cB3>DKGRAY</span><span class=cB0>&lt;&lt;4+</span><span class=cB3>YELLOW</span><span class=cB0>;
+<a name="l82"></a>  </span><span class=cB5>Fs</span><span class=cB0>-&gt;draw_it=&amp;</span><span class=cB5>DrawIt</span><span class=cB0>;
+<a name="l83"></a>  </span><span class=cB5>Fs</span><span class=cB0>-&gt;task_end_cb=&amp;</span><span class=cB5>SndTaskEndCB</span><span class=cB0>;
+<a name="l84"></a>  </span><span class=cB5>MusicSettingsRst</span><span class=cB0>;
+<a name="l85"></a>  </span><span class=cBB>music</span><span class=cB0>.tempo= 1.930;
+<a name="l86"></a>  </span><span class=cBB>music</span><span class=cB0>.stacatto_factor= 0.681;
+<a name="l87"></a>  </span><span class=cB1>try</span><span class=cB0> </span><span class=cB7>{</span><span class=cB0>
+<a name="l88"></a>    </span><span class=cB1>while</span><span class=cB0> (!</span><span class=cB5>ScanKey</span><span class=cB0>) {
+<a name="l89"></a>      </span><span class=cB5>Play</span><span class=cB0>(</span><span class=cB6>&quot;5eD4A5CC4qG5eD4A5CCqFeFAGA&quot;</span><span class=cB0>,
+<a name="l90"></a>            </span><span class=cB6>&quot;Tip \0 \0of \0the \0tongue...\n\0Can't \0 \0&quot;</span><span class=cB0>
+<a name="l91"></a>            </span><span class=cB6>&quot;clear \0my \0head...\n\0Toss \0and \0turn \0 \0&quot;</span><span class=cB0>);
+<a name="l92"></a>      </span><span class=cB5>Play</span><span class=cB0>(</span><span class=cB6>&quot;5FEsEEGG4qAB5eD4A5CC4qG5eD4A&quot;</span><span class=cB0>,
+<a name="l93"></a>            </span><span class=cB6>&quot; \0 \0on \0 \0my \0 \0bed.\n\0So, \0this \0 \0&quot;</span><span class=cB0>
+<a name="l94"></a>            </span><span class=cB6>&quot;ain't \0 \0fun.\n\0My \0 \0&quot;</span><span class=cB0>);
+<a name="l95"></a>      </span><span class=cB5>Play</span><span class=cB0>(</span><span class=cB6>&quot;5CCqFeFAGAFEsEEGG4qA5eEC&quot;</span><span class=cB0>,
+<a name="l96"></a>            </span><span class=cB6>&quot;mind \0is \0dead.\n\0Slow\0ly \0burn \0 \0&quot;</span><span class=cB0>
+<a name="l97"></a>            </span><span class=cB6>&quot;through\n\0 \0 \0 \0all \0of \0them.\n\0 \0 \0&quot;</span><span class=cB0>);
+<a name="l98"></a>      </span><span class=cB5>Play</span><span class=cB0>(</span><span class=cB6>&quot;5F4sA5EeG4BAsAGA5D4A5DeD4A5F4G5GG4qA&quot;</span><span class=cB0>,
+<a name="l99"></a>            </span><span class=cB6>&quot;Try \0 \0hard?\n\0 \0 \0 \0 \0 \0 \0Get \0 \0&quot;</span><span class=cB0>
+<a name="l100"></a>            </span><span class=cB6>&quot;luck\0y.\n\0 \0 \0 \0 \0 \0 \0&quot;</span><span class=cB0>);
+<a name="l101"></a>      </span><span class=cB5>Play</span><span class=cB0>(</span><span class=cB6>&quot;5eF4sA5EeG4BAsAGA5D4A5DeD4A5F4G5GG4qA&quot;</span><span class=cB0>,
+<a name="l102"></a>            </span><span class=cB6>&quot;Try \0 \0hard?\n\0 \0 \0 \0 \0 \0 \0Get \0 \0&quot;</span><span class=cB0>
+<a name="l103"></a>            </span><span class=cB6>&quot;luck\0y.\n\0 \0 \0 \0 \0 \0 \0&quot;</span><span class=cB0>);
+<a name="l104"></a>    }
+<a name="l105"></a>  </span><span class=cB7>}</span><span class=cB0> </span><span class=cB1>catch</span><span class=cB0>
+<a name="l106"></a>    </span><span class=cB5>PutExcept</span><span class=cB0>;
+<a name="l107"></a>  </span><span class=cB5>SettingsPop</span><span class=cB0>;
+<a name="l108"></a>}
+<a name="l109"></a>
+<a name="l110"></a>Song;
+</span></div></pre></body>
+</html>

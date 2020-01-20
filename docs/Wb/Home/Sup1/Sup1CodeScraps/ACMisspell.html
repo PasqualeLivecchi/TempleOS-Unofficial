@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html style="background-color:#FFFFFF;">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
+<title>The Temple Operating System</title>
+<meta name="keywords" content="Operating System,64-Bit,64 Bit,Temple,OS,TempleOS,Free,Open Source,Public Domain,x86_64">
+<meta name="generator" content="TempleOS (U) V5.04">
+<style type="text/css">
+.cB0{color:#000000;background-color:#55ffff;}
+.cB1{color:#0000aa;background-color:#55ffff;}
+.cB3{color:#00aaaa;background-color:#55ffff;}
+.cB5{color:#aa00aa;background-color:#55ffff;}
+.cB7{color:#aaaaaa;background-color:#55ffff;}
+.cB9{color:#5555ff;background-color:#55ffff;}
+.cBB{color:#55ffff;background-color:#55ffff;}
+.cF0{color:#000000;background-color:#ffffff;}
+.cF1{color:#0000aa;background-color:#ffffff;}
+.cF2{color:#00aa00;background-color:#ffffff;}
+.cF3{color:#00aaaa;background-color:#ffffff;}
+.cF4{color:#aa0000;background-color:#ffffff;}
+.cF5{color:#aa00aa;background-color:#ffffff;}
+.cF6{color:#aa5500;background-color:#ffffff;}
+.cF7{color:#aaaaaa;background-color:#ffffff;}
+.cF8{color:#555555;background-color:#ffffff;}
+.cF9{color:#5555ff;background-color:#ffffff;}
+.cFA{color:#55ff55;background-color:#ffffff;}
+.cFB{color:#55ffff;background-color:#ffffff;}
+.cFC{color:#ff5555;background-color:#ffffff;}
+.cFD{color:#ff55ff;background-color:#ffffff;}
+.cFE{color:#ffff55;background-color:#ffffff;}
+.cFF{color:#ffffff;background-color:#ffffff;}
+</style>
+</head>
+<body style="background-color:#55FFFF; border-style:solid;
+	  border-width:8px; border-color:#0000AA;
+	  margin-left:auto; margin-right:auto; width:800px; ">
+<pre style="font-family:courier;font-size:10pt">
+<div style="margin-left:auto; margin-right:auto; width: 640px;">
+<a name="l1"></a><span class=cB1>U0</span><span class=cB0> ACMisspelledFind(</span><span class=cB9>CDoc</span><span class=cB0> *doc)
+<a name="l2"></a>{
+<a name="l3"></a>  </span><span class=cB1>Bool</span><span class=cB0> unlock=</span><span class=cB5>DocLock</span><span class=cB0>(doc);
+<a name="l4"></a>  </span><span class=cB9>CDocEntry</span><span class=cB0> *doc_e=doc-&gt;cur_entry;
+<a name="l5"></a>  </span><span class=cB9>I64</span><span class=cB0> col=doc-&gt;cur_col,col2,ch;
+<a name="l6"></a>  </span><span class=cB1>do</span><span class=cB0> </span><span class=cB7>{</span><span class=cB0>
+<a name="l7"></a>    </span><span class=cB1>if</span><span class=cB0> (doc_e!=doc &amp;&amp; doc_e-&gt;de_flags&amp;</span><span class=cB3>DOCEF_TAG</span><span class=cB0>) {
+<a name="l8"></a>      </span><span class=cB1>while</span><span class=cB0> (col&lt;doc_e-&gt;max_col) </span><span class=cB7>{</span><span class=cB0>
+<a name="l9"></a>        </span><span class=cB1>while</span><span class=cB0> (col&lt;doc_e-&gt;max_col &amp;&amp; !</span><span class=cB5>Bt</span><span class=cB7>(</span><span class=cBB>char_bmp_word</span><span class=cB0>,doc_e-&gt;tag[col]</span><span class=cB7>)</span><span class=cB0>)
+<a name="l10"></a>          col++;
+<a name="l11"></a>        </span><span class=cB1>if</span><span class=cB0> (col&lt;doc_e-&gt;max_col) {
+<a name="l12"></a>          col2=col;
+<a name="l13"></a>          </span><span class=cB1>while</span><span class=cB0> (col2&lt;doc_e-&gt;max_col &amp;&amp; </span><span class=cB5>Bt</span><span class=cB7>(</span><span class=cBB>char_bmp_word</span><span class=cB0>,doc_e-&gt;tag[col2]</span><span class=cB7>)</span><span class=cB0>)
+<a name="l14"></a>            col2++;
+<a name="l15"></a>          ch=doc_e-&gt;tag[col2];
+<a name="l16"></a>          doc_e-&gt;tag[col2]=0;
+<a name="l17"></a>          </span><span class=cB1>if</span><span class=cB0> (</span><span class=cB5>StrICmp</span><span class=cB7>(</span><span class=cB0>&amp;doc_e-&gt;tag[col],</span><span class=cB5>ACDWordPtAt</span><span class=cB0>(&amp;doc_e-&gt;tag[col])+1</span><span class=cB7>)</span><span class=cB0>) </span><span class=cB7>{</span><span class=cB0>
+<a name="l18"></a>            doc_e-&gt;tag[col2]=ch;
+<a name="l19"></a>            doc-&gt;cur_entry=doc_e;
+<a name="l20"></a>            doc-&gt;cur_col=col;
+<a name="l21"></a>            </span><span class=cB1>goto</span><span class=cB0> fm_done;
+<a name="l22"></a>          </span><span class=cB7>}</span><span class=cB0>
+<a name="l23"></a>          doc_e-&gt;tag[col2]=ch;
+<a name="l24"></a>          col=col2;
+<a name="l25"></a>        }
+<a name="l26"></a>      </span><span class=cB7>}</span><span class=cB0>
+<a name="l27"></a>    }
+<a name="l28"></a>    doc_e=doc_e-&gt;next;
+<a name="l29"></a>    col=doc_e-&gt;min_col;
+<a name="l30"></a>  </span><span class=cB7>}</span><span class=cB0> </span><span class=cB1>while</span><span class=cB0> (doc_e!=doc-&gt;cur_entry);
+<a name="l31"></a>fm_done:
+<a name="l32"></a>  </span><span class=cB1>if</span><span class=cB0> (unlock)
+<a name="l33"></a>    </span><span class=cB5>DocUnlock</span><span class=cB0>(doc);
+<a name="l34"></a>}
+</span></div></pre></body>
+</html>

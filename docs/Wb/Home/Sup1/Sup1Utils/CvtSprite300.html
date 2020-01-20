@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+<html style="background-color:#FFFFFF;">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
+<title>The Temple Operating System</title>
+<meta name="keywords" content="Operating System,64-Bit,64 Bit,Temple,OS,TempleOS,Free,Open Source,Public Domain,x86_64">
+<meta name="generator" content="TempleOS (U) V5.04">
+<style type="text/css">
+.cB0{color:#000000;background-color:#55ffff;}
+.cB1{color:#0000aa;background-color:#55ffff;}
+.cB3{color:#00aaaa;background-color:#55ffff;}
+.cB5{color:#aa00aa;background-color:#55ffff;}
+.cB6{color:#aa5500;background-color:#55ffff;}
+.cB7{color:#aaaaaa;background-color:#55ffff;}
+.cB9{color:#5555ff;background-color:#55ffff;}
+.cF0{color:#000000;background-color:#ffffff;}
+.cF1{color:#0000aa;background-color:#ffffff;}
+.cF2{color:#00aa00;background-color:#ffffff;}
+.cF3{color:#00aaaa;background-color:#ffffff;}
+.cF4{color:#aa0000;background-color:#ffffff;}
+.cF5{color:#aa00aa;background-color:#ffffff;}
+.cF6{color:#aa5500;background-color:#ffffff;}
+.cF7{color:#aaaaaa;background-color:#ffffff;}
+.cF8{color:#555555;background-color:#ffffff;}
+.cF9{color:#5555ff;background-color:#ffffff;}
+.cFA{color:#55ff55;background-color:#ffffff;}
+.cFB{color:#55ffff;background-color:#ffffff;}
+.cFC{color:#ff5555;background-color:#ffffff;}
+.cFD{color:#ff55ff;background-color:#ffffff;}
+.cFE{color:#ffff55;background-color:#ffffff;}
+.cFF{color:#ffffff;background-color:#ffffff;}
+</style>
+</head>
+<body style="background-color:#55FFFF; border-style:solid;
+	  border-width:8px; border-color:#0000AA;
+	  margin-left:auto; margin-right:auto; width:800px; ">
+<pre style="font-family:courier;font-size:10pt">
+<div style="margin-left:auto; margin-right:auto; width: 640px;">
+<a name="l1"></a><span class=cB9>I64</span><span class=cB0> CvtSprite300Sprite(</span><span class=cB1>U8</span><span class=cB0> *elems)
+<a name="l2"></a>{
+<a name="l3"></a>  </span><span class=cB9>I64</span><span class=cB0> res=0,size;
+<a name="l4"></a>  </span><span class=cB9>CSprite</span><span class=cB0> *tmpg=elems-</span><span class=cB1>offset</span><span class=cB0>(</span><span class=cB9>CSprite</span><span class=cB0>.</span><span class=cB1>start</span><span class=cB0>);
+<a name="l5"></a>  </span><span class=cB1>while</span><span class=cB0> (tmpg-&gt;type) </span><span class=cB7>{</span><span class=cB0>
+<a name="l6"></a>    size=</span><span class=cB5>SpriteElemSize</span><span class=cB0>(tmpg);
+<a name="l7"></a>    </span><span class=cB1>if</span><span class=cB0> (tmpg-&gt;type==</span><span class=cB3>SPT_ELLIPSE</span><span class=cB0>||
+<a name="l8"></a>          tmpg-&gt;type==</span><span class=cB3>SPT_POLYGON</span><span class=cB0>||
+<a name="l9"></a>          tmpg-&gt;type==</span><span class=cB3>SPT_BITMAP</span><span class=cB0>) {
+<a name="l10"></a>      </span><span class=cB6>&quot;IN :W%d H%d (%d,%d)\n&quot;</span><span class=cB0>,
+<a name="l11"></a>            tmpg-&gt;pwhu.width,tmpg-&gt;pwhu.height,tmpg-&gt;pwhu.x1,tmpg-&gt;pwhu.y1;
+<a name="l12"></a>      </span><span class=cB5>SwapU32</span><span class=cB0>(&amp;tmpg-&gt;pwhu.x1,&amp;tmpg-&gt;pwhu.width);
+<a name="l13"></a>      </span><span class=cB5>SwapU32</span><span class=cB0>(&amp;tmpg-&gt;pwhu.y1,&amp;tmpg-&gt;pwhu.height);
+<a name="l14"></a>      </span><span class=cB6>&quot;OUT:(%d,%d) W%d H%d\n&quot;</span><span class=cB0>,
+<a name="l15"></a>            tmpg-&gt;pwhu.width,tmpg-&gt;pwhu.height,tmpg-&gt;pwhu.x1,tmpg-&gt;pwhu.y1;
+<a name="l16"></a>      res++;
+<a name="l17"></a>    }
+<a name="l18"></a>    tmpg(</span><span class=cB1>U8</span><span class=cB0> *)+=size;
+<a name="l19"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l20"></a>  </span><span class=cB1>return</span><span class=cB0> res;
+<a name="l21"></a>}
+<a name="l22"></a>
+<a name="l23"></a></span><span class=cB9>I64</span><span class=cB0> CvtSprite300Doc(</span><span class=cB9>CDoc</span><span class=cB0> *doc)
+<a name="l24"></a>{
+<a name="l25"></a>  </span><span class=cB1>Bool</span><span class=cB0> unlock=</span><span class=cB5>DocLock</span><span class=cB0>(doc);
+<a name="l26"></a>  </span><span class=cB9>CDocBin</span><span class=cB0> *b;
+<a name="l27"></a>  </span><span class=cB9>I64</span><span class=cB0> res=0;
+<a name="l28"></a>  </span><span class=cB5>DocRecalc</span><span class=cB0>(doc);
+<a name="l29"></a>  b=doc-&gt;bin_head.next;
+<a name="l30"></a>  </span><span class=cB1>while</span><span class=cB0> (b!=&amp;doc-&gt;bin_head) </span><span class=cB7>{</span><span class=cB0>
+<a name="l31"></a>    res+=CvtSprite300Sprite(b-&gt;data);
+<a name="l32"></a>    b=b-&gt;next;
+<a name="l33"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l34"></a>  </span><span class=cB5>DocRecalc</span><span class=cB0>(doc);
+<a name="l35"></a>  </span><span class=cB1>if</span><span class=cB0> (unlock)
+<a name="l36"></a>    </span><span class=cB5>DocUnlock</span><span class=cB0>(doc);
+<a name="l37"></a>  </span><span class=cB1>return</span><span class=cB0> res;
+<a name="l38"></a>}
+<a name="l39"></a>
+<a name="l40"></a></span><span class=cB9>I64</span><span class=cB0> CvtSprite300File(</span><span class=cB1>U8</span><span class=cB0> *filename)
+<a name="l41"></a>{
+<a name="l42"></a>  </span><span class=cB9>I64</span><span class=cB0> res;
+<a name="l43"></a>  </span><span class=cB9>CDoc</span><span class=cB0> *doc=</span><span class=cB5>DocRead</span><span class=cB0>(filename);
+<a name="l44"></a>  </span><span class=cB1>if</span><span class=cB0> (res=CvtSprite300Doc</span><span class=cB7>(</span><span class=cB0>doc</span><span class=cB7>)</span><span class=cB0>) </span><span class=cB7>{</span><span class=cB0>
+<a name="l45"></a>    </span><span class=cB6>&quot;-%d:%s\n&quot;</span><span class=cB0>,res,doc-&gt;filename.name;
+<a name="l46"></a>    </span><span class=cB5>DocWrite</span><span class=cB0>(doc);
+<a name="l47"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l48"></a>  </span><span class=cB5>DocDel</span><span class=cB0>(doc);
+<a name="l49"></a>  </span><span class=cB1>return</span><span class=cB0> res;
+<a name="l50"></a>}
+<a name="l51"></a></span><span class=cB9>I64</span><span class=cB0> CvtSprite300Lst(</span><span class=cB9>CDirEntry</span><span class=cB0> *tmpde)
+<a name="l52"></a>{
+<a name="l53"></a>  </span><span class=cB9>I64</span><span class=cB0> res=0;
+<a name="l54"></a>  </span><span class=cB9>CDirEntry</span><span class=cB0> *tmpde1;
+<a name="l55"></a>  </span><span class=cB1>while</span><span class=cB0> (tmpde) </span><span class=cB7>{</span><span class=cB0>
+<a name="l56"></a>    tmpde1=tmpde-&gt;next;
+<a name="l57"></a>    </span><span class=cB1>if</span><span class=cB0> (tmpde-&gt;attr &amp; </span><span class=cB3>RS_ATTR_DIR</span><span class=cB0>) {
+<a name="l58"></a>      </span><span class=cB1>if</span><span class=cB0> (tmpde-&gt;sub) </span><span class=cB7>{</span><span class=cB0>
+<a name="l59"></a>        </span><span class=cB6>&quot;Scanning Directory: %s\n&quot;</span><span class=cB0>,tmpde-&gt;full_name;
+<a name="l60"></a>        res+=CvtSprite300Lst(tmpde-&gt;sub);
+<a name="l61"></a>      </span><span class=cB7>}</span><span class=cB0>
+<a name="l62"></a>    } </span><span class=cB1>else</span><span class=cB0>
+<a name="l63"></a>      res+=CvtSprite300File(tmpde-&gt;full_name);
+<a name="l64"></a>    </span><span class=cB5>DirEntryDel</span><span class=cB0>(tmpde);
+<a name="l65"></a>    tmpde=tmpde1;
+<a name="l66"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l67"></a>  </span><span class=cB1>return</span><span class=cB0> res;
+<a name="l68"></a>}
+<a name="l69"></a></span><span class=cB1>public</span><span class=cB0> </span><span class=cB9>I64</span><span class=cB0> CvtSprite300(</span><span class=cB1>U8</span><span class=cB0> *files_find_mask=</span><span class=cB6>&quot;*&quot;</span><span class=cB0>,</span><span class=cB1>U8</span><span class=cB0> *fu_flags=</span><span class=cB3>NULL</span><span class=cB0>)
+<a name="l70"></a>{
+<a name="l71"></a>  </span><span class=cB9>I64</span><span class=cB0> f=0;
+<a name="l72"></a>  </span><span class=cB5>ScanFlags</span><span class=cB0>(&amp;f,</span><span class=cB5>Define</span><span class=cB7>(</span><span class=cB6>&quot;ST_FILE_UTIL_FLAGS&quot;</span><span class=cB7>)</span><span class=cB0>,</span><span class=cB6>&quot;+r+$&quot;</span><span class=cB0>);
+<a name="l73"></a>  </span><span class=cB5>ScanFlags</span><span class=cB0>(&amp;f,</span><span class=cB5>Define</span><span class=cB7>(</span><span class=cB6>&quot;ST_FILE_UTIL_FLAGS&quot;</span><span class=cB7>)</span><span class=cB0>,fu_flags);
+<a name="l74"></a>  </span><span class=cB1>return</span><span class=cB0> CvtSprite300Lst(</span><span class=cB5>FilesFind</span><span class=cB7>(</span><span class=cB0>files_find_mask,f</span><span class=cB7>)</span><span class=cB0>);
+<a name="l75"></a>}
+</span></div></pre></body>
+</html>

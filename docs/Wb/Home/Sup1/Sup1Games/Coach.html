@@ -1,0 +1,214 @@
+<!DOCTYPE HTML>
+<html style="background-color:#FFFFFF;">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
+<title>The Temple Operating System</title>
+<meta name="keywords" content="Operating System,64-Bit,64 Bit,Temple,OS,TempleOS,Free,Open Source,Public Domain,x86_64">
+<meta name="generator" content="TempleOS (U) V5.04">
+<style type="text/css">
+.c20{color:#000000;background-color:#00aa00;}
+.c2A{color:#55ff55;background-color:#00aa00;}
+.cB0{color:#000000;background-color:#55ffff;}
+.cB1{color:#0000aa;background-color:#55ffff;}
+.cB2{color:#00aa00;background-color:#55ffff;}
+.cB3{color:#00aaaa;background-color:#55ffff;}
+.cB4{color:#aa0000;background-color:#55ffff;}
+.cB5{color:#aa00aa;background-color:#55ffff;}
+.cB6{color:#aa5500;background-color:#55ffff;}
+.cB7{color:#aaaaaa;background-color:#55ffff;}
+.cB9{color:#5555ff;background-color:#55ffff;}
+.cBA{color:#55ff55;background-color:#55ffff;}
+.cF0{color:#000000;background-color:#ffffff;}
+.cF1{color:#0000aa;background-color:#ffffff;}
+.cF2{color:#00aa00;background-color:#ffffff;}
+.cF3{color:#00aaaa;background-color:#ffffff;}
+.cF4{color:#aa0000;background-color:#ffffff;}
+.cF5{color:#aa00aa;background-color:#ffffff;}
+.cF6{color:#aa5500;background-color:#ffffff;}
+.cF7{color:#aaaaaa;background-color:#ffffff;}
+.cF8{color:#555555;background-color:#ffffff;}
+.cF9{color:#5555ff;background-color:#ffffff;}
+.cFA{color:#55ff55;background-color:#ffffff;}
+.cFB{color:#55ffff;background-color:#ffffff;}
+.cFC{color:#ff5555;background-color:#ffffff;}
+.cFD{color:#ff55ff;background-color:#ffffff;}
+.cFE{color:#ffff55;background-color:#ffffff;}
+.cFF{color:#ffffff;background-color:#ffffff;}
+</style>
+</head>
+<body style="background-color:#55FFFF; border-style:solid;
+	  border-width:8px; border-color:#0000AA;
+	  margin-left:auto; margin-right:auto; width:800px; ">
+<pre style="font-family:courier;font-size:10pt">
+<div style="margin-left:auto; margin-right:auto; width: 640px;">
+<a name="l1"></a><span class=c20>
+<a name="l2"></a>
+<a name="l3"></a>
+<a name="l4"></a>
+<a name="l5"></a>  </span><span class=c2A>&lt;1&gt;/* Graphics Not Rendered in HTML */</span><span class=c20>
+<a name="l6"></a>
+<a name="l7"></a>
+<a name="l8"></a>
+<a name="l9"></a>
+<a name="l10"></a>
+<a name="l11"></a>
+<a name="l12"></a>
+<a name="l13"></a>
+<a name="l14"></a>  </span><span class=c2A>&lt;2&gt;/* Graphics Not Rendered in HTML */</span><span class=c20> </span><span class=c2A>&lt;3&gt;/* Graphics Not Rendered in HTML */</span><span class=c20> </span><span class=c2A>&lt;4&gt;/* Graphics Not Rendered in HTML */</span><span class=c20> </span><span class=c2A>&lt;5&gt;/* Graphics Not Rendered in HTML */</span><span class=c20> </span><span class=c2A>&lt;6&gt;/* Graphics Not Rendered in HTML */</span><span class=c20> </span><span class=c2A>&lt;7&gt;/* Graphics Not Rendered in HTML */</span><span class=c20> </span><span class=c2A>&lt;8&gt;/* Graphics Not Rendered in HTML */</span><span class=c20> </span><span class=c2A>&lt;9&gt;/* Graphics Not Rendered in HTML */</span><span class=c20> </span><span class=c2A>&lt;10&gt;/* Graphics Not Rendered in HTML */</span><span class=c20>
+<a name="l15"></a>
+<a name="l16"></a></span><span class=cB0>
+<a name="l17"></a>#</span><span class=cB1>define</span><span class=cB0> BASE_X          (</span><span class=cB3>GR_WIDTH</span><span class=cB0>/2)
+<a name="l18"></a>#</span><span class=cB1>define</span><span class=cB0> BASE_Y          (3*</span><span class=cB3>GR_HEIGHT</span><span class=cB0>/4)
+<a name="l19"></a>#</span><span class=cB1>define</span><span class=cB0> TEE_HEIGHT      34
+<a name="l20"></a>
+<a name="l21"></a>#</span><span class=cB1>define</span><span class=cB0> BATTER_T        0.25
+<a name="l22"></a>#</span><span class=cB1>define</span><span class=cB0> BATTER_IMGS_NUM 4
+<a name="l23"></a></span><span class=cB1>U8</span><span class=cB0> *batter_imgs[BATTER_IMGS_NUM]={</span><span class=cBA>&lt;2&gt;</span><span class=cB0>,</span><span class=cBA>&lt;3&gt;</span><span class=cB0>,</span><span class=cBA>&lt;4&gt;</span><span class=cB0>,</span><span class=cBA>&lt;5&gt;</span><span class=cB0>};
+<a name="l24"></a>
+<a name="l25"></a>#</span><span class=cB1>define</span><span class=cB0> RUNNER1_T               1.5
+<a name="l26"></a>#</span><span class=cB1>define</span><span class=cB0> RUNNER1_IMGS_NUM        6
+<a name="l27"></a></span><span class=cB1>U8</span><span class=cB0> *runner1_imgs[RUNNER1_IMGS_NUM]={</span><span class=cBA>&lt;5&gt;</span><span class=cB0>,</span><span class=cBA>&lt;6&gt;</span><span class=cB0>,</span><span class=cBA>&lt;7&gt;</span><span class=cB0>,</span><span class=cBA>&lt;7&gt;</span><span class=cB0>,</span><span class=cBA>&lt;7&gt;</span><span class=cB0>,</span><span class=cBA>&lt;8&gt;</span><span class=cB0>};
+<a name="l28"></a>
+<a name="l29"></a>#</span><span class=cB1>define</span><span class=cB0> RUNNER2_T               0.4
+<a name="l30"></a>#</span><span class=cB1>define</span><span class=cB0> RUNNER2_IMGS_NUM        4
+<a name="l31"></a></span><span class=cB1>U8</span><span class=cB0> *runner2_imgs[RUNNER2_IMGS_NUM]={</span><span class=cBA>&lt;8&gt;</span><span class=cB0>,</span><span class=cBA>&lt;9&gt;</span><span class=cB0>,</span><span class=cBA>&lt;8&gt;</span><span class=cB0>,</span><span class=cBA>&lt;10&gt;</span><span class=cB0>};
+<a name="l32"></a>
+<a name="l33"></a></span><span class=cB1>F64</span><span class=cB0> t0,hit_t0;
+<a name="l34"></a></span><span class=cB1>F64</span><span class=cB0> ball_x,ball_y;
+<a name="l35"></a>
+<a name="l36"></a></span><span class=cB1>U0</span><span class=cB0> </span><span class=cB5>DrawIt</span><span class=cB0>(</span><span class=cB9>CTask</span><span class=cB0> *,</span><span class=cB9>CDC</span><span class=cB0> *dc)
+<a name="l37"></a>{
+<a name="l38"></a>  </span><span class=cB1>F64</span><span class=cB0> tt=</span><span class=cB5>tS</span><span class=cB0>-t0;
+<a name="l39"></a>  </span><span class=cB9>I64</span><span class=cB0> i=(BATTER_IMGS_NUM-1)*tt/BATTER_T;
+<a name="l40"></a>  </span><span class=cB1>U8</span><span class=cB0> *tmps;
+<a name="l41"></a>
+<a name="l42"></a>  dc-&gt;color=</span><span class=cB3>WHITE</span><span class=cB0>;
+<a name="l43"></a>  dc-&gt;thick=3;
+<a name="l44"></a>  </span><span class=cB5>GrLine3</span><span class=cB0>(dc,BASE_X,BASE_Y,0,BASE_X-200,BASE_Y-200,0);
+<a name="l45"></a>  </span><span class=cB5>GrLine3</span><span class=cB0>(dc,BASE_X,BASE_Y,0,BASE_X+200,BASE_Y-200,0);
+<a name="l46"></a>
+<a name="l47"></a>  </span><span class=cB5>Sprite3</span><span class=cB0>(dc,BASE_X,BASE_Y,0,</span><span class=cBA>&lt;1&gt;</span><span class=cB0>);
+<a name="l48"></a>  dc-&gt;color=</span><span class=cB3>WHITE</span><span class=cB0>;
+<a name="l49"></a>  </span><span class=cB5>GrCircle</span><span class=cB0>(dc,ball_x+BASE_X,ball_y+BASE_Y-TEE_HEIGHT,2);
+<a name="l50"></a>  </span><span class=cB1>if</span><span class=cB0> (!t0)
+<a name="l51"></a>    </span><span class=cB5>Sprite3</span><span class=cB0>(dc,BASE_X-23,BASE_Y,0,batter_imgs[0]);
+<a name="l52"></a>  </span><span class=cB1>else</span><span class=cB0> </span><span class=cB1>if</span><span class=cB0> (i&lt;BATTER_IMGS_NUM-1) </span><span class=cB7>{</span><span class=cB0>
+<a name="l53"></a>    tmps=</span><span class=cB5>SpriteInterpolate</span><span class=cB0>(
+<a name="l54"></a>          </span><span class=cB7>(</span><span class=cB0>(BATTER_IMGS_NUM-1)/BATTER_T</span><span class=cB7>)</span><span class=cB0>*</span><span class=cB7>(</span><span class=cB0>tt%(BATTER_T/</span><span class=cB7>(</span><span class=cB0>BATTER_IMGS_NUM-1</span><span class=cB7>)</span><span class=cB0>)</span><span class=cB7>)</span><span class=cB0>,
+<a name="l55"></a>          batter_imgs[i],batter_imgs[i+1]);
+<a name="l56"></a>    </span><span class=cB5>Sprite3</span><span class=cB0>(dc,BASE_X-23,BASE_Y,0,tmps);
+<a name="l57"></a>    </span><span class=cB5>Free</span><span class=cB0>(tmps);
+<a name="l58"></a>    </span><span class=cB1>if</span><span class=cB0> (!hit_t0 &amp;&amp; tt&gt;BATTER_T/2)
+<a name="l59"></a>      hit_t0=</span><span class=cB5>tS</span><span class=cB0>;
+<a name="l60"></a>  </span><span class=cB7>}</span><span class=cB0> </span><span class=cB1>else</span><span class=cB0> </span><span class=cB7>{</span><span class=cB0>
+<a name="l61"></a>    tt-=BATTER_T;
+<a name="l62"></a>    i=(RUNNER1_IMGS_NUM-1)*tt/RUNNER1_T;
+<a name="l63"></a>    </span><span class=cB1>if</span><span class=cB0> (i&lt;RUNNER1_IMGS_NUM-1 ) {
+<a name="l64"></a>      tmps=</span><span class=cB5>SpriteInterpolate</span><span class=cB0>(
+<a name="l65"></a>            </span><span class=cB7>(</span><span class=cB0>(RUNNER1_IMGS_NUM-1)/RUNNER1_T</span><span class=cB7>)</span><span class=cB0>*
+<a name="l66"></a>            </span><span class=cB7>(</span><span class=cB0>tt%(RUNNER1_T/</span><span class=cB7>(</span><span class=cB0>RUNNER1_IMGS_NUM-1</span><span class=cB7>)</span><span class=cB0>)</span><span class=cB7>)</span><span class=cB0>,
+<a name="l67"></a>            runner1_imgs[i],runner1_imgs[i+1]);
+<a name="l68"></a>      </span><span class=cB5>Sprite3</span><span class=cB0>(dc,BASE_X-23,BASE_Y,0,tmps);
+<a name="l69"></a>      </span><span class=cB5>Free</span><span class=cB0>(tmps);
+<a name="l70"></a>    } </span><span class=cB1>else</span><span class=cB0> {
+<a name="l71"></a>      tt-=RUNNER1_T;
+<a name="l72"></a>      i=RUNNER2_IMGS_NUM*tt/RUNNER2_T;
+<a name="l73"></a>      </span><span class=cB1>if</span><span class=cB0> (i&lt;30) </span><span class=cB7>{</span><span class=cB0>
+<a name="l74"></a>        tmps=</span><span class=cB5>SpriteInterpolate</span><span class=cB0>(
+<a name="l75"></a>              </span><span class=cB7>(</span><span class=cB0>RUNNER2_IMGS_NUM/RUNNER2_T</span><span class=cB7>)</span><span class=cB0>*</span><span class=cB7>(</span><span class=cB0>tt%(RUNNER2_T/RUNNER2_IMGS_NUM)</span><span class=cB7>)</span><span class=cB0>,
+<a name="l76"></a>              runner2_imgs[i%RUNNER2_IMGS_NUM],
+<a name="l77"></a>              runner2_imgs[</span><span class=cB7>(</span><span class=cB0>i+1</span><span class=cB7>)</span><span class=cB0>%RUNNER2_IMGS_NUM]);
+<a name="l78"></a>        </span><span class=cB5>Sprite3</span><span class=cB0>(dc,BASE_X-23-50*tt,BASE_Y-50*tt,0,tmps);
+<a name="l79"></a>        </span><span class=cB5>Free</span><span class=cB0>(tmps);
+<a name="l80"></a>      </span><span class=cB7>}</span><span class=cB0> </span><span class=cB1>else</span><span class=cB0> </span><span class=cB7>{</span><span class=cB0>
+<a name="l81"></a>        t0=0;
+<a name="l82"></a>        ball_x=0;
+<a name="l83"></a>        ball_y=0;
+<a name="l84"></a>      </span><span class=cB7>}</span><span class=cB0>
+<a name="l85"></a>    }
+<a name="l86"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l87"></a>}
+<a name="l88"></a>
+<a name="l89"></a>#</span><span class=cB1>define</span><span class=cB0> BALL_PATH_PTS   7
+<a name="l90"></a></span><span class=cB9>CD3I32</span><span class=cB0> ball_path[BALL_PATH_PTS]={
+<a name="l91"></a>  </span><span class=cB7>{</span><span class=cB0>0,0,0</span><span class=cB7>}</span><span class=cB0>,</span><span class=cB7>{</span><span class=cB0>20,-40,0</span><span class=cB7>}</span><span class=cB0>,</span><span class=cB7>{</span><span class=cB0>40,20,0</span><span class=cB7>}</span><span class=cB0>,
+<a name="l92"></a>  </span><span class=cB7>{</span><span class=cB0>40,20,0</span><span class=cB7>}</span><span class=cB0>,</span><span class=cB7>{</span><span class=cB0>50,-30,0</span><span class=cB7>}</span><span class=cB0>,</span><span class=cB7>{</span><span class=cB0>55,10,0</span><span class=cB7>}</span><span class=cB0>,
+<a name="l93"></a>  </span><span class=cB7>{</span><span class=cB0>55,10,0</span><span class=cB7>}</span><span class=cB0>
+<a name="l94"></a>};
+<a name="l95"></a>
+<a name="l96"></a></span><span class=cB1>Bool</span><span class=cB0> PlotBall(</span><span class=cB1>U8</span><span class=cB0> *,</span><span class=cB9>I64</span><span class=cB0> _x,</span><span class=cB9>I64</span><span class=cB0> _y,</span><span class=cB9>I64</span><span class=cB0>)
+<a name="l97"></a>{
+<a name="l98"></a>  ball_x=_x; ball_y=_y;
+<a name="l99"></a>  </span><span class=cB5>Sleep</span><span class=cB0>(3);
+<a name="l100"></a>  </span><span class=cB1>return</span><span class=cB0> </span><span class=cB3>TRUE</span><span class=cB0>;
+<a name="l101"></a>}
+<a name="l102"></a>
+<a name="l103"></a></span><span class=cB1>U0</span><span class=cB0> AnimateTask(</span><span class=cB9>I64</span><span class=cB0>)
+<a name="l104"></a>{
+<a name="l105"></a>  </span><span class=cB1>while</span><span class=cB0> (</span><span class=cB3>TRUE</span><span class=cB0>) </span><span class=cB7>{</span><span class=cB0>
+<a name="l106"></a>    </span><span class=cB1>if</span><span class=cB0> (hit_t0) {
+<a name="l107"></a>      </span><span class=cB5>Noise</span><span class=cB0>(25,86,93);
+<a name="l108"></a>      </span><span class=cB5>BSpline2</span><span class=cB0>(</span><span class=cB3>NULL</span><span class=cB0>,&amp;ball_path,BALL_PATH_PTS,&amp;PlotBall);
+<a name="l109"></a>      hit_t0=0;
+<a name="l110"></a>    }
+<a name="l111"></a>    </span><span class=cB5>Sleep</span><span class=cB0>(1);
+<a name="l112"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l113"></a>}
+<a name="l114"></a>
+<a name="l115"></a></span><span class=cB1>U0</span><span class=cB0> Init()
+<a name="l116"></a>{
+<a name="l117"></a>  t0=0;
+<a name="l118"></a>  hit_t0=0;
+<a name="l119"></a>  ball_x=0;
+<a name="l120"></a>  ball_y=0;
+<a name="l121"></a>}
+<a name="l122"></a>
+<a name="l123"></a></span><span class=cB1>U0</span><span class=cB0> TeeBall()
+<a name="l124"></a>{
+<a name="l125"></a>  </span><span class=cB5>SettingsPush</span><span class=cB0>; </span><span class=cB2>//See </span><a href="https://tosrevive.github.io/TempleOS-Unofficial/Wb/Adam/TaskSettings.html#l3"><span class=cB4>SettingsPush</span></a><span class=cB0>
+<a name="l126"></a>  </span><span class=cB5>Fs</span><span class=cB0>-&gt;text_attr=</span><span class=cB3>GREEN</span><span class=cB0>&lt;&lt;4+</span><span class=cB3>WHITE</span><span class=cB0>;
+<a name="l127"></a>  </span><span class=cB5>AutoComplete</span><span class=cB0>;
+<a name="l128"></a>  </span><span class=cB5>WinBorder</span><span class=cB0>;
+<a name="l129"></a>  </span><span class=cB5>WinMax</span><span class=cB0>;
+<a name="l130"></a>  </span><span class=cB5>DocCursor</span><span class=cB0>;
+<a name="l131"></a>  </span><span class=cB5>DocClear</span><span class=cB0>;
+<a name="l132"></a>  </span><span class=cB5>Fs</span><span class=cB0>-&gt;animate_task=</span><span class=cB5>Spawn</span><span class=cB0>(&amp;AnimateTask,</span><span class=cB3>NULL</span><span class=cB0>,</span><span class=cB6>&quot;Animate&quot;</span><span class=cB0>,,</span><span class=cB5>Fs</span><span class=cB0>);
+<a name="l133"></a>
+<a name="l134"></a>  </span><span class=cB5>MenuPush</span><span class=cB0>(
+<a name="l135"></a>        </span><span class=cB6>&quot;File {&quot;</span><span class=cB0>
+<a name="l136"></a>        </span><span class=cB6>&quot;  Abort(,CH_SHIFT_ESC);&quot;</span><span class=cB0>
+<a name="l137"></a>        </span><span class=cB6>&quot;  Exit(,CH_ESC);&quot;</span><span class=cB0>
+<a name="l138"></a>        </span><span class=cB6>&quot;}&quot;</span><span class=cB0>
+<a name="l139"></a>        </span><span class=cB6>&quot;Play {&quot;</span><span class=cB0>
+<a name="l140"></a>        </span><span class=cB6>&quot;  Swing(,CH_SPACE);&quot;</span><span class=cB0>
+<a name="l141"></a>        </span><span class=cB6>&quot;  Restart(,'\n');&quot;</span><span class=cB0>
+<a name="l142"></a>        </span><span class=cB6>&quot;}&quot;</span><span class=cB0>
+<a name="l143"></a>        );
+<a name="l144"></a>
+<a name="l145"></a>  Init;
+<a name="l146"></a>  </span><span class=cB5>Fs</span><span class=cB0>-&gt;draw_it=&amp;</span><span class=cB5>DrawIt</span><span class=cB0>;
+<a name="l147"></a>
+<a name="l148"></a>  </span><span class=cB1>try</span><span class=cB0> </span><span class=cB7>{</span><span class=cB0>
+<a name="l149"></a>    </span><span class=cB1>while</span><span class=cB0> (</span><span class=cB3>TRUE</span><span class=cB0>) {
+<a name="l150"></a>      </span><span class=cB1>switch</span><span class=cB0> (</span><span class=cB5>GetChar</span><span class=cB7>(</span><span class=cB0>,</span><span class=cB3>FALSE</span><span class=cB7>)</span><span class=cB0>) </span><span class=cB7>{</span><span class=cB0>
+<a name="l151"></a>        </span><span class=cB1>case</span><span class=cB0> </span><span class=cB6>'\n'</span><span class=cB0>:
+<a name="l152"></a>          Init;
+<a name="l153"></a>          </span><span class=cB1>break</span><span class=cB0>;
+<a name="l154"></a>        </span><span class=cB1>case</span><span class=cB0> </span><span class=cB3>CH_SPACE</span><span class=cB0>:
+<a name="l155"></a>          t0=</span><span class=cB5>tS</span><span class=cB0>;
+<a name="l156"></a>          </span><span class=cB1>break</span><span class=cB0>;
+<a name="l157"></a>        </span><span class=cB1>case</span><span class=cB0> </span><span class=cB3>CH_SHIFT_ESC</span><span class=cB0>:
+<a name="l158"></a>        </span><span class=cB1>case</span><span class=cB0> </span><span class=cB3>CH_ESC</span><span class=cB0>:
+<a name="l159"></a>          </span><span class=cB1>goto</span><span class=cB0> tb_done;
+<a name="l160"></a>      </span><span class=cB7>}</span><span class=cB0>
+<a name="l161"></a>    }
+<a name="l162"></a>tb_done:
+<a name="l163"></a>  </span><span class=cB7>}</span><span class=cB0> </span><span class=cB1>catch</span><span class=cB0>
+<a name="l164"></a>    </span><span class=cB5>PutExcept</span><span class=cB0>;
+<a name="l165"></a>  </span><span class=cB5>SettingsPop</span><span class=cB0>;
+<a name="l166"></a>  </span><span class=cB5>MenuPop</span><span class=cB0>;
+<a name="l167"></a>}
+<a name="l168"></a>
+<a name="l169"></a>TeeBall;
+</span></div></pre></body>
+</html>

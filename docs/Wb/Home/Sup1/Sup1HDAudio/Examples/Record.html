@@ -1,0 +1,159 @@
+<!DOCTYPE HTML>
+<html style="background-color:#FFFFFF;">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
+<title>The Temple Operating System</title>
+<meta name="keywords" content="Operating System,64-Bit,64 Bit,Temple,OS,TempleOS,Free,Open Source,Public Domain,x86_64">
+<meta name="generator" content="TempleOS (U) V5.04">
+<style type="text/css">
+.cB0{color:#000000;background-color:#55ffff;}
+.cB1{color:#0000aa;background-color:#55ffff;}
+.cB2{color:#00aa00;background-color:#55ffff;}
+.cB3{color:#00aaaa;background-color:#55ffff;}
+.cB4{color:#aa0000;background-color:#55ffff;}
+.cB5{color:#aa00aa;background-color:#55ffff;}
+.cB6{color:#aa5500;background-color:#55ffff;}
+.cB7{color:#aaaaaa;background-color:#55ffff;}
+.cB9{color:#5555ff;background-color:#55ffff;}
+.cF0{color:#000000;background-color:#ffffff;}
+.cF1{color:#0000aa;background-color:#ffffff;}
+.cF2{color:#00aa00;background-color:#ffffff;}
+.cF3{color:#00aaaa;background-color:#ffffff;}
+.cF4{color:#aa0000;background-color:#ffffff;}
+.cF5{color:#aa00aa;background-color:#ffffff;}
+.cF6{color:#aa5500;background-color:#ffffff;}
+.cF7{color:#aaaaaa;background-color:#ffffff;}
+.cF8{color:#555555;background-color:#ffffff;}
+.cF9{color:#5555ff;background-color:#ffffff;}
+.cFA{color:#55ff55;background-color:#ffffff;}
+.cFB{color:#55ffff;background-color:#ffffff;}
+.cFC{color:#ff5555;background-color:#ffffff;}
+.cFD{color:#ff55ff;background-color:#ffffff;}
+.cFE{color:#ffff55;background-color:#ffffff;}
+.cFF{color:#ffffff;background-color:#ffffff;}
+</style>
+</head>
+<body style="background-color:#55FFFF; border-style:solid;
+	  border-width:8px; border-color:#0000AA;
+	  margin-left:auto; margin-right:auto; width:800px; ">
+<pre style="font-family:courier;font-size:10pt">
+<div style="margin-left:auto; margin-right:auto; width: 640px;">
+<a name="l1"></a><span class=cB1>Bool</span><span class=cB0> record_stop,record_done;
+<a name="l2"></a>
+<a name="l3"></a></span><span class=cB1>U0</span><span class=cB0> (*fp_old_copy_buf)(SND_IN_CONTAINER *buf,</span><span class=cB9>I64</span><span class=cB0> buf_num)=</span><span class=cB3>NULL</span><span class=cB0>;
+<a name="l4"></a>
+<a name="l5"></a>#</span><span class=cB1>define</span><span class=cB0> RECORD_BUF_SIZE (SND_BUF_LEN*0x100)
+<a name="l6"></a>
+<a name="l7"></a>SND_IN_CONTAINER *record_buf[2];
+<a name="l8"></a></span><span class=cB9>I64</span><span class=cB0> record_buf_iptr,record_ibuf_num,record_obuf_num;
+<a name="l9"></a>
+<a name="l10"></a></span><span class=cB1>U0</span><span class=cB0> RecordCopyBuf(SND_IN_CONTAINER *buf,</span><span class=cB9>I64</span><span class=cB0>)
+<a name="l11"></a>{
+<a name="l12"></a>  </span><span class=cB9>I64</span><span class=cB0> j;
+<a name="l13"></a>  SND_IN_CONTAINER *_s=record_buf[record_ibuf_num&amp;1];
+<a name="l14"></a>  j=0;
+<a name="l15"></a>  </span><span class=cB1>while</span><span class=cB0> (j&lt;SND_BUF_LEN) </span><span class=cB7>{</span><span class=cB0>
+<a name="l16"></a>    _s[record_buf_iptr++]=buf[j++];
+<a name="l17"></a>    j++; </span><span class=cB2>//Record in mono</span><span class=cB0>
+<a name="l18"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l19"></a>  </span><span class=cB1>if</span><span class=cB0> (record_buf_iptr&gt;=RECORD_BUF_SIZE) </span><span class=cB7>{</span><span class=cB0>
+<a name="l20"></a>    record_buf_iptr=0;
+<a name="l21"></a>    record_ibuf_num++;
+<a name="l22"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l23"></a>}
+<a name="l24"></a>
+<a name="l25"></a></span><span class=cB1>U0</span><span class=cB0> </span><span class=cB5>DrawIt</span><span class=cB0>(</span><span class=cB9>CTask</span><span class=cB0> *task,</span><span class=cB9>CDC</span><span class=cB0> *dc)
+<a name="l26"></a>{
+<a name="l27"></a>  SND_IN_CONTAINER *buf=hda.istr0_buf[0];
+<a name="l28"></a>  </span><span class=cB9>I64</span><span class=cB0> i,x1,y1,x2=0,y2=0,
+<a name="l29"></a>        cy=task-&gt;pix_height&gt;&gt;1;
+<a name="l30"></a>  dc-&gt;color=</span><span class=cB3>BLUE</span><span class=cB0>;
+<a name="l31"></a>  </span><span class=cB1>for</span><span class=cB0> (i=0;i&lt;SND_BUF_LEN;i++) </span><span class=cB7>{</span><span class=cB0>
+<a name="l32"></a>    x1=i*task-&gt;pix_width/SND_BUF_LEN;
+<a name="l33"></a>    y1=cy-buf[i]*cy/</span><span class=cB3>I16_MAX</span><span class=cB0>;
+<a name="l34"></a>    </span><span class=cB5>GrLine</span><span class=cB0>(dc,x2,y2,x1,y1);
+<a name="l35"></a>    x2=x1;
+<a name="l36"></a>    y2=y1;
+<a name="l37"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l38"></a>  dc-&gt;color=</span><span class=cB3>RED</span><span class=cB0>;
+<a name="l39"></a>}
+<a name="l40"></a>
+<a name="l41"></a></span><span class=cB1>U0</span><span class=cB0> RecordTaskEndCB()
+<a name="l42"></a>{
+<a name="l43"></a>  fp_snd_copy_buf=fp_old_copy_buf;
+<a name="l44"></a>  HDStop(</span><span class=cB3>TRUE</span><span class=cB0>,</span><span class=cB3>FALSE</span><span class=cB0>);
+<a name="l45"></a>  </span><span class=cB5>Free</span><span class=cB0>(record_buf[0]);
+<a name="l46"></a>  </span><span class=cB5>Free</span><span class=cB0>(record_buf[1]);
+<a name="l47"></a>  record_done=</span><span class=cB3>TRUE</span><span class=cB0>;
+<a name="l48"></a>  </span><span class=cB5>Exit</span><span class=cB0>;
+<a name="l49"></a>}
+<a name="l50"></a>
+<a name="l51"></a></span><span class=cB1>U0</span><span class=cB0> RecordTask(</span><span class=cB1>U8</span><span class=cB0> *filename)
+<a name="l52"></a>{
+<a name="l53"></a>  </span><span class=cB1>Bool</span><span class=cB0> old_io_snd;
+<a name="l54"></a>  </span><span class=cB1>U8</span><span class=cB0> *filename=</span><span class=cB5>StrNew</span><span class=cB0>(filename),*filename2;
+<a name="l55"></a>  TaskInitExt; </span><span class=cB2>//needed for disk access</span><span class=cB0>
+<a name="l56"></a>  record_buf[0]=</span><span class=cB5>CAlloc</span><span class=cB0>(RECORD_BUF_SIZE*</span><span class=cB1>sizeof</span><span class=cB7>(</span><span class=cB0>SND_IN_CONTAINER</span><span class=cB7>)</span><span class=cB0>);
+<a name="l57"></a>  record_buf[1]=</span><span class=cB5>CAlloc</span><span class=cB0>(RECORD_BUF_SIZE*</span><span class=cB1>sizeof</span><span class=cB7>(</span><span class=cB0>SND_IN_CONTAINER</span><span class=cB7>)</span><span class=cB0>);
+<a name="l58"></a>  </span><span class=cB5>FileExtRem</span><span class=cB0>(filename);
+<a name="l59"></a>  record_buf_iptr=0;
+<a name="l60"></a>  record_ibuf_num=0;
+<a name="l61"></a>  record_obuf_num=0;
+<a name="l62"></a>  record_done=</span><span class=cB3>FALSE</span><span class=cB0>;
+<a name="l63"></a>  </span><span class=cB5>Fs</span><span class=cB0>-&gt;task_end_cb=&amp;RecordTaskEndCB;
+<a name="l64"></a>  fp_old_copy_buf=fp_snd_copy_buf;
+<a name="l65"></a>  fp_snd_copy_buf=&amp;RecordCopyBuf;
+<a name="l66"></a>  HDRun(</span><span class=cB3>TRUE</span><span class=cB0>,</span><span class=cB3>FALSE</span><span class=cB0>);
+<a name="l67"></a>  old_io_snd=IOSnd(</span><span class=cB3>OFF</span><span class=cB0>);
+<a name="l68"></a>  </span><span class=cB1>while</span><span class=cB0> (!record_stop) </span><span class=cB7>{</span><span class=cB0>
+<a name="l69"></a>    </span><span class=cB1>if</span><span class=cB0> (record_ibuf_num&gt;record_obuf_num) {
+<a name="l70"></a>      filename2=MPrint(</span><span class=cB6>&quot;%s%04d.SNZ&quot;</span><span class=cB0>,filename,record_obuf_num);
+<a name="l71"></a>      SndFileWrite(filename2,record_buf[record_obuf_num&amp;1],RECORD_BUF_SIZE);
+<a name="l72"></a>      record_obuf_num++;
+<a name="l73"></a>      </span><span class=cB5>Free</span><span class=cB0>(filename2);
+<a name="l74"></a>    }
+<a name="l75"></a>    </span><span class=cB5>Sleep</span><span class=cB0>(1);
+<a name="l76"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l77"></a>  filename2=MPrint(</span><span class=cB6>&quot;%s%04d.SNZ&quot;</span><span class=cB0>,filename,record_obuf_num);
+<a name="l78"></a>  SndFileWrite(filename2,record_buf[record_obuf_num&amp;1],record_buf_iptr);
+<a name="l79"></a>  record_obuf_num++;
+<a name="l80"></a>  </span><span class=cB5>Free</span><span class=cB0>(filename2);
+<a name="l81"></a>  </span><span class=cB5>Free</span><span class=cB0>(filename);
+<a name="l82"></a>  IOSnd(old_io_snd);
+<a name="l83"></a>  record_done=</span><span class=cB3>TRUE</span><span class=cB0>;
+<a name="l84"></a>}
+<a name="l85"></a>
+<a name="l86"></a></span><span class=cB1>U0</span><span class=cB0> RecordDemo(</span><span class=cB1>U8</span><span class=cB0> *filename=</span><span class=cB6>&quot;~/Record.SNZ&quot;</span><span class=cB0>)
+<a name="l87"></a>{
+<a name="l88"></a>  </span><span class=cB1>if</span><span class=cB0> (snd_dev!=SD_HD_AUDIO) </span><span class=cB7>{</span><span class=cB0>
+<a name="l89"></a>    </span><span class=cB6>&quot;Only works for HD Audio.\n&quot;</span><span class=cB0>;
+<a name="l90"></a>    </span><span class=cB1>return</span><span class=cB0>;
+<a name="l91"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l92"></a>  record_done=</span><span class=cB3>FALSE</span><span class=cB0>;
+<a name="l93"></a>  record_stop=</span><span class=cB3>FALSE</span><span class=cB0>;
+<a name="l94"></a>  </span><span class=cB5>Spawn</span><span class=cB0>(&amp;RecordTask,filename,</span><span class=cB6>&quot;Record .SNZ&quot;</span><span class=cB0>,,</span><span class=cB5>Fs</span><span class=cB0>);
+<a name="l95"></a>  </span><span class=cB5>SettingsPush</span><span class=cB0>; </span><span class=cB2>//See </span><a href="https://tosrevive.github.io/TempleOS-Unofficial/Wb/Adam/TaskSettings.html#l3"><span class=cB4>SettingsPush</span></a><span class=cB0>
+<a name="l96"></a>  </span><span class=cB5>DocCursor</span><span class=cB0>;
+<a name="l97"></a>  </span><span class=cB5>DocClear</span><span class=cB0>;
+<a name="l98"></a>  </span><span class=cB5>Fs</span><span class=cB0>-&gt;draw_it=&amp;</span><span class=cB5>DrawIt</span><span class=cB0>;
+<a name="l99"></a>  </span><span class=cB1>try</span><span class=cB0>
+<a name="l100"></a>          </span><span class=cB5>GetChar</span><span class=cB0>;
+<a name="l101"></a>  </span><span class=cB1>catch</span><span class=cB0> </span><span class=cB2>//Catch &lt;CTRL-ALT-C&gt;, but pass it on to next higher hndlr.</span><span class=cB0>
+<a name="l102"></a>    record_stop=</span><span class=cB3>TRUE</span><span class=cB0>;
+<a name="l103"></a>  record_stop=</span><span class=cB3>TRUE</span><span class=cB0>;
+<a name="l104"></a>  </span><span class=cB1>while</span><span class=cB0> (record_done)
+<a name="l105"></a>    </span><span class=cB5>Yield</span><span class=cB0>;
+<a name="l106"></a>  </span><span class=cB5>SettingsPop</span><span class=cB0>;
+<a name="l107"></a>  </span><span class=cB1>while</span><span class=cB0> (</span><span class=cB3>TRUE</span><span class=cB0>) </span><span class=cB7>{</span><span class=cB0>
+<a name="l108"></a>    </span><span class=cB6>&quot;\n\nPlay &quot;</span><span class=cB0>;
+<a name="l109"></a>    </span><span class=cB1>if</span><span class=cB0> (</span><span class=cB5>YorN</span><span class=cB0>)
+<a name="l110"></a>      SndFilePlaySeq(filename,record_obuf_num);
+<a name="l111"></a>    </span><span class=cB1>else</span><span class=cB0>
+<a name="l112"></a>      </span><span class=cB1>break</span><span class=cB0>;
+<a name="l113"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l114"></a>  NewLine(2);
+<a name="l115"></a>}
+<a name="l116"></a>
+<a name="l117"></a>RecordDemo;
+</span></div></pre></body>
+</html>

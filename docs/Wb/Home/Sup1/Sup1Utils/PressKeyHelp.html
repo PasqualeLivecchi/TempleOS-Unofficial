@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html style="background-color:#FFFFFF;">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
+<title>The Temple Operating System</title>
+<meta name="keywords" content="Operating System,64-Bit,64 Bit,Temple,OS,TempleOS,Free,Open Source,Public Domain,x86_64">
+<meta name="generator" content="TempleOS (U) V5.04">
+<style type="text/css">
+.cB0{color:#000000;background-color:#55ffff;}
+.cB1{color:#0000aa;background-color:#55ffff;}
+.cB2{color:#00aa00;background-color:#55ffff;}
+.cB3{color:#00aaaa;background-color:#55ffff;}
+.cB5{color:#aa00aa;background-color:#55ffff;}
+.cB6{color:#aa5500;background-color:#55ffff;}
+.cB7{color:#aaaaaa;background-color:#55ffff;}
+.cB9{color:#5555ff;background-color:#55ffff;}
+.cBB{color:#55ffff;background-color:#55ffff;}
+.cF0{color:#000000;background-color:#ffffff;}
+.cF1{color:#0000aa;background-color:#ffffff;}
+.cF2{color:#00aa00;background-color:#ffffff;}
+.cF3{color:#00aaaa;background-color:#ffffff;}
+.cF4{color:#aa0000;background-color:#ffffff;}
+.cF5{color:#aa00aa;background-color:#ffffff;}
+.cF6{color:#aa5500;background-color:#ffffff;}
+.cF7{color:#aaaaaa;background-color:#ffffff;}
+.cF8{color:#555555;background-color:#ffffff;}
+.cF9{color:#5555ff;background-color:#ffffff;}
+.cFA{color:#55ff55;background-color:#ffffff;}
+.cFB{color:#55ffff;background-color:#ffffff;}
+.cFC{color:#ff5555;background-color:#ffffff;}
+.cFD{color:#ff55ff;background-color:#ffffff;}
+.cFE{color:#ffff55;background-color:#ffffff;}
+.cFF{color:#ffffff;background-color:#ffffff;}
+</style>
+</head>
+<body style="background-color:#55FFFF; border-style:solid;
+	  border-width:8px; border-color:#0000AA;
+	  margin-left:auto; margin-right:auto; width:800px; ">
+<pre style="font-family:courier;font-size:10pt">
+<div style="margin-left:auto; margin-right:auto; width: 640px;">
+<a name="l1"></a><span class=cB0>#</span><span class=cB1>help_index</span><span class=cB0> </span><span class=cB6>&quot;Help System&quot;</span><span class=cB0>
+<a name="l2"></a>
+<a name="l3"></a></span><span class=cB1>public</span><span class=cB0> </span><span class=cB1>U0</span><span class=cB0> PressKeyHelp(</span><span class=cB9>CTask</span><span class=cB0> *task=</span><span class=cB3>NULL</span><span class=cB0>)
+<a name="l4"></a>{</span><span class=cB2>//Jump to key hndlrs src for key presses.</span><span class=cB0>
+<a name="l5"></a>  </span><span class=cB9>I64</span><span class=cB0> arg1=0,arg2=0;
+<a name="l6"></a>  </span><span class=cB9>CTask</span><span class=cB0> *old_hash=</span><span class=cB5>Fs</span><span class=cB0>-&gt;hash_table;
+<a name="l7"></a>  </span><span class=cB1>if</span><span class=cB0> (!task) task=</span><span class=cB5>Fs</span><span class=cB0>;
+<a name="l8"></a>
+<a name="l9"></a>    </span><span class=cB2>/*</span><span class=cB0>
+<a name="l10"></a></span><span class=cB2>This feature is a burden in code.  It would be nice to lst key</span><span class=cB0>
+<a name="l11"></a></span><span class=cB2>cmds for all applications, but it makes the code too ugly.</span><span class=cB0>
+<a name="l12"></a></span><span class=cB2>*/</span><span class=cB0>
+<a name="l13"></a>  task=</span><span class=cB5>Fs</span><span class=cB0>;
+<a name="l14"></a>
+<a name="l15"></a>  </span><span class=cB5>Fs</span><span class=cB0>-&gt;hash_table=task-&gt;hash_table;
+<a name="l16"></a>  </span><span class=cB6>&quot;Press keys to show hndlr code.\n&quot;</span><span class=cB0>
+<a name="l17"></a>        </span><span class=cB6>&quot;&lt;SHIFT-ESC&gt; to exit.\n&quot;</span><span class=cB0>
+<a name="l18"></a>        </span><span class=cB6>&quot;Do not press &lt;CTRL-ALT-keys&gt;.\n&quot;</span><span class=cB0>;
+<a name="l19"></a>  </span><span class=cB1>while</span><span class=cB0> (arg1!=</span><span class=cB3>CH_ESC</span><span class=cB0> &amp;&amp; arg1!=</span><span class=cB3>CH_SHIFT_ESC</span><span class=cB0>) </span><span class=cB7>{</span><span class=cB0>
+<a name="l20"></a>    </span><span class=cB5>GetMsg</span><span class=cB0>(&amp;arg1,&amp;arg2,1&lt;&lt;</span><span class=cB3>MSG_KEY_DOWN</span><span class=cB0>);
+<a name="l21"></a>    *</span><span class=cBB>keydev</span><span class=cB0>.desc=0;
+<a name="l22"></a>    </span><span class=cBB>keydev</span><span class=cB0>.hndlr=</span><span class=cB3>NULL</span><span class=cB0>;
+<a name="l23"></a>    </span><span class=cB1>if</span><span class=cB0> (task==</span><span class=cB5>Fs</span><span class=cB0>)
+<a name="l24"></a>      </span><span class=cB5>PutKey</span><span class=cB0>(arg1,arg2|</span><span class=cB3>SCF_KEY_DESC</span><span class=cB0>);
+<a name="l25"></a>    </span><span class=cB1>else</span><span class=cB0> </span><span class=cB1>if</span><span class=cB0> (</span><span class=cB5>TaskValidate</span><span class=cB7>(</span><span class=cB0>task</span><span class=cB7>)</span><span class=cB0>)
+<a name="l26"></a>      </span><span class=cB5>PostMsg</span><span class=cB0>(task,</span><span class=cB3>MSG_KEY_DOWN</span><span class=cB0>,arg1,arg2|</span><span class=cB3>SCF_KEY_DESC</span><span class=cB0>);
+<a name="l27"></a>    </span><span class=cB5>Refresh</span><span class=cB0>(0,</span><span class=cB3>TRUE</span><span class=cB0>);
+<a name="l28"></a>    </span><span class=cB5>Sleep</span><span class=cB0>(1);
+<a name="l29"></a>    </span><span class=cB1>if</span><span class=cB0> (*</span><span class=cBB>keydev</span><span class=cB0>.desc)
+<a name="l30"></a>      </span><span class=cB5>E</span><span class=cB0>(</span><span class=cBB>keydev</span><span class=cB0>.hndlr,512);
+<a name="l31"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l32"></a>  </span><span class=cB5>Fs</span><span class=cB0>-&gt;hash_table=old_hash;
+<a name="l33"></a>}
+<a name="l34"></a>
+<a name="l35"></a>PressKeyHelp;
+</span></div></pre></body>
+</html>

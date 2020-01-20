@@ -1,0 +1,172 @@
+<!DOCTYPE HTML>
+<html style="background-color:#FFFFFF;">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
+<title>The Temple Operating System</title>
+<meta name="keywords" content="Operating System,64-Bit,64 Bit,Temple,OS,TempleOS,Free,Open Source,Public Domain,x86_64">
+<meta name="generator" content="TempleOS (U) V5.04">
+<style type="text/css">
+.cB0{color:#000000;background-color:#55ffff;}
+.cB1{color:#0000aa;background-color:#55ffff;}
+.cB3{color:#00aaaa;background-color:#55ffff;}
+.cB5{color:#aa00aa;background-color:#55ffff;}
+.cB6{color:#aa5500;background-color:#55ffff;}
+.cB7{color:#aaaaaa;background-color:#55ffff;}
+.cB9{color:#5555ff;background-color:#55ffff;}
+.cBB{color:#55ffff;background-color:#55ffff;}
+.cF0{color:#000000;background-color:#ffffff;}
+.cF1{color:#0000aa;background-color:#ffffff;}
+.cF2{color:#00aa00;background-color:#ffffff;}
+.cF3{color:#00aaaa;background-color:#ffffff;}
+.cF4{color:#aa0000;background-color:#ffffff;}
+.cF5{color:#aa00aa;background-color:#ffffff;}
+.cF6{color:#aa5500;background-color:#ffffff;}
+.cF7{color:#aaaaaa;background-color:#ffffff;}
+.cF8{color:#555555;background-color:#ffffff;}
+.cF9{color:#5555ff;background-color:#ffffff;}
+.cFA{color:#55ff55;background-color:#ffffff;}
+.cFB{color:#55ffff;background-color:#ffffff;}
+.cFC{color:#ff5555;background-color:#ffffff;}
+.cFD{color:#ff55ff;background-color:#ffffff;}
+.cFE{color:#ffff55;background-color:#ffffff;}
+.cFF{color:#ffffff;background-color:#ffffff;}
+</style>
+</head>
+<body style="background-color:#55FFFF; border-style:solid;
+	  border-width:8px; border-color:#0000AA;
+	  margin-left:auto; margin-right:auto; width:800px; ">
+<pre style="font-family:courier;font-size:10pt">
+<div style="margin-left:auto; margin-right:auto; width: 640px;">
+<a name="l1"></a><span class=cB1>U8</span><span class=cB0> *note_lst=</span><span class=cB6>&quot;A\0A#\0B\0C\0C#\0D\0D#\0E\0F\0F#\0G\0G#\0&quot;</span><span class=cB0>;
+<a name="l2"></a>
+<a name="l3"></a></span><span class=cB9>I64</span><span class=cB0> NextNote(</span><span class=cB1>U8</span><span class=cB0> *st)
+<a name="l4"></a>{
+<a name="l5"></a>  </span><span class=cB1>while</span><span class=cB0> (*st &amp;&amp; !</span><span class=cB7>(</span><span class=cB6>'0'</span><span class=cB0>&lt;=*st&lt;=</span><span class=cB6>'9'</span><span class=cB7>)</span><span class=cB0> &amp;&amp; !</span><span class=cB7>(</span><span class=cB6>'A'</span><span class=cB0>&lt;=*st&lt;=</span><span class=cB6>'G'</span><span class=cB7>)</span><span class=cB0>)
+<a name="l6"></a>    st++;
+<a name="l7"></a>  </span><span class=cB1>if</span><span class=cB0> (</span><span class=cB6>'A'</span><span class=cB0>&lt;=*st&lt;=</span><span class=cB6>'G'</span><span class=cB0>)
+<a name="l8"></a>    </span><span class=cB1>return</span><span class=cB0> </span><span class=cBB>music</span><span class=cB0>.note_map[*st-</span><span class=cB6>'A'</span><span class=cB0>];
+<a name="l9"></a>  </span><span class=cB1>else</span><span class=cB0>
+<a name="l10"></a>    </span><span class=cB1>return</span><span class=cB0> </span><span class=cB3>I64_MIN</span><span class=cB0>;
+<a name="l11"></a>}
+<a name="l12"></a>
+<a name="l13"></a></span><span class=cB1>U8</span><span class=cB0> *CvtSong500Str(</span><span class=cB9>I64</span><span class=cB0> *_octave_in,</span><span class=cB1>U8</span><span class=cB0> *st)
+<a name="l14"></a>{
+<a name="l15"></a>  </span><span class=cB9>I64</span><span class=cB0> ona,note,octave,octave_out=</span><span class=cB3>I64_MIN</span><span class=cB0>;
+<a name="l16"></a>  </span><span class=cB1>U8</span><span class=cB0> *src=st,buf[512],*dst=buf;
+<a name="l17"></a>  note=NextNote(src);
+<a name="l18"></a>  </span><span class=cB1>if</span><span class=cB0> (note&gt;=0) </span><span class=cB7>{</span><span class=cB0>
+<a name="l19"></a>    ona=(*_octave_in+2)*12+note;
+<a name="l20"></a>    octave_out=</span><span class=cB5>Ona2Octave</span><span class=cB0>(ona);
+<a name="l21"></a>    *dst++=</span><span class=cB6>'0'</span><span class=cB0>+octave_out;
+<a name="l22"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l23"></a>  </span><span class=cB1>while</span><span class=cB0> (*src) </span><span class=cB7>{</span><span class=cB0>
+<a name="l24"></a>    </span><span class=cB1>while</span><span class=cB0> (*src &amp;&amp; </span><span class=cB6>'0'</span><span class=cB0>&lt;=*src&lt;=</span><span class=cB6>'9'</span><span class=cB0>)
+<a name="l25"></a>      *_octave_in=*src++-</span><span class=cB6>'0'</span><span class=cB0>;
+<a name="l26"></a>    </span><span class=cB1>if</span><span class=cB0> (</span><span class=cB6>'A'</span><span class=cB0>&lt;=*src&lt;=</span><span class=cB6>'G'</span><span class=cB0>) {
+<a name="l27"></a>      ona=(*_octave_in+2)*12+</span><span class=cBB>music</span><span class=cB0>.note_map[*src++-</span><span class=cB6>'A'</span><span class=cB0>];
+<a name="l28"></a>      octave=</span><span class=cB5>Ona2Octave</span><span class=cB0>(ona);
+<a name="l29"></a>      note  =</span><span class=cB5>Ona2Note</span><span class=cB0>  (ona);
+<a name="l30"></a>      </span><span class=cB1>if</span><span class=cB0> (octave!=octave_out) </span><span class=cB7>{</span><span class=cB0>
+<a name="l31"></a>        octave_out=octave;
+<a name="l32"></a>        *dst++=</span><span class=cB6>'0'</span><span class=cB0>+octave;
+<a name="l33"></a>      </span><span class=cB7>}</span><span class=cB0>
+<a name="l34"></a>      *dst++=*</span><span class=cB5>LstSub</span><span class=cB0>(note,note_lst);
+<a name="l35"></a>    } </span><span class=cB1>else</span><span class=cB0> {
+<a name="l36"></a>      note=NextNote(src);
+<a name="l37"></a>      </span><span class=cB1>if</span><span class=cB0> (note&gt;=0) </span><span class=cB7>{</span><span class=cB0>
+<a name="l38"></a>        ona=(*_octave_in+2)*12+note;
+<a name="l39"></a>        octave=</span><span class=cB5>Ona2Octave</span><span class=cB0>(ona);
+<a name="l40"></a>        </span><span class=cB1>if</span><span class=cB0> (octave!=octave_out) {
+<a name="l41"></a>          octave_out=octave;
+<a name="l42"></a>          *dst++=</span><span class=cB6>'0'</span><span class=cB0>+octave;
+<a name="l43"></a>        }
+<a name="l44"></a>      </span><span class=cB7>}</span><span class=cB0>
+<a name="l45"></a>      *dst++=*src++;
+<a name="l46"></a>    }
+<a name="l47"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l48"></a>  *dst=0;
+<a name="l49"></a>  </span><span class=cB6>&quot;  IN :%s\n&quot;</span><span class=cB0>,st;
+<a name="l50"></a>  </span><span class=cB6>&quot;  OUT:%s\n&quot;</span><span class=cB0>,buf;
+<a name="l51"></a>  </span><span class=cB1>return</span><span class=cB0> </span><span class=cB5>StrNew</span><span class=cB0>(buf);
+<a name="l52"></a>}
+<a name="l53"></a>
+<a name="l54"></a></span><span class=cB9>I64</span><span class=cB0> CvtSong500Doc(</span><span class=cB9>CDoc</span><span class=cB0> *doc)
+<a name="l55"></a>{
+<a name="l56"></a>  </span><span class=cB1>Bool</span><span class=cB0> unlock=</span><span class=cB5>DocLock</span><span class=cB0>(doc);
+<a name="l57"></a>  </span><span class=cB1>U8</span><span class=cB0> *st,*st2,*src,*src2,*dst,buf[512];
+<a name="l58"></a>  </span><span class=cB9>I64</span><span class=cB0> res=0,octave_in=3;
+<a name="l59"></a>  </span><span class=cB1>Bool</span><span class=cB0>  src_file=</span><span class=cB5>FilesFindMatch</span><span class=cB0>(doc-&gt;filename.name,</span><span class=cB3>FILEMASK_SRC</span><span class=cB0>);
+<a name="l60"></a>  </span><span class=cB9>CDocEntry</span><span class=cB0> *doc_e;
+<a name="l61"></a>
+<a name="l62"></a>  </span><span class=cB5>DocRecalc</span><span class=cB0>(doc);
+<a name="l63"></a>  doc_e=doc-&gt;head.next;
+<a name="l64"></a>  </span><span class=cB1>while</span><span class=cB0> (doc_e!=doc) </span><span class=cB7>{</span><span class=cB0>
+<a name="l65"></a>    </span><span class=cB1>if</span><span class=cB0> (src_file &amp;&amp; doc_e-&gt;type_u8==</span><span class=cB3>DOCT_TEXT</span><span class=cB0> &amp;&amp;
+<a name="l66"></a>          </span><span class=cB7>(</span><span class=cB0>src2=</span><span class=cB5>StrMatch</span><span class=cB0>(</span><span class=cB6>&quot;Play(\&quot;&quot;</span><span class=cB0>,doc_e-&gt;tag)</span><span class=cB7>)</span><span class=cB0>) {
+<a name="l67"></a>      src=src2+6;
+<a name="l68"></a>      dst=buf;
+<a name="l69"></a>      </span><span class=cB1>while</span><span class=cB0> (*src &amp;&amp; *src!=</span><span class=cB6>'\&quot;'</span><span class=cB0>)
+<a name="l70"></a>        *dst++=*src++;
+<a name="l71"></a>      *dst++=0;
+<a name="l72"></a>      </span><span class=cB1>if</span><span class=cB0> (*src==</span><span class=cB6>'\&quot;'</span><span class=cB0>)  </span><span class=cB7>{</span><span class=cB0>
+<a name="l73"></a>        *src++=0;
+<a name="l74"></a>        st=CvtSong500Str(&amp;octave_in,src2+6);
+<a name="l75"></a>        src2[5]=0;
+<a name="l76"></a>        st2=</span><span class=cB5>MStrPrint</span><span class=cB0>(</span><span class=cB6>&quot;%s\&quot;%s\&quot;%s&quot;</span><span class=cB0>,doc_e-&gt;tag,st,src);
+<a name="l77"></a>        </span><span class=cB5>Free</span><span class=cB0>(st);
+<a name="l78"></a>        </span><span class=cB5>Free</span><span class=cB0>(doc_e-&gt;tag);
+<a name="l79"></a>        doc_e-&gt;tag=st2;
+<a name="l80"></a>        res++;
+<a name="l81"></a>      </span><span class=cB7>}</span><span class=cB0>
+<a name="l82"></a>    } </span><span class=cB1>else</span><span class=cB0> </span><span class=cB1>if</span><span class=cB0> (doc_e-&gt;type_u8==</span><span class=cB3>DOCT_SONG</span><span class=cB0>) {
+<a name="l83"></a>      st=CvtSong500Str(&amp;octave_in,doc_e-&gt;aux_str);
+<a name="l84"></a>      </span><span class=cB5>Free</span><span class=cB0>(doc_e-&gt;aux_str);
+<a name="l85"></a>      doc_e-&gt;aux_str=st;
+<a name="l86"></a>      res++;
+<a name="l87"></a>    }
+<a name="l88"></a>    doc_e=doc_e-&gt;next;
+<a name="l89"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l90"></a>  </span><span class=cB5>DocRecalc</span><span class=cB0>(doc);
+<a name="l91"></a>  </span><span class=cB1>if</span><span class=cB0> (unlock)
+<a name="l92"></a>    </span><span class=cB5>DocUnlock</span><span class=cB0>(doc);
+<a name="l93"></a>  </span><span class=cB1>return</span><span class=cB0> res;
+<a name="l94"></a>}
+<a name="l95"></a>
+<a name="l96"></a></span><span class=cB9>I64</span><span class=cB0> CvtSong500File(</span><span class=cB1>U8</span><span class=cB0> *filename)
+<a name="l97"></a>{
+<a name="l98"></a>  </span><span class=cB9>I64</span><span class=cB0> res;
+<a name="l99"></a>  </span><span class=cB9>CDoc</span><span class=cB0> *doc=</span><span class=cB5>DocRead</span><span class=cB0>(filename);
+<a name="l100"></a>  </span><span class=cB1>if</span><span class=cB0> (res=CvtSong500Doc</span><span class=cB7>(</span><span class=cB0>doc</span><span class=cB7>)</span><span class=cB0>) </span><span class=cB7>{</span><span class=cB0>
+<a name="l101"></a>    </span><span class=cB6>&quot;%8d:%s\n&quot;</span><span class=cB0>,res,doc-&gt;filename.name;
+<a name="l102"></a>    </span><span class=cB5>DocWrite</span><span class=cB0>(doc);
+<a name="l103"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l104"></a>  </span><span class=cB5>DocDel</span><span class=cB0>(doc);
+<a name="l105"></a>  </span><span class=cB1>return</span><span class=cB0> res;
+<a name="l106"></a>}
+<a name="l107"></a></span><span class=cB9>I64</span><span class=cB0> CvtSong500Lst(</span><span class=cB9>CDirEntry</span><span class=cB0> *tmpde)
+<a name="l108"></a>{
+<a name="l109"></a>  </span><span class=cB9>I64</span><span class=cB0> res=0;
+<a name="l110"></a>  </span><span class=cB9>CDirEntry</span><span class=cB0> *tmpde1;
+<a name="l111"></a>  </span><span class=cB1>while</span><span class=cB0> (tmpde) </span><span class=cB7>{</span><span class=cB0>
+<a name="l112"></a>    tmpde1=tmpde-&gt;next;
+<a name="l113"></a>    </span><span class=cB1>if</span><span class=cB0> (tmpde-&gt;attr &amp; </span><span class=cB3>RS_ATTR_DIR</span><span class=cB0>) {
+<a name="l114"></a>      </span><span class=cB1>if</span><span class=cB0> (tmpde-&gt;sub) </span><span class=cB7>{</span><span class=cB0>
+<a name="l115"></a>        </span><span class=cB6>&quot;Processing Directory: %s\n&quot;</span><span class=cB0>,tmpde-&gt;full_name;
+<a name="l116"></a>        res+=CvtSong500Lst(tmpde-&gt;sub);
+<a name="l117"></a>      </span><span class=cB7>}</span><span class=cB0>
+<a name="l118"></a>    } </span><span class=cB1>else</span><span class=cB0>
+<a name="l119"></a>      res+=CvtSong500File(tmpde-&gt;full_name);
+<a name="l120"></a>    </span><span class=cB5>DirEntryDel</span><span class=cB0>(tmpde);
+<a name="l121"></a>    tmpde=tmpde1;
+<a name="l122"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l123"></a>  </span><span class=cB1>return</span><span class=cB0> res;
+<a name="l124"></a>}
+<a name="l125"></a></span><span class=cB9>I64</span><span class=cB0> CvtSong500(</span><span class=cB1>U8</span><span class=cB0> *files_find_mask=</span><span class=cB6>&quot;*&quot;</span><span class=cB0>,</span><span class=cB1>U8</span><span class=cB0> *fu_flags=</span><span class=cB3>NULL</span><span class=cB0>)
+<a name="l126"></a>{
+<a name="l127"></a>  </span><span class=cB9>I64</span><span class=cB0> fuf_flags=0;
+<a name="l128"></a>  </span><span class=cB5>ScanFlags</span><span class=cB0>(&amp;fuf_flags,</span><span class=cB5>Define</span><span class=cB7>(</span><span class=cB6>&quot;ST_FILE_UTIL_FLAGS&quot;</span><span class=cB7>)</span><span class=cB0>,</span><span class=cB6>&quot;+r+$&quot;</span><span class=cB0>);
+<a name="l129"></a>  </span><span class=cB5>ScanFlags</span><span class=cB0>(&amp;fuf_flags,</span><span class=cB5>Define</span><span class=cB7>(</span><span class=cB6>&quot;ST_FILE_UTIL_FLAGS&quot;</span><span class=cB7>)</span><span class=cB0>,fu_flags);
+<a name="l130"></a>  </span><span class=cB1>return</span><span class=cB0> CvtSong500Lst(</span><span class=cB5>FilesFind</span><span class=cB7>(</span><span class=cB0>files_find_mask,fuf_flags&amp;</span><span class=cB3>FUG_FILES_FIND</span><span class=cB7>)</span><span class=cB0>);
+<a name="l131"></a>}
+</span></div></pre></body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html style="background-color:#FFFFFF;">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
+<title>The Temple Operating System</title>
+<meta name="keywords" content="Operating System,64-Bit,64 Bit,Temple,OS,TempleOS,Free,Open Source,Public Domain,x86_64">
+<meta name="generator" content="TempleOS (U) V5.04">
+<style type="text/css">
+.cB0{color:#000000;background-color:#55ffff;}
+.cB1{color:#0000aa;background-color:#55ffff;}
+.cB2{color:#00aa00;background-color:#55ffff;}
+.cB3{color:#00aaaa;background-color:#55ffff;}
+.cB4{color:#aa0000;background-color:#55ffff;}
+.cB5{color:#aa00aa;background-color:#55ffff;}
+.cB6{color:#aa5500;background-color:#55ffff;}
+.cB7{color:#aaaaaa;background-color:#55ffff;}
+.cB9{color:#5555ff;background-color:#55ffff;}
+.cBB{color:#55ffff;background-color:#55ffff;}
+.cF0{color:#000000;background-color:#ffffff;}
+.cF1{color:#0000aa;background-color:#ffffff;}
+.cF2{color:#00aa00;background-color:#ffffff;}
+.cF3{color:#00aaaa;background-color:#ffffff;}
+.cF4{color:#aa0000;background-color:#ffffff;}
+.cF5{color:#aa00aa;background-color:#ffffff;}
+.cF6{color:#aa5500;background-color:#ffffff;}
+.cF7{color:#aaaaaa;background-color:#ffffff;}
+.cF8{color:#555555;background-color:#ffffff;}
+.cF9{color:#5555ff;background-color:#ffffff;}
+.cFA{color:#55ff55;background-color:#ffffff;}
+.cFB{color:#55ffff;background-color:#ffffff;}
+.cFC{color:#ff5555;background-color:#ffffff;}
+.cFD{color:#ff55ff;background-color:#ffffff;}
+.cFE{color:#ffff55;background-color:#ffffff;}
+.cFF{color:#ffffff;background-color:#ffffff;}
+</style>
+</head>
+<body style="background-color:#55FFFF; border-style:solid;
+	  border-width:8px; border-color:#0000AA;
+	  margin-left:auto; margin-right:auto; width:800px; ">
+<pre style="font-family:courier;font-size:10pt">
+<div style="margin-left:auto; margin-right:auto; width: 640px;">
+<a name="l1"></a><span class=cB2>//5 has graphics</span><span class=cB0>
+<a name="l2"></a>#</span><span class=cB1>define</span><span class=cB0> R1      13
+<a name="l3"></a>#</span><span class=cB1>define</span><span class=cB0> R2      21
+<a name="l4"></a>
+<a name="l5"></a></span><span class=cB1>U0</span><span class=cB0> </span><span class=cB5>DrawIt</span><span class=cB0>(</span><span class=cB9>CTask</span><span class=cB0> *,</span><span class=cB9>CDC</span><span class=cB0> *dc)
+<a name="l6"></a>{
+<a name="l7"></a>  </span><span class=cB1>static</span><span class=cB0> </span><span class=cB1>F64</span><span class=cB0> theta=0;
+<a name="l8"></a>  </span><span class=cB9>I64</span><span class=cB0> x1=200,y1=20,x2=x1,y2=y1+R2;
+<a name="l9"></a>  </span><span class=cB1>F64</span><span class=cB0> tt=</span><span class=cB5>Beat</span><span class=cB0>%16.0,phi;
+<a name="l10"></a>  theta+=1/(tt*tt+1);
+<a name="l11"></a>  dc-&gt;color=</span><span class=cB3>BLACK</span><span class=cB0>;
+<a name="l12"></a>  dc-&gt;thick=4;
+<a name="l13"></a>  </span><span class=cB5>GrCircle3</span><span class=cB0>(dc,x2,y2,0,R2+10);
+<a name="l14"></a>  </span><span class=cB1>for</span><span class=cB0> (phi=theta;phi&lt;theta+2*</span><span class=cB3>pi</span><span class=cB0>;phi+=</span><span class=cB3>pi</span><span class=cB0>/3) </span><span class=cB7>{</span><span class=cB0>
+<a name="l15"></a>    dc-&gt;color=</span><span class=cB3>BLACK</span><span class=cB0>;
+<a name="l16"></a>    dc-&gt;thick=2;
+<a name="l17"></a>    </span><span class=cB5>GrCircle3</span><span class=cB0>(dc,x2+R2*</span><span class=cB5>Cos</span><span class=cB7>(</span><span class=cB0>phi</span><span class=cB7>)</span><span class=cB0>,y2-R2*</span><span class=cB5>Sin</span><span class=cB7>(</span><span class=cB0>phi</span><span class=cB7>)</span><span class=cB0>,0,8);
+<a name="l18"></a>    dc-&gt;color=</span><span class=cB3>WHITE</span><span class=cB0>;
+<a name="l19"></a>    dc-&gt;thick=2;
+<a name="l20"></a>    </span><span class=cB5>GrCircle3</span><span class=cB0>(dc,x2+</span><span class=cB7>(</span><span class=cB0>R2+15</span><span class=cB7>)</span><span class=cB0>*</span><span class=cB5>Cos</span><span class=cB7>(</span><span class=cB0>phi+</span><span class=cB3>pi</span><span class=cB0>/6</span><span class=cB7>)</span><span class=cB0>,y2-</span><span class=cB7>(</span><span class=cB0>R2+15</span><span class=cB7>)</span><span class=cB0>*</span><span class=cB5>Sin</span><span class=cB7>(</span><span class=cB0>phi+</span><span class=cB3>pi</span><span class=cB0>/6</span><span class=cB7>)</span><span class=cB0>,0,3);
+<a name="l21"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l22"></a>  dc-&gt;color=</span><span class=cB3>BROWN</span><span class=cB0>;
+<a name="l23"></a>  </span><span class=cB5>GrFloodFill</span><span class=cB0>(dc,x2+R2*</span><span class=cB5>Cos</span><span class=cB7>(</span><span class=cB0>phi</span><span class=cB7>)</span><span class=cB0>,y2-R2*</span><span class=cB5>Sin</span><span class=cB7>(</span><span class=cB0>phi</span><span class=cB7>)</span><span class=cB0>);
+<a name="l24"></a>  dc-&gt;color=</span><span class=cB3>DKGRAY</span><span class=cB0>;
+<a name="l25"></a>  </span><span class=cB5>GrFloodFill</span><span class=cB0>(dc,x2,y2);
+<a name="l26"></a>  dc-&gt;thick=6;
+<a name="l27"></a>  dc-&gt;color=</span><span class=cB3>RED</span><span class=cB0>;
+<a name="l28"></a>  </span><span class=cB5>GrCircle3</span><span class=cB0>(dc,x1,y1,0,R1-6);
+<a name="l29"></a>  dc-&gt;color=</span><span class=cB3>DKGRAY</span><span class=cB0>;
+<a name="l30"></a>  </span><span class=cB5>GrCircle3</span><span class=cB0>(dc,x1,y1,0,R1-2);
+<a name="l31"></a>  dc-&gt;color=</span><span class=cB3>LTGRAY</span><span class=cB0>;
+<a name="l32"></a>  </span><span class=cB5>GrRect</span><span class=cB0>(dc,x1-2,y1-R2-1,4,10);
+<a name="l33"></a>  </span><span class=cB5>GrCircle3</span><span class=cB0>(dc,x1,y1,0,R1);
+<a name="l34"></a>  dc-&gt;color=</span><span class=cB3>RED</span><span class=cB0>;
+<a name="l35"></a>  </span><span class=cB5>GrFloodFill</span><span class=cB0>(dc,x1,y1,</span><span class=cB3>TRUE</span><span class=cB0>);
+<a name="l36"></a>  dc-&gt;color=</span><span class=cB3>BLACK</span><span class=cB0>;
+<a name="l37"></a>  </span><span class=cB5>GrFloodFill</span><span class=cB0>(dc,x1,y1);
+<a name="l38"></a>}
+<a name="l39"></a>
+<a name="l40"></a></span><span class=cB1>U0</span><span class=cB0> Song()
+<a name="l41"></a>{
+<a name="l42"></a>  </span><span class=cB9>CTask</span><span class=cB0> *task;
+<a name="l43"></a>  </span><span class=cB5>SettingsPush</span><span class=cB0>; </span><span class=cB2>//See </span><a href="https://tosrevive.github.io/TempleOS-Unofficial/Wb/Adam/TaskSettings.html#l3"><span class=cB4>SettingsPush</span></a><span class=cB0>
+<a name="l44"></a>  </span><span class=cB5>Fs</span><span class=cB0>-&gt;draw_it=&amp;</span><span class=cB5>DrawIt</span><span class=cB0>;
+<a name="l45"></a>  </span><span class=cB5>Fs</span><span class=cB0>-&gt;task_end_cb=&amp;</span><span class=cB5>SndTaskEndCB</span><span class=cB0>;
+<a name="l46"></a>  </span><span class=cB5>MusicSettingsRst</span><span class=cB0>;
+<a name="l47"></a>  </span><span class=cBB>music</span><span class=cB0>.tempo= 2.480;
+<a name="l48"></a>  </span><span class=cBB>music</span><span class=cB0>.stacatto_factor= 0.902;
+<a name="l49"></a>  </span><span class=cB1>try</span><span class=cB0> </span><span class=cB7>{</span><span class=cB0>
+<a name="l50"></a>    task=</span><span class=cB5>PopUpViewPrint</span><span class=cB0>(</span><span class=cB6>&quot;</span><a href="http://www.biblegateway.com/verse/en/Mark+14:37"><span class=cB4>Mark,14:37</span></a><span class=cB6>\n&quot;</span><span class=cB0>);
+<a name="l51"></a>    </span><span class=cB5>TaskWait</span><span class=cB0>(task);
+<a name="l52"></a>    </span><span class=cB5>WinHorz</span><span class=cB0>(</span><span class=cB5>Fs</span><span class=cB0>-&gt;win_left,</span><span class=cB3>TEXT_COLS</span><span class=cB0>-10,task);
+<a name="l53"></a>    </span><span class=cB5>WinVert</span><span class=cB0>(</span><span class=cB5>Fs</span><span class=cB0>-&gt;win_bottom+3,</span><span class=cB5>Fs</span><span class=cB0>-&gt;win_bottom+15,task);
+<a name="l54"></a>    </span><span class=cB1>while</span><span class=cB0> (!</span><span class=cB5>ScanKey</span><span class=cB0>) {
+<a name="l55"></a>      </span><span class=cB6>&quot;$GREEN$Jesus talking...$FG$\n&quot;</span><span class=cB0>;
+<a name="l56"></a>      </span><span class=cB5>Play</span><span class=cB0>(</span><span class=cB6>&quot;4eB5C4qBsG5D4G5DetCGFsC4B5C4B5etCG4BeB5G4sB5C4B5C&quot;</span><span class=cB0>,
+<a name="l57"></a>            </span><span class=cB6>&quot;Stay \0a\0wake.\n\0 \0 \0 \0 \0 \0 \0 \0&quot;</span><span class=cB0>
+<a name="l58"></a>            </span><span class=cB6>&quot; \0 \0 \0 \0 \0 \0 \0 \0 \0 \0 \0 \0 \0&quot;</span><span class=cB0>);
+<a name="l59"></a>      </span><span class=cB5>Play</span><span class=cB0>(</span><span class=cB6>&quot;4eB5C4qBsG5D4G5DetCGFsC4B5C4B5etCG4BeB5G4sB5C4B5C&quot;</span><span class=cB0>,
+<a name="l60"></a>            </span><span class=cB6>&quot;Stay \0a\0wake.\n\0 \0 \0 \0 \0 \0 \0 \0&quot;</span><span class=cB0>
+<a name="l61"></a>            </span><span class=cB6>&quot; \0 \0 \0 \0 \0 \0 \0 \0 \0 \0 \0 \0 \0&quot;</span><span class=cB0>);
+<a name="l62"></a>      </span><span class=cB5>Play</span><span class=cB0>(</span><span class=cB6>&quot;5qDsD4B5D4BetAG5G4qBGsA5D4A5DqDetGFD&quot;</span><span class=cB0>,
+<a name="l63"></a>            </span><span class=cB6>&quot; \0 \0 \0 \0 \0 \0 \0 \0 \0 \0 \0&quot;</span><span class=cB0>
+<a name="l64"></a>            </span><span class=cB6>&quot;I \0 \0am \0a \0dead \0 \0man.\n\0&quot;</span><span class=cB0>);
+<a name="l65"></a>      </span><span class=cB5>Play</span><span class=cB0>(</span><span class=cB6>&quot;5qDsD4B5D4BetAG5G4qBGsA5D4A5DqDetGFD&quot;</span><span class=cB0>,
+<a name="l66"></a>            </span><span class=cB6>&quot; \0 \0 \0 \0 \0 \0 \0 \0 \0 \0 \0&quot;</span><span class=cB0>
+<a name="l67"></a>            </span><span class=cB6>&quot;I \0 \0am \0a \0dead \0 \0man.\n\0&quot;</span><span class=cB0>);
+<a name="l68"></a>    }
+<a name="l69"></a>  </span><span class=cB7>}</span><span class=cB0> </span><span class=cB1>catch</span><span class=cB0>
+<a name="l70"></a>    </span><span class=cB5>PutExcept</span><span class=cB0>;
+<a name="l71"></a>  </span><span class=cB5>SettingsPop</span><span class=cB0>;
+<a name="l72"></a>}
+<a name="l73"></a>
+<a name="l74"></a>Song;
+</span></div></pre></body>
+</html>

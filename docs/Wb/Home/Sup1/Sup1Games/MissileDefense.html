@@ -1,0 +1,275 @@
+<!DOCTYPE HTML>
+<html style="background-color:#FFFFFF;">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
+<title>The Temple Operating System</title>
+<meta name="keywords" content="Operating System,64-Bit,64 Bit,Temple,OS,TempleOS,Free,Open Source,Public Domain,x86_64">
+<meta name="generator" content="TempleOS (U) V5.04">
+<style type="text/css">
+.cB0{color:#000000;background-color:#55ffff;}
+.cB1{color:#0000aa;background-color:#55ffff;}
+.cB2{color:#00aa00;background-color:#55ffff;}
+.cB3{color:#00aaaa;background-color:#55ffff;}
+.cB4{color:#aa0000;background-color:#55ffff;}
+.cB5{color:#aa00aa;background-color:#55ffff;}
+.cB6{color:#aa5500;background-color:#55ffff;}
+.cB7{color:#aaaaaa;background-color:#55ffff;}
+.cB9{color:#5555ff;background-color:#55ffff;}
+.cBA{color:#55ff55;background-color:#55ffff;}
+.cBB{color:#55ffff;background-color:#55ffff;}
+.cF0{color:#000000;background-color:#ffffff;}
+.cF1{color:#0000aa;background-color:#ffffff;}
+.cF2{color:#00aa00;background-color:#ffffff;}
+.cF3{color:#00aaaa;background-color:#ffffff;}
+.cF4{color:#aa0000;background-color:#ffffff;}
+.cF5{color:#aa00aa;background-color:#ffffff;}
+.cF6{color:#aa5500;background-color:#ffffff;}
+.cF7{color:#aaaaaa;background-color:#ffffff;}
+.cF8{color:#555555;background-color:#ffffff;}
+.cF9{color:#5555ff;background-color:#ffffff;}
+.cFA{color:#55ff55;background-color:#ffffff;}
+.cFB{color:#55ffff;background-color:#ffffff;}
+.cFC{color:#ff5555;background-color:#ffffff;}
+.cFD{color:#ff55ff;background-color:#ffffff;}
+.cFE{color:#ffff55;background-color:#ffffff;}
+.cFF{color:#ffffff;background-color:#ffffff;}
+</style>
+</head>
+<body style="background-color:#55FFFF; border-style:solid;
+	  border-width:8px; border-color:#0000AA;
+	  margin-left:auto; margin-right:auto; width:800px; ">
+<pre style="font-family:courier;font-size:10pt">
+<div style="margin-left:auto; margin-right:auto; width: 640px;">
+<a name="l1"></a><span class=cB0>
+<a name="l2"></a>
+<a name="l3"></a>
+<a name="l4"></a>  </span><span class=cBA>&lt;1&gt;/* Graphics Not Rendered in HTML */</span><span class=cB0>
+<a name="l5"></a>
+<a name="l6"></a>
+<a name="l7"></a>
+<a name="l8"></a>
+<a name="l9"></a>
+<a name="l10"></a>
+<a name="l11"></a>
+<a name="l12"></a>   </span><span class=cBA>&lt;2&gt;/* Graphics Not Rendered in HTML */</span><span class=cB0>
+<a name="l13"></a> 
+<a name="l14"></a>
+<a name="l15"></a>
+<a name="l16"></a>
+<a name="l17"></a>
+<a name="l18"></a>
+<a name="l19"></a>
+<a name="l20"></a>
+<a name="l21"></a>
+<a name="l22"></a>
+<a name="l23"></a>#</span><span class=cB1>define</span><span class=cB0> SHOTS_NUM       64
+<a name="l24"></a>#</span><span class=cB1>define</span><span class=cB0> ROUND_AMMO      100
+<a name="l25"></a>#</span><span class=cB1>define</span><span class=cB0> EXPLOSION_CNT   50
+<a name="l26"></a>#</span><span class=cB1>define</span><span class=cB0> SKY_LINES       47
+<a name="l27"></a>
+<a name="l28"></a></span><span class=cB9>CDC</span><span class=cB0> *dc2;
+<a name="l29"></a></span><span class=cB9>I64</span><span class=cB0> ammo;
+<a name="l30"></a>
+<a name="l31"></a></span><span class=cB1>class</span><span class=cB0> Shot
+<a name="l32"></a>{
+<a name="l33"></a>  </span><span class=cB9>I64</span><span class=cB0> x,y,dx,dy,cnt;
+<a name="l34"></a>} s[SHOTS_NUM];
+<a name="l35"></a>
+<a name="l36"></a>
+<a name="l37"></a>#</span><span class=cB1>define</span><span class=cB0> MISSILES_NUM    32
+<a name="l38"></a></span><span class=cB1>class</span><span class=cB0> Missile
+<a name="l39"></a>{
+<a name="l40"></a>  </span><span class=cB9>I64</span><span class=cB0> x,y,dx,dy,dead;
+<a name="l41"></a>} m[MISSILES_NUM];
+<a name="l42"></a>
+<a name="l43"></a>
+<a name="l44"></a></span><span class=cB1>U0</span><span class=cB0> </span><span class=cB5>DrawIt</span><span class=cB0>(</span><span class=cB9>CTask</span><span class=cB0> *,</span><span class=cB9>CDC</span><span class=cB0> *dc)
+<a name="l45"></a>{
+<a name="l46"></a>  </span><span class=cB9>I64</span><span class=cB0> i,x,radius,site;
+<a name="l47"></a>
+<a name="l48"></a>  dc-&gt;color=</span><span class=cB3>BLACK</span><span class=cB0>;
+<a name="l49"></a>  </span><span class=cB5>Sprite3</span><span class=cB0>(dc,       200,</span><span class=cB3>GR_HEIGHT</span><span class=cB0>-100,0,</span><span class=cBA>&lt;1&gt;</span><span class=cB0>);
+<a name="l50"></a>  </span><span class=cB5>Sprite3</span><span class=cB0>(dc,</span><span class=cB3>GR_WIDTH</span><span class=cB0>-200,</span><span class=cB3>GR_HEIGHT</span><span class=cB0>-100,0,</span><span class=cBA>&lt;1&gt;</span><span class=cB0>);
+<a name="l51"></a>  </span><span class=cB1>for</span><span class=cB0> (site=0;site&lt;3;site++) </span><span class=cB7>{</span><span class=cB0>
+<a name="l52"></a>    x=100+site*(</span><span class=cB7>(</span><span class=cB3>GR_WIDTH</span><span class=cB0>-200</span><span class=cB7>)</span><span class=cB0>/2);
+<a name="l53"></a>    </span><span class=cB5>Sprite3</span><span class=cB0>(dc,x,</span><span class=cB3>GR_HEIGHT</span><span class=cB0>-100,0,</span><span class=cBA>&lt;2&gt;</span><span class=cB0>);
+<a name="l54"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l55"></a>
+<a name="l56"></a>  </span><span class=cB1>for</span><span class=cB0> (i=0;i&lt;SHOTS_NUM;i++)
+<a name="l57"></a>    </span><span class=cB1>if</span><span class=cB0> (s[i].cnt&gt;0) </span><span class=cB7>{</span><span class=cB0>
+<a name="l58"></a>      dc-&gt;color=</span><span class=cB3>LTGRAY</span><span class=cB0>;
+<a name="l59"></a>      </span><span class=cB5>GrPlot</span><span class=cB0>(dc,s[i].x.i32[1],s[i].y.i32[1]);
+<a name="l60"></a>    </span><span class=cB7>}</span><span class=cB0> </span><span class=cB1>else</span><span class=cB0> </span><span class=cB1>if</span><span class=cB0> (s[i].cnt&gt;-EXPLOSION_CNT) </span><span class=cB7>{</span><span class=cB0>
+<a name="l61"></a>      dc-&gt;color=</span><span class=cBB>winmgr</span><span class=cB0>.updates&amp;15;
+<a name="l62"></a>      radius=(EXPLOSION_CNT/2-</span><span class=cB5>AbsI64</span><span class=cB7>(</span><span class=cB0>-EXPLOSION_CNT/2-s[i].cnt</span><span class=cB7>)</span><span class=cB0>)*2;
+<a name="l63"></a>      dc-&gt;thick=radius;
+<a name="l64"></a>      </span><span class=cB5>GrPlot3</span><span class=cB0>(dc,s[i].x.i32[1],s[i].y.i32[1],0);
+<a name="l65"></a>    </span><span class=cB7>}</span><span class=cB0>
+<a name="l66"></a>  </span><span class=cB1>for</span><span class=cB0> (i=0;i&lt;MISSILES_NUM;i++)
+<a name="l67"></a>    </span><span class=cB1>if</span><span class=cB0> (!m[i].dead) </span><span class=cB7>{</span><span class=cB0>
+<a name="l68"></a>      </span><span class=cB1>if</span><span class=cB0> (</span><span class=cBB>winmgr</span><span class=cB0>.updates&amp;1)
+<a name="l69"></a>        dc2-&gt;color=</span><span class=cB3>BLACK</span><span class=cB0>;
+<a name="l70"></a>      </span><span class=cB1>else</span><span class=cB0>
+<a name="l71"></a>        dc2-&gt;color=</span><span class=cB3>LTGRAY</span><span class=cB0>;
+<a name="l72"></a>      </span><span class=cB5>GrPlot</span><span class=cB0>(dc2,m[i].x.i32[1],m[i].y.i32[1]);
+<a name="l73"></a>      dc-&gt;thick=3;
+<a name="l74"></a>      dc-&gt;color=</span><span class=cB3>WHITE</span><span class=cB0>;
+<a name="l75"></a>      </span><span class=cB5>GrPlot3</span><span class=cB0>(dc,m[i].x.i32[1],m[i].y.i32[1],0);
+<a name="l76"></a>    </span><span class=cB7>}</span><span class=cB0>
+<a name="l77"></a>
+<a name="l78"></a>  dc-&gt;color=</span><span class=cB3>WHITE</span><span class=cB0>;
+<a name="l79"></a>  </span><span class=cB5>GrPrint</span><span class=cB0>(dc,0,0,</span><span class=cB6>&quot;Ammo Left:%d&quot;</span><span class=cB0>,ammo);
+<a name="l80"></a>}
+<a name="l81"></a>
+<a name="l82"></a></span><span class=cB1>U0</span><span class=cB0> AnimateTask(</span><span class=cB9>I64</span><span class=cB0>)
+<a name="l83"></a>{
+<a name="l84"></a>  </span><span class=cB9>I64</span><span class=cB0> i,j,radius;
+<a name="l85"></a>  </span><span class=cB1>while</span><span class=cB0> (</span><span class=cB3>TRUE</span><span class=cB0>) </span><span class=cB7>{</span><span class=cB0>
+<a name="l86"></a>    </span><span class=cB1>for</span><span class=cB0> (i=0;i&lt;SHOTS_NUM;i++)
+<a name="l87"></a>      </span><span class=cB1>if</span><span class=cB0> (s[i].cnt&gt;=-EXPLOSION_CNT) {
+<a name="l88"></a>        s[i].x+=s[i].dx;
+<a name="l89"></a>        s[i].y+=s[i].dy;
+<a name="l90"></a>        </span><span class=cB1>if</span><span class=cB0> (!</span><span class=cB7>(</span><span class=cB0>0&lt;=s[i].x.i32[1]&lt;</span><span class=cB3>GR_WIDTH</span><span class=cB7>)</span><span class=cB0> ||
+<a name="l91"></a>              !</span><span class=cB7>(</span><span class=cB0>0&lt;=s[i].y.i32[1]&lt;</span><span class=cB3>GR_HEIGHT</span><span class=cB7>)</span><span class=cB0>)
+<a name="l92"></a>          s[i].cnt=</span><span class=cB3>I64_MIN</span><span class=cB0>;
+<a name="l93"></a>        </span><span class=cB1>else</span><span class=cB0>
+<a name="l94"></a>          s[i].cnt--;
+<a name="l95"></a>        </span><span class=cB1>if</span><span class=cB0> (!s[i].cnt)
+<a name="l96"></a>          </span><span class=cB5>Noise</span><span class=cB0>(200,34,46);
+<a name="l97"></a>      }
+<a name="l98"></a>    </span><span class=cB5>Snd</span><span class=cB0>;
+<a name="l99"></a>    </span><span class=cB1>for</span><span class=cB0> (i=0;i&lt;MISSILES_NUM;i++)
+<a name="l100"></a>      </span><span class=cB1>if</span><span class=cB0> (!m[i].dead) {
+<a name="l101"></a>        m[i].x+=m[i].dx;
+<a name="l102"></a>        </span><span class=cB1>if</span><span class=cB0> (!</span><span class=cB7>(</span><span class=cB0>0&lt;=m[i].x.i32[1]&lt;</span><span class=cB3>GR_WIDTH</span><span class=cB7>)</span><span class=cB0>)
+<a name="l103"></a>          m[i].dead=</span><span class=cB3>TRUE</span><span class=cB0>;
+<a name="l104"></a>        </span><span class=cB1>else</span><span class=cB0> </span><span class=cB7>{</span><span class=cB0>
+<a name="l105"></a>          m[i].y+=m[i].dy;
+<a name="l106"></a>          </span><span class=cB1>if</span><span class=cB0> (m[i].y.i32[1]&gt;SKY_LINES*</span><span class=cB3>FONT_HEIGHT</span><span class=cB0>) {
+<a name="l107"></a>            </span><span class=cB5>Noise</span><span class=cB0>(1000,62,86);
+<a name="l108"></a>            m[i].dead=</span><span class=cB3>TRUE</span><span class=cB0>;
+<a name="l109"></a>          } </span><span class=cB1>else</span><span class=cB0> {
+<a name="l110"></a>            m[i].dy+=</span><span class=cB3>I32_MAX</span><span class=cB0>&gt;&gt;15;
+<a name="l111"></a>            </span><span class=cB1>for</span><span class=cB0> (j=0;j&lt;SHOTS_NUM;j++)
+<a name="l112"></a>              </span><span class=cB1>if</span><span class=cB0> (-EXPLOSION_CNT&lt;=s[j].cnt&lt;0) </span><span class=cB7>{</span><span class=cB0>
+<a name="l113"></a>                radius=(EXPLOSION_CNT/2-</span><span class=cB5>AbsI64</span><span class=cB7>(</span><span class=cB0>-EXPLOSION_CNT/2-s[j].cnt</span><span class=cB7>)</span><span class=cB0>);
+<a name="l114"></a>                </span><span class=cB1>if</span><span class=cB0> (</span><span class=cB5>SqrI64</span><span class=cB7>(</span><span class=cB0>m[i].x.i32[1]-s[j].x.i32[1]</span><span class=cB7>)</span><span class=cB0>+
+<a name="l115"></a>                      </span><span class=cB5>SqrI64</span><span class=cB7>(</span><span class=cB0>m[i].y.i32[1]-s[j].y.i32[1]</span><span class=cB7>)</span><span class=cB0>&lt;=</span><span class=cB5>SqrI64</span><span class=cB7>(</span><span class=cB0>radius</span><span class=cB7>)</span><span class=cB0>)
+<a name="l116"></a>                  m[i].dead=</span><span class=cB3>TRUE</span><span class=cB0>;
+<a name="l117"></a>              </span><span class=cB7>}</span><span class=cB0>
+<a name="l118"></a>          }
+<a name="l119"></a>        </span><span class=cB7>}</span><span class=cB0>
+<a name="l120"></a>      }
+<a name="l121"></a>    </span><span class=cB5>Sleep</span><span class=cB0>(5);
+<a name="l122"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l123"></a>}
+<a name="l124"></a>
+<a name="l125"></a></span><span class=cB1>U0</span><span class=cB0> FireShot(</span><span class=cB9>I64</span><span class=cB0> site)
+<a name="l126"></a>{
+<a name="l127"></a>  </span><span class=cB9>I64</span><span class=cB0> i,x,y;
+<a name="l128"></a>  </span><span class=cB1>F64</span><span class=cB0> d;
+<a name="l129"></a>  </span><span class=cB1>if</span><span class=cB0> (!ammo) </span><span class=cB1>return</span><span class=cB0>;
+<a name="l130"></a>  </span><span class=cB1>for</span><span class=cB0> (i=0;i&lt;SHOTS_NUM;i++)
+<a name="l131"></a>    </span><span class=cB1>if</span><span class=cB0> (s[i].cnt&lt;-EXPLOSION_CNT) </span><span class=cB7>{</span><span class=cB0>
+<a name="l132"></a>      s[i].x=(100+site*</span><span class=cB7>(</span><span class=cB0>(</span><span class=cB3>GR_WIDTH</span><span class=cB0>-200)/2</span><span class=cB7>)</span><span class=cB0>)&lt;&lt;32;
+<a name="l133"></a>      s[i].y=(</span><span class=cB3>GR_HEIGHT</span><span class=cB0>-100)&lt;&lt;32;
+<a name="l134"></a>      x=</span><span class=cBB>ms</span><span class=cB0>.pos.x-</span><span class=cB5>Fs</span><span class=cB0>-&gt;pix_left-</span><span class=cB5>Fs</span><span class=cB0>-&gt;scroll_x;
+<a name="l135"></a>      y=</span><span class=cBB>ms</span><span class=cB0>.pos.y-</span><span class=cB5>Fs</span><span class=cB0>-&gt;pix_top-</span><span class=cB5>Fs</span><span class=cB0>-&gt;scroll_y;
+<a name="l136"></a>      d=</span><span class=cB5>Sqrt</span><span class=cB0>(</span><span class=cB5>SqrI64</span><span class=cB7>(</span><span class=cB0>s[i].x.i32[1]-x</span><span class=cB7>)</span><span class=cB0>+</span><span class=cB5>SqrI64</span><span class=cB7>(</span><span class=cB0>s[i].y.i32[1]-y</span><span class=cB7>)</span><span class=cB0>);
+<a name="l137"></a>      s[i].dx=</span><span class=cB5>ToF64</span><span class=cB0>(x&lt;&lt;32-s[i].x)/d;
+<a name="l138"></a>      s[i].dy=</span><span class=cB5>ToF64</span><span class=cB0>(y&lt;&lt;32-s[i].y)/d;
+<a name="l139"></a>      s[i].cnt=d;
+<a name="l140"></a>      </span><span class=cB5>Noise</span><span class=cB0>(50,74,86);
+<a name="l141"></a>      ammo--;
+<a name="l142"></a>      </span><span class=cB1>break</span><span class=cB0>;
+<a name="l143"></a>    </span><span class=cB7>}</span><span class=cB0>
+<a name="l144"></a>}
+<a name="l145"></a>
+<a name="l146"></a></span><span class=cB1>U0</span><span class=cB0> Init()
+<a name="l147"></a>{
+<a name="l148"></a>  </span><span class=cB9>I64</span><span class=cB0> i;
+<a name="l149"></a>  ammo=ROUND_AMMO;
+<a name="l150"></a>  </span><span class=cB1>for</span><span class=cB0> (i=0;i&lt;SHOTS_NUM;i++)
+<a name="l151"></a>    s[i].cnt=</span><span class=cB3>I64_MIN</span><span class=cB0>;
+<a name="l152"></a>  </span><span class=cB1>for</span><span class=cB0> (i=0;i&lt;MISSILES_NUM;i++) </span><span class=cB7>{</span><span class=cB0>
+<a name="l153"></a>    m[i].x=(</span><span class=cB3>GR_WIDTH</span><span class=cB0>*</span><span class=cB5>RandU16</span><span class=cB0>/</span><span class=cB3>U16_MAX</span><span class=cB0>)&lt;&lt;32;
+<a name="l154"></a>    m[i].y=-(</span><span class=cB3>GR_HEIGHT</span><span class=cB0>*</span><span class=cB5>RandU16</span><span class=cB0>/</span><span class=cB3>U16_MAX</span><span class=cB0>)&lt;&lt;32;
+<a name="l155"></a>    m[i].dx=(</span><span class=cB5>RandU32</span><span class=cB0>/2)&gt;&gt;5;
+<a name="l156"></a>    m[i].dy=(</span><span class=cB5>RandU32</span><span class=cB0>*2+</span><span class=cB3>U32_MAX</span><span class=cB0>/2)&gt;&gt;5;
+<a name="l157"></a>    m[i].dead=</span><span class=cB3>FALSE</span><span class=cB0>;
+<a name="l158"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l159"></a>  </span><span class=cB5>DCFill</span><span class=cB0>(dc2);
+<a name="l160"></a>}
+<a name="l161"></a>
+<a name="l162"></a></span><span class=cB1>U0</span><span class=cB0> MissileDefense()
+<a name="l163"></a>{
+<a name="l164"></a>  </span><span class=cB9>I64</span><span class=cB0> ch;
+<a name="l165"></a>
+<a name="l166"></a>  </span><span class=cB5>PopUpOk</span><span class=cB0>(
+<a name="l167"></a>        </span><span class=cB6>&quot;I refuse to rip-off the original\n&quot;</span><span class=cB0>
+<a name="l168"></a>        </span><span class=cB6>&quot;so this is intentionally crappy\n&quot;</span><span class=cB0>
+<a name="l169"></a>        </span><span class=cB6>&quot;and included for demonstration\n&quot;</span><span class=cB0>
+<a name="l170"></a>        </span><span class=cB6>&quot;purposes.\n\n&quot;</span><span class=cB0>
+<a name="l171"></a>        </span><span class=cB6>&quot;Write games, don't play them.\n&quot;</span><span class=cB0>);
+<a name="l172"></a>
+<a name="l173"></a>  </span><span class=cB5>MenuPush</span><span class=cB0>(
+<a name="l174"></a>        </span><span class=cB6>&quot;File {&quot;</span><span class=cB0>
+<a name="l175"></a>        </span><span class=cB6>&quot;  Abort(,CH_SHIFT_ESC);&quot;</span><span class=cB0>
+<a name="l176"></a>        </span><span class=cB6>&quot;  Exit(,CH_ESC);&quot;</span><span class=cB0>
+<a name="l177"></a>        </span><span class=cB6>&quot;}&quot;</span><span class=cB0>
+<a name="l178"></a>        </span><span class=cB6>&quot;Play {&quot;</span><span class=cB0>
+<a name="l179"></a>        </span><span class=cB6>&quot;  Restart(,'\n');&quot;</span><span class=cB0>
+<a name="l180"></a>        </span><span class=cB6>&quot;  FireLeft(,'1');&quot;</span><span class=cB0>
+<a name="l181"></a>        </span><span class=cB6>&quot;  FireCenter(,'2');&quot;</span><span class=cB0>
+<a name="l182"></a>        </span><span class=cB6>&quot;  FireRight(,'3');&quot;</span><span class=cB0>
+<a name="l183"></a>        </span><span class=cB6>&quot;}&quot;</span><span class=cB0>
+<a name="l184"></a>        );
+<a name="l185"></a>  </span><span class=cB5>PopUpOk</span><span class=cB0>(</span><span class=cB6>&quot;Press '1', '2', or '3' to launch.&quot;</span><span class=cB0>);
+<a name="l186"></a>
+<a name="l187"></a>  dc2=</span><span class=cB5>DCAlias</span><span class=cB0>;
+<a name="l188"></a>
+<a name="l189"></a>  </span><span class=cB5>SettingsPush</span><span class=cB0>; </span><span class=cB2>//See </span><a href="https://tosrevive.github.io/TempleOS-Unofficial/Wb/Adam/TaskSettings.html#l3"><span class=cB4>SettingsPush</span></a><span class=cB0>
+<a name="l190"></a>  </span><span class=cB5>Fs</span><span class=cB0>-&gt;text_attr=</span><span class=cB3>BROWN</span><span class=cB0>&lt;&lt;4;
+<a name="l191"></a>  </span><span class=cB5>AutoComplete</span><span class=cB0>;
+<a name="l192"></a>  </span><span class=cB5>WinBorder</span><span class=cB0>;
+<a name="l193"></a>  </span><span class=cB5>WinMax</span><span class=cB0>;
+<a name="l194"></a>  </span><span class=cB5>DocCursor</span><span class=cB0>;
+<a name="l195"></a>  </span><span class=cB5>DocClear</span><span class=cB0>;
+<a name="l196"></a>  </span><span class=cB6>&quot;$BG,BLUE$%h*c&quot;</span><span class=cB0>,SKY_LINES,</span><span class=cB6>'\n'</span><span class=cB0>;
+<a name="l197"></a>  Init;
+<a name="l198"></a>  </span><span class=cB5>Fs</span><span class=cB0>-&gt;draw_it=&amp;</span><span class=cB5>DrawIt</span><span class=cB0>;
+<a name="l199"></a>  </span><span class=cB5>Fs</span><span class=cB0>-&gt;animate_task=</span><span class=cB5>Spawn</span><span class=cB0>(&amp;AnimateTask,</span><span class=cB3>NULL</span><span class=cB0>,</span><span class=cB6>&quot;Animate&quot;</span><span class=cB0>,,</span><span class=cB5>Fs</span><span class=cB0>);
+<a name="l200"></a>
+<a name="l201"></a>  </span><span class=cB1>try</span><span class=cB0> </span><span class=cB7>{</span><span class=cB0>
+<a name="l202"></a>    </span><span class=cB1>while</span><span class=cB0> (</span><span class=cB3>TRUE</span><span class=cB0>) {
+<a name="l203"></a>      </span><span class=cB1>switch</span><span class=cB0> (ch=</span><span class=cB5>GetChar</span><span class=cB7>(</span><span class=cB0>,</span><span class=cB3>FALSE</span><span class=cB7>)</span><span class=cB0>) </span><span class=cB7>{</span><span class=cB0>
+<a name="l204"></a>        </span><span class=cB1>case</span><span class=cB0> </span><span class=cB6>'1'</span><span class=cB0>...</span><span class=cB6>'3'</span><span class=cB0>:
+<a name="l205"></a>          FireShot(ch-</span><span class=cB6>'1'</span><span class=cB0>);
+<a name="l206"></a>          </span><span class=cB1>break</span><span class=cB0>;
+<a name="l207"></a>        </span><span class=cB1>case</span><span class=cB0> </span><span class=cB6>'\n'</span><span class=cB0>:
+<a name="l208"></a>          Init;
+<a name="l209"></a>          </span><span class=cB1>break</span><span class=cB0>;
+<a name="l210"></a>        </span><span class=cB1>case</span><span class=cB0> </span><span class=cB3>CH_ESC</span><span class=cB0>:
+<a name="l211"></a>        </span><span class=cB1>case</span><span class=cB0> </span><span class=cB3>CH_SHIFT_ESC</span><span class=cB0>:
+<a name="l212"></a>          </span><span class=cB1>goto</span><span class=cB0> md_done;
+<a name="l213"></a>      </span><span class=cB7>}</span><span class=cB0>
+<a name="l214"></a>    }
+<a name="l215"></a>md_done:
+<a name="l216"></a>  </span><span class=cB7>}</span><span class=cB0> </span><span class=cB1>catch</span><span class=cB0>
+<a name="l217"></a>    </span><span class=cB5>PutExcept</span><span class=cB0>;
+<a name="l218"></a>  </span><span class=cB5>SettingsPop</span><span class=cB0>;
+<a name="l219"></a>  </span><span class=cB5>MenuPop</span><span class=cB0>;
+<a name="l220"></a>  </span><span class=cB5>DCFill</span><span class=cB0>(dc2);
+<a name="l221"></a>  </span><span class=cB5>DCDel</span><span class=cB0>(dc2);
+<a name="l222"></a>  </span><span class=cB6>&quot;$CL$$BG$\n&quot;</span><span class=cB0>;
+<a name="l223"></a>}
+<a name="l224"></a>
+<a name="l225"></a>MissileDefense;
+<a name="l226"></a>
+<a name="l227"></a>
+<a name="l228"></a>
+<a name="l229"></a>
+<a name="l230"></a>
+<a name="l231"></a></span><span class=cB2>// </span><span class=cB9>MisDef/* Graphics Not Rendered in HTML */</span><span class=cB0>
+</span></div></pre></body>
+</html>

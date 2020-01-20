@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html style="background-color:#FFFFFF;">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
+<title>The Temple Operating System</title>
+<meta name="keywords" content="Operating System,64-Bit,64 Bit,Temple,OS,TempleOS,Free,Open Source,Public Domain,x86_64">
+<meta name="generator" content="TempleOS (U) V5.04">
+<style type="text/css">
+.cB0{color:#000000;background-color:#55ffff;}
+.cB1{color:#0000aa;background-color:#55ffff;}
+.cB2{color:#00aa00;background-color:#55ffff;}
+.cB3{color:#00aaaa;background-color:#55ffff;}
+.cB5{color:#aa00aa;background-color:#55ffff;}
+.cB6{color:#aa5500;background-color:#55ffff;}
+.cB9{color:#5555ff;background-color:#55ffff;}
+.cBB{color:#55ffff;background-color:#55ffff;}
+.cF0{color:#000000;background-color:#ffffff;}
+.cF1{color:#0000aa;background-color:#ffffff;}
+.cF2{color:#00aa00;background-color:#ffffff;}
+.cF3{color:#00aaaa;background-color:#ffffff;}
+.cF4{color:#aa0000;background-color:#ffffff;}
+.cF5{color:#aa00aa;background-color:#ffffff;}
+.cF6{color:#aa5500;background-color:#ffffff;}
+.cF7{color:#aaaaaa;background-color:#ffffff;}
+.cF8{color:#555555;background-color:#ffffff;}
+.cF9{color:#5555ff;background-color:#ffffff;}
+.cFA{color:#55ff55;background-color:#ffffff;}
+.cFB{color:#55ffff;background-color:#ffffff;}
+.cFC{color:#ff5555;background-color:#ffffff;}
+.cFD{color:#ff55ff;background-color:#ffffff;}
+.cFE{color:#ffff55;background-color:#ffffff;}
+.cFF{color:#ffffff;background-color:#ffffff;}
+</style>
+</head>
+<body style="background-color:#55FFFF; border-style:solid;
+	  border-width:8px; border-color:#0000AA;
+	  margin-left:auto; margin-right:auto; width:800px; ">
+<pre style="font-family:courier;font-size:10pt">
+<div style="margin-left:auto; margin-right:auto; width: 640px;">
+<a name="l1"></a><span class=cB9>I64</span><span class=cB0> *addr=</span><span class=cBB>text</span><span class=cB0>.vga_alias,
+<a name="l2"></a>   *pte_addr=</span><span class=cB5>MemPageTable</span><span class=cB0>(addr),
+<a name="l3"></a>   err_code=0,
+<a name="l4"></a>   *reported_fault_addr;
+<a name="l5"></a></span><span class=cB2>/*</span><span class=cB0>
+<a name="l6"></a></span><span class=cB2>  0[RBP]=old base ptr</span><span class=cB0>
+<a name="l7"></a></span><span class=cB2>  8[RBP]=err code</span><span class=cB0>
+<a name="l8"></a></span><span class=cB2>  16[RBP]=RIP</span><span class=cB0>
+<a name="l9"></a></span><span class=cB2>  24[RBP]=RIP_SELECTOR</span><span class=cB0>
+<a name="l10"></a></span><span class=cB2>  32[RBP]=RFLAGS</span><span class=cB0>
+<a name="l11"></a></span><span class=cB2>  40[RBP]=RSP</span><span class=cB0>
+<a name="l12"></a></span><span class=cB2>  48[RBP]=STK_SELECTOR</span><span class=cB0>
+<a name="l13"></a></span><span class=cB2>*/</span><span class=cB0>
+<a name="l14"></a>
+<a name="l15"></a></span><span class=cB1>interrupt</span><span class=cB0> </span><span class=cB1>haserrcode</span><span class=cB0> </span><span class=cB1>U0</span><span class=cB0> IntPageFault()
+<a name="l16"></a>{
+<a name="l17"></a>  </span><span class=cB9>I64</span><span class=cB0> </span><span class=cB1>reg</span><span class=cB0> *rbp=</span><span class=cB5>GetRBP</span><span class=cB0>;
+<a name="l18"></a>  *pte_addr|=1;
+<a name="l19"></a>  </span><span class=cB5>InvlPg</span><span class=cB0>(addr);
+<a name="l20"></a>  err_code=rbp[1];
+<a name="l21"></a>  </span><span class=cB1>MOV_RAX_CR2</span><span class=cB0>
+<a name="l22"></a>  reported_fault_addr=</span><span class=cB5>GetRAX</span><span class=cB0>;
+<a name="l23"></a>}
+<a name="l24"></a>
+<a name="l25"></a></span><span class=cB1>U0</span><span class=cB0> PageTableDemo()
+<a name="l26"></a>{
+<a name="l27"></a>  </span><span class=cB1>U8</span><span class=cB0> *old_idte=</span><span class=cB5>IntEntrySet</span><span class=cB0>(</span><span class=cB3>I_PAGE_FAULT</span><span class=cB0>,&amp;IntPageFault,</span><span class=cB3>IDTET_IRQ</span><span class=cB0>);
+<a name="l28"></a>  err_code=0;
+<a name="l29"></a>  *pte_addr &amp;=~1; </span><span class=cB2>//Not present</span><span class=cB0>
+<a name="l30"></a>  </span><span class=cB5>InvlPg</span><span class=cB0>(addr);
+<a name="l31"></a>  </span><span class=cB5>Refresh</span><span class=cB0>; </span><span class=cB2>//wait for VGA update</span><span class=cB0>
+<a name="l32"></a>  </span><span class=cB5>Refresh</span><span class=cB0>;
+<a name="l33"></a>  </span><span class=cB5>IntEntrySet</span><span class=cB0>(</span><span class=cB3>I_PAGE_FAULT</span><span class=cB0>,old_idte,</span><span class=cB3>IDTET_IRQ</span><span class=cB0>);
+<a name="l34"></a>  </span><span class=cB6>&quot;Err Code:%X Addr:%X\n&quot;</span><span class=cB0>,err_code,reported_fault_addr;
+<a name="l35"></a>}
+<a name="l36"></a>
+<a name="l37"></a>PageTableDemo;
+</span></div></pre></body>
+</html>

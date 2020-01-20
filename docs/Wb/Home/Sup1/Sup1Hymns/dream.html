@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html style="background-color:#FFFFFF;">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
+<title>The Temple Operating System</title>
+<meta name="keywords" content="Operating System,64-Bit,64 Bit,Temple,OS,TempleOS,Free,Open Source,Public Domain,x86_64">
+<meta name="generator" content="TempleOS (U) V5.04">
+<style type="text/css">
+.cB0{color:#000000;background-color:#55ffff;}
+.cB1{color:#0000aa;background-color:#55ffff;}
+.cB2{color:#00aa00;background-color:#55ffff;}
+.cB3{color:#00aaaa;background-color:#55ffff;}
+.cB4{color:#aa0000;background-color:#55ffff;}
+.cB5{color:#aa00aa;background-color:#55ffff;}
+.cB6{color:#aa5500;background-color:#55ffff;}
+.cB7{color:#aaaaaa;background-color:#55ffff;}
+.cB9{color:#5555ff;background-color:#55ffff;}
+.cBB{color:#55ffff;background-color:#55ffff;}
+.cF0{color:#000000;background-color:#ffffff;}
+.cF1{color:#0000aa;background-color:#ffffff;}
+.cF2{color:#00aa00;background-color:#ffffff;}
+.cF3{color:#00aaaa;background-color:#ffffff;}
+.cF4{color:#aa0000;background-color:#ffffff;}
+.cF5{color:#aa00aa;background-color:#ffffff;}
+.cF6{color:#aa5500;background-color:#ffffff;}
+.cF7{color:#aaaaaa;background-color:#ffffff;}
+.cF8{color:#555555;background-color:#ffffff;}
+.cF9{color:#5555ff;background-color:#ffffff;}
+.cFA{color:#55ff55;background-color:#ffffff;}
+.cFB{color:#55ffff;background-color:#ffffff;}
+.cFC{color:#ff5555;background-color:#ffffff;}
+.cFD{color:#ff55ff;background-color:#ffffff;}
+.cFE{color:#ffff55;background-color:#ffffff;}
+.cFF{color:#ffffff;background-color:#ffffff;}
+</style>
+</head>
+<body style="background-color:#55FFFF; border-style:solid;
+	  border-width:8px; border-color:#0000AA;
+	  margin-left:auto; margin-right:auto; width:800px; ">
+<pre style="font-family:courier;font-size:10pt">
+<div style="margin-left:auto; margin-right:auto; width: 640px;">
+<a name="l1"></a><span class=cB2>//5 has graphics</span><span class=cB0>
+<a name="l2"></a>
+<a name="l3"></a>#</span><span class=cB1>define</span><span class=cB0> NUM             10
+<a name="l4"></a>#</span><span class=cB1>define</span><span class=cB0> RAD_PROP        60
+<a name="l5"></a>#</span><span class=cB1>define</span><span class=cB0> RAD_PRISM       8
+<a name="l6"></a></span><span class=cB9>I32</span><span class=cB0> rainbow_10[NUM]={
+<a name="l7"></a></span><span class=cB3>RED</span><span class=cB0>,</span><span class=cB3>LTRED</span><span class=cB0>,</span><span class=cB3>BROWN</span><span class=cB0>,</span><span class=cB3>YELLOW</span><span class=cB0>,</span><span class=cB3>GREEN</span><span class=cB0>,</span><span class=cB3>LTGREEN</span><span class=cB0>,</span><span class=cB3>BLUE</span><span class=cB0>,</span><span class=cB3>LTBLUE</span><span class=cB0>,</span><span class=cB3>PURPLE</span><span class=cB0>,</span><span class=cB3>LTPURPLE</span><span class=cB0>};
+<a name="l8"></a>
+<a name="l9"></a>#</span><span class=cB1>define</span><span class=cB0> X 320
+<a name="l10"></a>#</span><span class=cB1>define</span><span class=cB0> Y 35
+<a name="l11"></a>
+<a name="l12"></a></span><span class=cB1>F64</span><span class=cB0> t0=</span><span class=cB5>Beat</span><span class=cB0>;
+<a name="l13"></a></span><span class=cB1>U0</span><span class=cB0> </span><span class=cB5>DrawIt</span><span class=cB0>(</span><span class=cB9>CTask</span><span class=cB0> *,</span><span class=cB9>CDC</span><span class=cB0> *dc)
+<a name="l14"></a>{
+<a name="l15"></a>  </span><span class=cB9>I64</span><span class=cB0> i;
+<a name="l16"></a>  </span><span class=cB1>F64</span><span class=cB0> dt=16*</span><span class=cB5>Sin</span><span class=cB0>(</span><span class=cB3>pi</span><span class=cB0>*</span><span class=cB7>(</span><span class=cB5>Beat</span><span class=cB0>-t0</span><span class=cB7>)</span><span class=cB0>/8),theta;
+<a name="l17"></a>  dc-&gt;color=</span><span class=cB3>WHITE</span><span class=cB0>;
+<a name="l18"></a>  theta=</span><span class=cB3>pi</span><span class=cB0>*dt+0.5;
+<a name="l19"></a>  </span><span class=cB5>GrLine</span><span class=cB0>(dc,X+RAD_PRISM*</span><span class=cB5>Cos</span><span class=cB7>(</span><span class=cB0>theta</span><span class=cB7>)</span><span class=cB0>          ,Y+RAD_PRISM*</span><span class=cB5>Sin</span><span class=cB7>(</span><span class=cB0>theta</span><span class=cB7>)</span><span class=cB0>,
+<a name="l20"></a>        X+RAD_PRISM*</span><span class=cB5>Cos</span><span class=cB7>(</span><span class=cB0>theta+2*</span><span class=cB3>pi</span><span class=cB0>/3</span><span class=cB7>)</span><span class=cB0>,Y+RAD_PRISM*</span><span class=cB5>Sin</span><span class=cB7>(</span><span class=cB0>theta+2*</span><span class=cB3>pi</span><span class=cB0>/3</span><span class=cB7>)</span><span class=cB0>);
+<a name="l21"></a>  </span><span class=cB5>GrLine</span><span class=cB0>(dc,X+RAD_PRISM*</span><span class=cB5>Cos</span><span class=cB7>(</span><span class=cB0>theta+2*</span><span class=cB3>pi</span><span class=cB0>/3</span><span class=cB7>)</span><span class=cB0>,Y+RAD_PRISM*</span><span class=cB5>Sin</span><span class=cB7>(</span><span class=cB0>theta+2*</span><span class=cB3>pi</span><span class=cB0>/3</span><span class=cB7>)</span><span class=cB0>,
+<a name="l22"></a>        X+RAD_PRISM*</span><span class=cB5>Cos</span><span class=cB7>(</span><span class=cB0>theta+4*</span><span class=cB3>pi</span><span class=cB0>/3</span><span class=cB7>)</span><span class=cB0>,Y+RAD_PRISM*</span><span class=cB5>Sin</span><span class=cB7>(</span><span class=cB0>theta+4*</span><span class=cB3>pi</span><span class=cB0>/3</span><span class=cB7>)</span><span class=cB0>);
+<a name="l23"></a>  </span><span class=cB5>GrLine</span><span class=cB0>(dc,X+RAD_PRISM*</span><span class=cB5>Cos</span><span class=cB7>(</span><span class=cB0>theta+4*</span><span class=cB3>pi</span><span class=cB0>/3</span><span class=cB7>)</span><span class=cB0>,Y+RAD_PRISM*</span><span class=cB5>Sin</span><span class=cB7>(</span><span class=cB0>theta+4*</span><span class=cB3>pi</span><span class=cB0>/3</span><span class=cB7>)</span><span class=cB0>,
+<a name="l24"></a>        X+RAD_PRISM*</span><span class=cB5>Cos</span><span class=cB7>(</span><span class=cB0>theta</span><span class=cB7>)</span><span class=cB0>,Y+RAD_PRISM*</span><span class=cB5>Sin</span><span class=cB7>(</span><span class=cB0>theta</span><span class=cB7>)</span><span class=cB0>);
+<a name="l25"></a>  </span><span class=cB1>for</span><span class=cB0> (i=0;i&lt;NUM;i++) </span><span class=cB7>{</span><span class=cB0>
+<a name="l26"></a>    theta=</span><span class=cB3>pi</span><span class=cB0>/8*</span><span class=cB5>ToF64</span><span class=cB0>(i)/NUM*(3+2*</span><span class=cB5>Sin</span><span class=cB7>(</span><span class=cB3>pi</span><span class=cB0>*dt/8</span><span class=cB7>)</span><span class=cB0>)/3+</span><span class=cB3>pi</span><span class=cB0>*dt;
+<a name="l27"></a>    dc-&gt;color=</span><span class=cB3>WHITE</span><span class=cB0>;
+<a name="l28"></a>    </span><span class=cB5>GrLine</span><span class=cB0>(dc,X,Y,X-RAD_PROP*</span><span class=cB5>Cos</span><span class=cB7>(</span><span class=cB0>theta</span><span class=cB7>)</span><span class=cB0>,Y-RAD_PROP*</span><span class=cB5>Sin</span><span class=cB7>(</span><span class=cB0>theta</span><span class=cB7>)</span><span class=cB0>);
+<a name="l29"></a>    dc-&gt;color=rainbow_10[i];
+<a name="l30"></a>    </span><span class=cB5>GrLine</span><span class=cB0>(dc,X,Y,X+RAD_PROP*</span><span class=cB5>Cos</span><span class=cB7>(</span><span class=cB0>theta</span><span class=cB7>)</span><span class=cB0>,Y+RAD_PROP*</span><span class=cB5>Sin</span><span class=cB7>(</span><span class=cB0>theta</span><span class=cB7>)</span><span class=cB0>);
+<a name="l31"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l32"></a>}
+<a name="l33"></a>
+<a name="l34"></a></span><span class=cB1>U0</span><span class=cB0> Song()
+<a name="l35"></a>{
+<a name="l36"></a>  </span><span class=cB5>SettingsPush</span><span class=cB0>; </span><span class=cB2>//See </span><a href="https://tosrevive.github.io/TempleOS-Unofficial/Wb/Adam/TaskSettings.html#l3"><span class=cB4>SettingsPush</span></a><span class=cB0>
+<a name="l37"></a>  </span><span class=cB5>Fs</span><span class=cB0>-&gt;text_attr=</span><span class=cB3>BLACK</span><span class=cB0>&lt;&lt;4+</span><span class=cB3>WHITE</span><span class=cB0>;
+<a name="l38"></a>  </span><span class=cB5>Fs</span><span class=cB0>-&gt;draw_it=&amp;</span><span class=cB5>DrawIt</span><span class=cB0>;
+<a name="l39"></a>  </span><span class=cB5>Fs</span><span class=cB0>-&gt;task_end_cb=&amp;</span><span class=cB5>SndTaskEndCB</span><span class=cB0>;
+<a name="l40"></a>  </span><span class=cB5>MusicSettingsRst</span><span class=cB0>;
+<a name="l41"></a>  </span><span class=cBB>music</span><span class=cB0>.tempo= 2.480;
+<a name="l42"></a>  </span><span class=cBB>music</span><span class=cB0>.stacatto_factor= 0.902;
+<a name="l43"></a>  </span><span class=cB1>try</span><span class=cB0> </span><span class=cB7>{</span><span class=cB0>
+<a name="l44"></a>    </span><span class=cB6>&quot;$BG+H,BLACK$$FD+H,WHITE$&quot;</span><span class=cB0>;
+<a name="l45"></a>    </span><span class=cB1>while</span><span class=cB0> (!</span><span class=cB5>ScanKey</span><span class=cB0>) {
+<a name="l46"></a>      t0=</span><span class=cB5>Beat</span><span class=cB0>;
+<a name="l47"></a>      </span><span class=cB5>Play</span><span class=cB0>(</span><span class=cB6>&quot;4qA5sDGDG4qA5sC4A5C4A5eC4B5sFDFDetCG4AsA5D4A5D&quot;</span><span class=cB0>,
+<a name="l48"></a>            </span><span class=cB6>&quot; \0I\0mag\0 \0ine.\n\0 \0 \0 \0 \0 \0 \0 \0&quot;</span><span class=cB0>
+<a name="l49"></a>            </span><span class=cB6>&quot; \0 \0 \0 \0 \0 \0 \0 \0 \0 \0 \0&quot;</span><span class=cB0>);
+<a name="l50"></a>      </span><span class=cB5>Play</span><span class=cB0>(</span><span class=cB6>&quot;4qA5sDGDG4qA5sC4A5C4A5eC4B5sFDFDetCG4AsA5D4A5D&quot;</span><span class=cB0>,
+<a name="l51"></a>            </span><span class=cB6>&quot; \0 \0Fa\0 \0thom.\n\0 \0 \0 \0 \0 \0 \0 \0&quot;</span><span class=cB0>
+<a name="l52"></a>            </span><span class=cB6>&quot; \0 \0 \0 \0 \0 \0 \0 \0 \0 \0 \0&quot;</span><span class=cB0>);
+<a name="l53"></a>      </span><span class=cB5>Play</span><span class=cB0>(</span><span class=cB6>&quot;5GFGFE4B5E4B5eC4BqG5sF4A5F4A5qCE4A&quot;</span><span class=cB0>,
+<a name="l54"></a>            </span><span class=cB6>&quot;Hi-\0 \0i-\0gh \0as \0 \0your \0 \0thoughts \0&quot;</span><span class=cB0>
+<a name="l55"></a>            </span><span class=cB6>&quot;will \0go.\n\0 \0 \0 \0 \0 \0 \0 \0&quot;</span><span class=cB0>);
+<a name="l56"></a>      </span><span class=cB5>Play</span><span class=cB0>(</span><span class=cB6>&quot;5sGFGFE4B5E4B5eC4BqG5sF4A5F4A5qCE4A&quot;</span><span class=cB0>,
+<a name="l57"></a>            </span><span class=cB6>&quot;Deep \0 \0 \0as \0 \0 \0we \0 \0ought \0to \0&quot;</span><span class=cB0>
+<a name="l58"></a>            </span><span class=cB6>&quot;know.\n\0 \0 \0 \0 \0 \0 \0 \0&quot;</span><span class=cB0>);
+<a name="l59"></a>    }
+<a name="l60"></a>  </span><span class=cB7>}</span><span class=cB0> </span><span class=cB1>catch</span><span class=cB0>
+<a name="l61"></a>    </span><span class=cB5>PutExcept</span><span class=cB0>;
+<a name="l62"></a>  </span><span class=cB5>SettingsPop</span><span class=cB0>;
+<a name="l63"></a>}
+<a name="l64"></a>
+<a name="l65"></a>Song;
+</span></div></pre></body>
+</html>

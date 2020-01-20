@@ -1,0 +1,300 @@
+<!DOCTYPE HTML>
+<html style="background-color:#FFFFFF;">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
+<title>The Temple Operating System</title>
+<meta name="keywords" content="Operating System,64-Bit,64 Bit,Temple,OS,TempleOS,Free,Open Source,Public Domain,x86_64">
+<meta name="generator" content="TempleOS (U) V5.04">
+<style type="text/css">
+.cB0{color:#000000;background-color:#55ffff;}
+.cB1{color:#0000aa;background-color:#55ffff;}
+.cB2{color:#00aa00;background-color:#55ffff;}
+.cB3{color:#00aaaa;background-color:#55ffff;}
+.cB4{color:#aa0000;background-color:#55ffff;}
+.cB5{color:#aa00aa;background-color:#55ffff;}
+.cB6{color:#aa5500;background-color:#55ffff;}
+.cB7{color:#aaaaaa;background-color:#55ffff;}
+.cB9{color:#5555ff;background-color:#55ffff;}
+.cBB{color:#55ffff;background-color:#55ffff;}
+.cF0{color:#000000;background-color:#ffffff;}
+.cF1{color:#0000aa;background-color:#ffffff;}
+.cF2{color:#00aa00;background-color:#ffffff;}
+.cF3{color:#00aaaa;background-color:#ffffff;}
+.cF4{color:#aa0000;background-color:#ffffff;}
+.cF5{color:#aa00aa;background-color:#ffffff;}
+.cF6{color:#aa5500;background-color:#ffffff;}
+.cF7{color:#aaaaaa;background-color:#ffffff;}
+.cF8{color:#555555;background-color:#ffffff;}
+.cF9{color:#5555ff;background-color:#ffffff;}
+.cFA{color:#55ff55;background-color:#ffffff;}
+.cFB{color:#55ffff;background-color:#ffffff;}
+.cFC{color:#ff5555;background-color:#ffffff;}
+.cFD{color:#ff55ff;background-color:#ffffff;}
+.cFE{color:#ffff55;background-color:#ffffff;}
+.cFF{color:#ffffff;background-color:#ffffff;}
+</style>
+</head>
+<body style="background-color:#55FFFF; border-style:solid;
+	  border-width:8px; border-color:#0000AA;
+	  margin-left:auto; margin-right:auto; width:800px; ">
+<pre style="font-family:courier;font-size:10pt">
+<div style="margin-left:auto; margin-right:auto; width: 640px;">
+<a name="l1"></a><span class=cB1>Bool</span><span class=cB0> chged;
+<a name="l2"></a>
+<a name="l3"></a>#</span><span class=cB1>define</span><span class=cB0> DAWG_SETTINGS_SPACING 16
+<a name="l4"></a>#</span><span class=cB1>define</span><span class=cB0> DAWG_SETTINGS_RANGE   60
+<a name="l5"></a>#</span><span class=cB1>define</span><span class=cB0> DAWG_SETTINGS_BORDER  2
+<a name="l6"></a>
+<a name="l7"></a></span><span class=cB1>class</span><span class=cB0> DawgSettingsState
+<a name="l8"></a>{
+<a name="l9"></a>  </span><span class=cB9>I64</span><span class=cB0> cnt,n2_amp,color_scale;
+<a name="l10"></a>} glbl_state;
+<a name="l11"></a>
+<a name="l12"></a></span><span class=cB1>U0</span><span class=cB0> DrawDawgSettingsCtrl(</span><span class=cB9>CDC</span><span class=cB0> *dc,</span><span class=cB9>CCtrl</span><span class=cB0> *c)
+<a name="l13"></a>{
+<a name="l14"></a>  DawgSettingsState *s=c-&gt;state;
+<a name="l15"></a>
+<a name="l16"></a>  dc-&gt;color=</span><span class=cB3>LTRED</span><span class=cB0>;
+<a name="l17"></a>  </span><span class=cB5>GrRect</span><span class=cB0>(dc, c-&gt;left,c-&gt;top,DAWG_SETTINGS_SPACING*4+3,
+<a name="l18"></a>        DAWG_SETTINGS_SPACING*2+DAWG_SETTINGS_RANGE);
+<a name="l19"></a>  dc-&gt;color=</span><span class=cB3>BLUE</span><span class=cB0>;
+<a name="l20"></a>  </span><span class=cB5>GrRect</span><span class=cB0>(dc, c-&gt;left+DAWG_SETTINGS_BORDER,c-&gt;top+DAWG_SETTINGS_BORDER,
+<a name="l21"></a>        DAWG_SETTINGS_SPACING*4+3-2*DAWG_SETTINGS_BORDER,
+<a name="l22"></a>        DAWG_SETTINGS_SPACING*2+DAWG_SETTINGS_RANGE-2*DAWG_SETTINGS_BORDER);
+<a name="l23"></a>  dc-&gt;color=</span><span class=cB3>BLACK</span><span class=cB0>;
+<a name="l24"></a>  </span><span class=cB5>GrLine</span><span class=cB0>(dc,c-&gt;left+DAWG_SETTINGS_SPACING,c-&gt;top+DAWG_SETTINGS_SPACING,
+<a name="l25"></a>        c-&gt;left+DAWG_SETTINGS_SPACING,
+<a name="l26"></a>        c-&gt;top+DAWG_SETTINGS_SPACING+DAWG_SETTINGS_RANGE-1);
+<a name="l27"></a>  </span><span class=cB5>GrLine</span><span class=cB0>(dc,c-&gt;left+2*DAWG_SETTINGS_SPACING+1,c-&gt;top+DAWG_SETTINGS_SPACING,
+<a name="l28"></a>        c-&gt;left+2*DAWG_SETTINGS_SPACING+1,
+<a name="l29"></a>        c-&gt;top+DAWG_SETTINGS_SPACING+DAWG_SETTINGS_RANGE-1);
+<a name="l30"></a>  </span><span class=cB5>GrLine</span><span class=cB0>(dc,c-&gt;left+3*DAWG_SETTINGS_SPACING+1,c-&gt;top+DAWG_SETTINGS_SPACING,
+<a name="l31"></a>        c-&gt;left+3*DAWG_SETTINGS_SPACING+1,
+<a name="l32"></a>        c-&gt;top+DAWG_SETTINGS_SPACING+DAWG_SETTINGS_RANGE-1);
+<a name="l33"></a>
+<a name="l34"></a>  dc-&gt;color=</span><span class=cB3>LTRED</span><span class=cB0>;
+<a name="l35"></a>  </span><span class=cB5>GrPrint</span><span class=cB0>(dc,c-&gt;left+DAWG_SETTINGS_SPACING-</span><span class=cB3>FONT_WIDTH</span><span class=cB0>/2,
+<a name="l36"></a>        c-&gt;top+DAWG_SETTINGS_SPACING+DAWG_SETTINGS_RANGE+3,
+<a name="l37"></a>        </span><span class=cB6>&quot;%d&quot;</span><span class=cB0>,s-&gt;cnt*10/DAWG_SETTINGS_RANGE);
+<a name="l38"></a>  </span><span class=cB5>GrPrint</span><span class=cB0>(dc,c-&gt;left+2*DAWG_SETTINGS_SPACING+1-</span><span class=cB3>FONT_WIDTH</span><span class=cB0>/2,
+<a name="l39"></a>        c-&gt;top+DAWG_SETTINGS_SPACING+DAWG_SETTINGS_RANGE+3,
+<a name="l40"></a>        </span><span class=cB6>&quot;%d&quot;</span><span class=cB0>,s-&gt;n2_amp*10/DAWG_SETTINGS_RANGE);
+<a name="l41"></a>  </span><span class=cB5>GrPrint</span><span class=cB0>(dc,c-&gt;left+3*DAWG_SETTINGS_SPACING+2-</span><span class=cB3>FONT_WIDTH</span><span class=cB0>/2,
+<a name="l42"></a>        c-&gt;top+DAWG_SETTINGS_SPACING+DAWG_SETTINGS_RANGE+3,
+<a name="l43"></a>        </span><span class=cB6>&quot;%d&quot;</span><span class=cB0>,s-&gt;color_scale*10/DAWG_SETTINGS_RANGE);
+<a name="l44"></a>  </span><span class=cB5>GrRect</span><span class=cB0>(dc,c-&gt;left+DAWG_SETTINGS_SPACING-3,
+<a name="l45"></a>        c-&gt;top+DAWG_SETTINGS_SPACING+DAWG_SETTINGS_RANGE-1-s-&gt;cnt-2 ,7,5);
+<a name="l46"></a>  </span><span class=cB5>GrRect</span><span class=cB0>(dc,c-&gt;left+2*DAWG_SETTINGS_SPACING+1-3,
+<a name="l47"></a>        c-&gt;top+DAWG_SETTINGS_SPACING+DAWG_SETTINGS_RANGE-1-s-&gt;n2_amp-2,7,5);
+<a name="l48"></a>  </span><span class=cB5>GrRect</span><span class=cB0>(dc,c-&gt;left+3*DAWG_SETTINGS_SPACING+2-3,
+<a name="l49"></a>        c-&gt;top+DAWG_SETTINGS_SPACING+DAWG_SETTINGS_RANGE-1-s-&gt;color_scale-2,
+<a name="l50"></a>        7,5);
+<a name="l51"></a>  dc-&gt;color=</span><span class=cB3>YELLOW</span><span class=cB0>;
+<a name="l52"></a>  </span><span class=cB5>GrRect</span><span class=cB0>(dc,c-&gt;left+DAWG_SETTINGS_SPACING-2,
+<a name="l53"></a>        c-&gt;top+DAWG_SETTINGS_SPACING+DAWG_SETTINGS_RANGE-1-s-&gt;cnt-1 ,5,3);
+<a name="l54"></a>  </span><span class=cB5>GrRect</span><span class=cB0>(dc,c-&gt;left+2*DAWG_SETTINGS_SPACING+1-2,
+<a name="l55"></a>        c-&gt;top+DAWG_SETTINGS_SPACING+DAWG_SETTINGS_RANGE-1-s-&gt;n2_amp-1,5,3);
+<a name="l56"></a>  </span><span class=cB5>GrRect</span><span class=cB0>(dc,c-&gt;left+3*DAWG_SETTINGS_SPACING+2-2,
+<a name="l57"></a>        c-&gt;top+DAWG_SETTINGS_SPACING+DAWG_SETTINGS_RANGE-1-s-&gt;color_scale-1,
+<a name="l58"></a>        5,3);
+<a name="l59"></a>}
+<a name="l60"></a>
+<a name="l61"></a></span><span class=cB1>U0</span><span class=cB0> UpdateDerivedDawgSettingsCtrl(</span><span class=cB9>CCtrl</span><span class=cB0> *c)
+<a name="l62"></a>{
+<a name="l63"></a>  DawgSettingsState *s=c-&gt;state;
+<a name="l64"></a>  c-&gt;left=c-&gt;win_task-&gt;pix_width-(DAWG_SETTINGS_SPACING*4+3);
+<a name="l65"></a>  c-&gt;right=c-&gt;left+DAWG_SETTINGS_SPACING*4+3;
+<a name="l66"></a>  c-&gt;top=c-&gt;win_task-&gt;pix_height-(DAWG_SETTINGS_SPACING*2+DAWG_SETTINGS_RANGE);
+<a name="l67"></a>  c-&gt;bottom=c-&gt;top+DAWG_SETTINGS_SPACING*2+DAWG_SETTINGS_RANGE;
+<a name="l68"></a>  s-&gt;cnt =</span><span class=cB5>ClampI64</span><span class=cB0>(s-&gt;cnt,0,DAWG_SETTINGS_RANGE-1);
+<a name="l69"></a>  s-&gt;n2_amp=</span><span class=cB5>ClampI64</span><span class=cB0>(s-&gt;n2_amp,0,DAWG_SETTINGS_RANGE-1);
+<a name="l70"></a>  s-&gt;color_scale=</span><span class=cB5>ClampI64</span><span class=cB0>(s-&gt;color_scale,0,DAWG_SETTINGS_RANGE-1);
+<a name="l71"></a>}
+<a name="l72"></a>
+<a name="l73"></a></span><span class=cB1>U0</span><span class=cB0> LeftClickDawgSettings(</span><span class=cB9>CCtrl</span><span class=cB0> *c,</span><span class=cB9>I64</span><span class=cB0> x,</span><span class=cB9>I64</span><span class=cB0> y,</span><span class=cB1>Bool</span><span class=cB0> down)
+<a name="l74"></a>{
+<a name="l75"></a>  DawgSettingsState *s=c-&gt;state;
+<a name="l76"></a>  </span><span class=cB1>if</span><span class=cB0> (x&lt;c-&gt;left+</span><span class=cB7>(</span><span class=cB0>c-&gt;right-c-&gt;left</span><span class=cB7>)</span><span class=cB0>/3)
+<a name="l77"></a>    s-&gt;cnt=DAWG_SETTINGS_RANGE-1-(y-</span><span class=cB7>(</span><span class=cB0>c-&gt;top+DAWG_SETTINGS_SPACING</span><span class=cB7>)</span><span class=cB0>);
+<a name="l78"></a>  </span><span class=cB1>else</span><span class=cB0> </span><span class=cB1>if</span><span class=cB0> (x&lt;c-&gt;left+2*</span><span class=cB7>(</span><span class=cB0>c-&gt;right-c-&gt;left</span><span class=cB7>)</span><span class=cB0>/3)
+<a name="l79"></a>    s-&gt;n2_amp=DAWG_SETTINGS_RANGE-1-(y-</span><span class=cB7>(</span><span class=cB0>c-&gt;top+DAWG_SETTINGS_SPACING</span><span class=cB7>)</span><span class=cB0>);
+<a name="l80"></a>  </span><span class=cB1>else</span><span class=cB0>
+<a name="l81"></a>    s-&gt;color_scale=DAWG_SETTINGS_RANGE-1-(y-</span><span class=cB7>(</span><span class=cB0>c-&gt;top+DAWG_SETTINGS_SPACING</span><span class=cB7>)</span><span class=cB0>);
+<a name="l82"></a>  </span><span class=cB1>if</span><span class=cB0> (c-&gt;update_derived_vals)
+<a name="l83"></a>    (*c-&gt;update_derived_vals)(c);
+<a name="l84"></a>  </span><span class=cB1>if</span><span class=cB0> (!down) chged=</span><span class=cB3>TRUE</span><span class=cB0>;
+<a name="l85"></a>}
+<a name="l86"></a>
+<a name="l87"></a></span><span class=cB9>CCtrl</span><span class=cB0> *DawgSettingsNew()
+<a name="l88"></a>{
+<a name="l89"></a>  </span><span class=cB9>CCtrl</span><span class=cB0> *c=</span><span class=cB5>CAlloc</span><span class=cB0>(</span><span class=cB1>sizeof</span><span class=cB7>(</span><span class=cB9>CCtrl</span><span class=cB7>)</span><span class=cB0>);
+<a name="l90"></a>  c-&gt;win_task=</span><span class=cB5>Fs</span><span class=cB0>;
+<a name="l91"></a>  c-&gt;flags=</span><span class=cB3>CTRLF_SHOW</span><span class=cB0>|</span><span class=cB3>CTRLF_CAPTURE_LEFT_MS</span><span class=cB0>;
+<a name="l92"></a>  c-&gt;type=</span><span class=cB3>CTRLT_GENERIC</span><span class=cB0>;
+<a name="l93"></a></span><span class=cB2>//  c-&gt;state=CAlloc(sizeof(DawgSettingsState));</span><span class=cB0>
+<a name="l94"></a>  c-&gt;state=&amp;glbl_state;
+<a name="l95"></a>  glbl_state.cnt=DAWG_SETTINGS_RANGE/2;
+<a name="l96"></a>  glbl_state.n2_amp=DAWG_SETTINGS_RANGE/2;
+<a name="l97"></a>  glbl_state.color_scale=DAWG_SETTINGS_RANGE/2;
+<a name="l98"></a>  c-&gt;draw_it=&amp;DrawDawgSettingsCtrl;
+<a name="l99"></a>  c-&gt;left_click=&amp;LeftClickDawgSettings;
+<a name="l100"></a>  c-&gt;update_derived_vals=&amp;UpdateDerivedDawgSettingsCtrl;
+<a name="l101"></a>  </span><span class=cB5>QueIns</span><span class=cB0>(c,</span><span class=cB5>Fs</span><span class=cB0>-&gt;last_ctrl);
+<a name="l102"></a>  </span><span class=cB5>TaskDerivedValsUpdate</span><span class=cB0>;
+<a name="l103"></a>  </span><span class=cB1>return</span><span class=cB0> c;
+<a name="l104"></a>}
+<a name="l105"></a>
+<a name="l106"></a></span><span class=cB1>U0</span><span class=cB0> DawgSettingsDel(</span><span class=cB9>CCtrl</span><span class=cB0> *c)
+<a name="l107"></a>{
+<a name="l108"></a>  </span><span class=cB5>QueRem</span><span class=cB0>(c);
+<a name="l109"></a></span><span class=cB2>//  Free(c-&gt;state);</span><span class=cB0>
+<a name="l110"></a>  </span><span class=cB5>Free</span><span class=cB0>(c);
+<a name="l111"></a>}
+<a name="l112"></a>
+<a name="l113"></a></span><span class=cB2>//This program does a fractel-like thing with</span><span class=cB0>
+<a name="l114"></a></span><span class=cB2>//int arithmetic.</span><span class=cB0>
+<a name="l115"></a></span><span class=cB1>class</span><span class=cB0> Simplex </span><span class=cB2>//This is something I made-up.  It's not standard math.</span><span class=cB0>
+<a name="l116"></a>{
+<a name="l117"></a>  </span><span class=cB9>I64</span><span class=cB0> x,y;
+<a name="l118"></a>};
+<a name="l119"></a>
+<a name="l120"></a></span><span class=cB9>I64</span><span class=cB0> Norm(Simplex *n1)
+<a name="l121"></a>{
+<a name="l122"></a>  </span><span class=cB1>return</span><span class=cB0> </span><span class=cB5>AbsI64</span><span class=cB0>(n1-&gt;x)+</span><span class=cB5>AbsI64</span><span class=cB0>(n1-&gt;y);
+<a name="l123"></a>}
+<a name="l124"></a>
+<a name="l125"></a>Simplex *CopySimplex(Simplex *dst, Simplex *src)
+<a name="l126"></a>{
+<a name="l127"></a>  </span><span class=cB5>MemCpy</span><span class=cB0>(dst,src,</span><span class=cB1>sizeof</span><span class=cB7>(</span><span class=cB0>Simplex</span><span class=cB7>)</span><span class=cB0>);
+<a name="l128"></a>  </span><span class=cB1>return</span><span class=cB0> dst;
+<a name="l129"></a>}
+<a name="l130"></a>
+<a name="l131"></a>Simplex *Mix(Simplex *res,Simplex *n1,Simplex *n2)
+<a name="l132"></a>{ </span><span class=cB2>//This is something I made-up.  It's not standard math.</span><span class=cB0>
+<a name="l133"></a>  res-&gt;x=n1-&gt;x*n2-&gt;x;
+<a name="l134"></a>  res-&gt;y=n1-&gt;y*n2-&gt;y;
+<a name="l135"></a>  </span><span class=cB1>return</span><span class=cB0> res;
+<a name="l136"></a>}
+<a name="l137"></a>
+<a name="l138"></a>Simplex *Mangle(Simplex *res,Simplex *n1,Simplex *n2)
+<a name="l139"></a>{ </span><span class=cB2>//This is something I made-up.  It's not standard math.</span><span class=cB0>
+<a name="l140"></a>  res-&gt;x=n1-&gt;x*n2-&gt;y;
+<a name="l141"></a>  res-&gt;y=n1-&gt;y*n2-&gt;x;
+<a name="l142"></a>  </span><span class=cB1>return</span><span class=cB0> res;
+<a name="l143"></a>}
+<a name="l144"></a>
+<a name="l145"></a>Simplex *Add(Simplex *res,Simplex *n1,Simplex *n2)
+<a name="l146"></a>{
+<a name="l147"></a>  res-&gt;x=n1-&gt;x+n2-&gt;x;
+<a name="l148"></a>  res-&gt;y=n1-&gt;y+n2-&gt;y;
+<a name="l149"></a>  </span><span class=cB1>return</span><span class=cB0> res;
+<a name="l150"></a>}
+<a name="l151"></a>
+<a name="l152"></a>Simplex *Sub(Simplex *res,Simplex *n1,Simplex *n2)
+<a name="l153"></a>{
+<a name="l154"></a>  res-&gt;x=n1-&gt;x-n2-&gt;x;
+<a name="l155"></a>  res-&gt;y=n1-&gt;y-n2-&gt;y;
+<a name="l156"></a>  </span><span class=cB1>return</span><span class=cB0> res;
+<a name="l157"></a>}
+<a name="l158"></a>
+<a name="l159"></a></span><span class=cB1>U0</span><span class=cB0> Bling()
+<a name="l160"></a>{
+<a name="l161"></a>  </span><span class=cB9>I64</span><span class=cB0> ch;
+<a name="l162"></a>  </span><span class=cB9>I64</span><span class=cB0> x,y,cnt;
+<a name="l163"></a>  </span><span class=cB9>I64</span><span class=cB0> d;
+<a name="l164"></a>  </span><span class=cB1>F64</span><span class=cB0> color,color_scale;
+<a name="l165"></a>  Simplex n1,n2,n3,n4,n5,n6,n7,n8;
+<a name="l166"></a>  </span><span class=cB9>I64</span><span class=cB0> timeout_jiffy;
+<a name="l167"></a>  </span><span class=cB9>CCtrl</span><span class=cB0> *c=DawgSettingsNew;
+<a name="l168"></a>  </span><span class=cB9>CDC</span><span class=cB0> *dc=</span><span class=cB5>DCAlias</span><span class=cB0>;
+<a name="l169"></a>  </span><span class=cB1>F64</span><span class=cB0> e=</span><span class=cB5>Exp</span><span class=cB0>(1);
+<a name="l170"></a>
+<a name="l171"></a>  </span><span class=cB5>SettingsPush</span><span class=cB0>; </span><span class=cB2>//See </span><a href="https://tosrevive.github.io/TempleOS-Unofficial/Wb/Adam/TaskSettings.html#l3"><span class=cB4>SettingsPush</span></a><span class=cB0>
+<a name="l172"></a>  </span><span class=cB5>Fs</span><span class=cB0>-&gt;win_inhibit=</span><span class=cB3>WIG_TASK_DFT</span><span class=cB0>-</span><span class=cB3>WIF_SELF_FOCUS</span><span class=cB0>-</span><span class=cB3>WIF_SELF_BORDER</span><span class=cB0>-</span><span class=cB3>WIF_SELF_CTRLS</span><span class=cB0>;
+<a name="l173"></a>
+<a name="l174"></a>  chged=</span><span class=cB3>FALSE</span><span class=cB0>;
+<a name="l175"></a>  </span><span class=cB5>AutoComplete</span><span class=cB0>;
+<a name="l176"></a>  </span><span class=cB5>WinBorder</span><span class=cB0>;
+<a name="l177"></a>  </span><span class=cB5>WinMax</span><span class=cB0>;
+<a name="l178"></a>  </span><span class=cB5>DocCursor</span><span class=cB0>;
+<a name="l179"></a>  </span><span class=cB5>DocClear</span><span class=cB0>;
+<a name="l180"></a>  </span><span class=cB1>while</span><span class=cB0> (</span><span class=cB3>TRUE</span><span class=cB0>) </span><span class=cB7>{</span><span class=cB0>
+<a name="l181"></a>next_dotel:
+<a name="l182"></a>    ch=0;
+<a name="l183"></a>    cnt =2e9*(</span><span class=cB5>RandU32</span><span class=cB0>+0x1000)/</span><span class=cB3>U32_MAX</span><span class=cB0>
+<a name="l184"></a>          *(</span><span class=cB7>(</span><span class=cB5>Exp</span><span class=cB0>(</span><span class=cB5>ToF64</span><span class=cB7>(</span><span class=cB0>glbl_state.cnt+10</span><span class=cB7>)</span><span class=cB0>/DAWG_SETTINGS_RANGE)-1</span><span class=cB7>)</span><span class=cB0>/e);
+<a name="l185"></a>    n2.x=2e9*</span><span class=cB5>Sign</span><span class=cB0>(</span><span class=cB5>RandI32</span><span class=cB0>)*(</span><span class=cB5>RandU32</span><span class=cB0>+0x1000)/</span><span class=cB3>U32_MAX</span><span class=cB0>
+<a name="l186"></a>          *(</span><span class=cB7>(</span><span class=cB5>Exp</span><span class=cB0>(</span><span class=cB5>ToF64</span><span class=cB7>(</span><span class=cB0>glbl_state.n2_amp</span><span class=cB7>)</span><span class=cB0>/DAWG_SETTINGS_RANGE)-1</span><span class=cB7>)</span><span class=cB0>/e);
+<a name="l187"></a>    n2.y=2e9*</span><span class=cB5>Sign</span><span class=cB0>(</span><span class=cB5>RandI32</span><span class=cB0>)*(</span><span class=cB5>RandU32</span><span class=cB0>+0x1000)/</span><span class=cB3>U32_MAX</span><span class=cB0>
+<a name="l188"></a>          *(</span><span class=cB7>(</span><span class=cB5>Exp</span><span class=cB0>(</span><span class=cB5>ToF64</span><span class=cB7>(</span><span class=cB0>glbl_state.n2_amp</span><span class=cB7>)</span><span class=cB0>/DAWG_SETTINGS_RANGE)-1</span><span class=cB7>)</span><span class=cB0>/e);
+<a name="l189"></a>    n8.x=</span><span class=cB5>RandI32</span><span class=cB0>;
+<a name="l190"></a>    n8.y=</span><span class=cB5>RandI32</span><span class=cB0>;
+<a name="l191"></a>    color_scale=4.0*(glbl_state.color_scale+1.0)/DAWG_SETTINGS_RANGE+0.5;
+<a name="l192"></a>    timeout_jiffy=</span><span class=cBB>cnts</span><span class=cB0>.jiffies+</span><span class=cB3>JIFFY_FREQ</span><span class=cB0>/10;
+<a name="l193"></a>    </span><span class=cB1>for</span><span class=cB0> (y=0;y&lt;</span><span class=cB3>GR_HEIGHT</span><span class=cB0>;y++) {
+<a name="l194"></a>      </span><span class=cB1>if</span><span class=cB0> (y&lt;20 &amp;&amp; </span><span class=cBB>cnts</span><span class=cB0>.jiffies&gt;timeout_jiffy)
+<a name="l195"></a>        </span><span class=cB1>goto</span><span class=cB0> next_dotel;
+<a name="l196"></a>      </span><span class=cB1>if</span><span class=cB0> (</span><span class=cB5>ScanKey</span><span class=cB7>(</span><span class=cB0>&amp;ch</span><span class=cB7>)</span><span class=cB0>)
+<a name="l197"></a>        </span><span class=cB1>goto</span><span class=cB0> next_dotel;
+<a name="l198"></a>      </span><span class=cB1>for</span><span class=cB0> (x=0;x&lt;</span><span class=cB3>GR_WIDTH</span><span class=cB0>;x++) </span><span class=cB7>{</span><span class=cB0>
+<a name="l199"></a>        </span><span class=cB1>if</span><span class=cB0> (y&lt;20 &amp;&amp; </span><span class=cBB>cnts</span><span class=cB0>.jiffies&gt;timeout_jiffy)
+<a name="l200"></a>          </span><span class=cB1>goto</span><span class=cB0> next_dotel;
+<a name="l201"></a>
+<a name="l202"></a>        n1.x=x; n1.y=y;
+<a name="l203"></a>        CopySimplex(&amp;n3,&amp;n1);
+<a name="l204"></a>
+<a name="l205"></a>        color=0;
+<a name="l206"></a>        d=Norm(&amp;n3);
+<a name="l207"></a>
+<a name="l208"></a>        </span><span class=cB2>//This doesn't make mathematical sense, but it makes nice ress.</span><span class=cB0>
+<a name="l209"></a>        </span><span class=cB1>while</span><span class=cB0> (d.u32[0]&lt;cnt &amp;&amp; color&lt;65536) {
+<a name="l210"></a>          </span><span class=cB1>if</span><span class=cB0> (y&lt;20 &amp;&amp; </span><span class=cBB>cnts</span><span class=cB0>.jiffies&gt;timeout_jiffy)
+<a name="l211"></a>            </span><span class=cB1>goto</span><span class=cB0> next_dotel;
+<a name="l212"></a>          Mangle(&amp;n7,Mix</span><span class=cB7>(</span><span class=cB0>&amp;n4,&amp;n3,&amp;n1</span><span class=cB7>)</span><span class=cB0>,Add</span><span class=cB7>(</span><span class=cB0>&amp;n5,&amp;n3,&amp;n2</span><span class=cB7>)</span><span class=cB0>);
+<a name="l213"></a>          color++;
+<a name="l214"></a>          d=Norm(Add</span><span class=cB7>(</span><span class=cB0>&amp;n3,&amp;n7,Mangle(&amp;n6,&amp;n3,&amp;n8)</span><span class=cB7>)</span><span class=cB0>);
+<a name="l215"></a>        }
+<a name="l216"></a>        color-=(cnt-d.u32[0])/cnt;
+<a name="l217"></a>        dc-&gt;color=</span><span class=cB3>ROP_EQU</span><span class=cB0>+color=
+<a name="l218"></a>              </span><span class=cBB>gr_rainbow_10</span><span class=cB0>[</span><span class=cB5>ClampI64</span><span class=cB0>(color_scale*</span><span class=cB7>(</span><span class=cB5>Ln</span><span class=cB0>(color)</span><span class=cB7>)</span><span class=cB0>,0,9)];
+<a name="l219"></a>        </span><span class=cB5>GrPlot</span><span class=cB0>(dc,x,y);
+<a name="l220"></a>      </span><span class=cB7>}</span><span class=cB0>
+<a name="l221"></a>    }
+<a name="l222"></a>    dc-&gt;color=</span><span class=cB3>TRANSPARENT</span><span class=cB0>;
+<a name="l223"></a>    </span><span class=cB5>GrRect</span><span class=cB0>(dc,c-&gt;left,c-&gt;top,c-&gt;right-c-&gt;left,c-&gt;bottom-c-&gt;top);
+<a name="l224"></a>    </span><span class=cB1>while</span><span class=cB0> (</span><span class=cB3>TRUE</span><span class=cB0>) {
+<a name="l225"></a>      </span><span class=cB1>if</span><span class=cB0> (chged) </span><span class=cB7>{</span><span class=cB0>
+<a name="l226"></a>        chged=</span><span class=cB3>FALSE</span><span class=cB0>;
+<a name="l227"></a>        </span><span class=cB1>break</span><span class=cB0>;
+<a name="l228"></a>      </span><span class=cB7>}</span><span class=cB0>
+<a name="l229"></a>      </span><span class=cB1>if</span><span class=cB0> (ch=</span><span class=cB5>ScanChar</span><span class=cB0>) </span><span class=cB7>{</span><span class=cB0>
+<a name="l230"></a>        </span><span class=cB1>if</span><span class=cB0> (ch==</span><span class=cB3>CH_SPACE</span><span class=cB0>||ch==</span><span class=cB6>'\n'</span><span class=cB0>)
+<a name="l231"></a>          </span><span class=cB1>break</span><span class=cB0>;
+<a name="l232"></a>        </span><span class=cB1>else</span><span class=cB0>
+<a name="l233"></a>          </span><span class=cB1>goto</span><span class=cB0> bling_done;
+<a name="l234"></a>      </span><span class=cB7>}</span><span class=cB0>
+<a name="l235"></a>      </span><span class=cB5>Refresh</span><span class=cB0>;
+<a name="l236"></a>    }
+<a name="l237"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l238"></a>bling_done:
+<a name="l239"></a>  </span><span class=cB5>SettingsPop</span><span class=cB0>;
+<a name="l240"></a>  </span><span class=cB5>DCDel</span><span class=cB0>(dc);
+<a name="l241"></a>  </span><span class=cB5>DCFill</span><span class=cB0>;
+<a name="l242"></a>  DawgSettingsDel(c);
+<a name="l243"></a>}
+<a name="l244"></a>
+<a name="l245"></a>Bling;  </span><span class=cB2>//Start when included</span><span class=cB0>
+<a name="l246"></a>
+<a name="l247"></a></span><span class=cB1>U0</span><span class=cB0> DoBling()
+<a name="l248"></a>{
+<a name="l249"></a>  </span><span class=cB9>CTask</span><span class=cB0> *task=</span><span class=cB5>User</span><span class=cB0>;
+<a name="l250"></a>  </span><span class=cB5>XTalkWait</span><span class=cB0>(task,</span><span class=cB6>&quot;#include \&quot;::/TempleOS/Demo/Graphics/Bling\&quot;;\n&quot;</span><span class=cB0>);
+<a name="l251"></a>  </span><span class=cB5>Sleep</span><span class=cB0>(500);
+<a name="l252"></a>  </span><span class=cB5>PostMsgWait</span><span class=cB0>(task,</span><span class=cB3>MSG_KEY_DOWN_UP</span><span class=cB0>,</span><span class=cB3>CH_SPACE</span><span class=cB0>,0);
+<a name="l253"></a>  </span><span class=cB5>Sleep</span><span class=cB0>(500);
+<a name="l254"></a>  </span><span class=cB5>PostMsgWait</span><span class=cB0>(task,</span><span class=cB3>MSG_KEY_DOWN_UP</span><span class=cB0>,</span><span class=cB3>CH_SHIFT_ESC</span><span class=cB0>,0);
+<a name="l255"></a>  </span><span class=cB5>DeathWait</span><span class=cB0>(&amp;task,</span><span class=cB3>TRUE</span><span class=cB0>);
+<a name="l256"></a>}
+<a name="l257"></a>
+</span></div></pre></body>
+</html>

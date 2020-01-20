@@ -1,0 +1,154 @@
+<!DOCTYPE HTML>
+<html style="background-color:#FFFFFF;">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
+<title>The Temple Operating System</title>
+<meta name="keywords" content="Operating System,64-Bit,64 Bit,Temple,OS,TempleOS,Free,Open Source,Public Domain,x86_64">
+<meta name="generator" content="TempleOS (U) V5.04">
+<style type="text/css">
+.cB0{color:#000000;background-color:#55ffff;}
+.cB1{color:#0000aa;background-color:#55ffff;}
+.cB2{color:#00aa00;background-color:#55ffff;}
+.cB3{color:#00aaaa;background-color:#55ffff;}
+.cB5{color:#aa00aa;background-color:#55ffff;}
+.cB7{color:#aaaaaa;background-color:#55ffff;}
+.cB9{color:#5555ff;background-color:#55ffff;}
+.cBB{color:#55ffff;background-color:#55ffff;}
+.cF0{color:#000000;background-color:#ffffff;}
+.cF1{color:#0000aa;background-color:#ffffff;}
+.cF2{color:#00aa00;background-color:#ffffff;}
+.cF3{color:#00aaaa;background-color:#ffffff;}
+.cF4{color:#aa0000;background-color:#ffffff;}
+.cF5{color:#aa00aa;background-color:#ffffff;}
+.cF6{color:#aa5500;background-color:#ffffff;}
+.cF7{color:#aaaaaa;background-color:#ffffff;}
+.cF8{color:#555555;background-color:#ffffff;}
+.cF9{color:#5555ff;background-color:#ffffff;}
+.cFA{color:#55ff55;background-color:#ffffff;}
+.cFB{color:#55ffff;background-color:#ffffff;}
+.cFC{color:#ff5555;background-color:#ffffff;}
+.cFD{color:#ff55ff;background-color:#ffffff;}
+.cFE{color:#ffff55;background-color:#ffffff;}
+.cFF{color:#ffffff;background-color:#ffffff;}
+</style>
+</head>
+<body style="background-color:#55FFFF; border-style:solid;
+	  border-width:8px; border-color:#0000AA;
+	  margin-left:auto; margin-right:auto; width:800px; ">
+<pre style="font-family:courier;font-size:10pt">
+<div style="margin-left:auto; margin-right:auto; width: 640px;">
+<a name="l1"></a><span class=cB0>#</span><span class=cB1>define</span><span class=cB0> USBP_CMD        0x00
+<a name="l2"></a>#</span><span class=cB1>define</span><span class=cB0> USBP_STS        0x02
+<a name="l3"></a>#</span><span class=cB1>define</span><span class=cB0> USBP_INTR       0x04
+<a name="l4"></a>#</span><span class=cB1>define</span><span class=cB0> USBP_FRNUM      0x06
+<a name="l5"></a>#</span><span class=cB1>define</span><span class=cB0> USBP_FRBASEADD  0x08
+<a name="l6"></a>#</span><span class=cB1>define</span><span class=cB0> USBP_SOFMOD     0x0C
+<a name="l7"></a>#</span><span class=cB1>define</span><span class=cB0> USBP_PORTSC0    0x10
+<a name="l8"></a>#</span><span class=cB1>define</span><span class=cB0> USBP_PORTSC1    0x12
+<a name="l9"></a>#</span><span class=cB1>define</span><span class=cB0> USB_NUM 16
+<a name="l10"></a>
+<a name="l11"></a></span><span class=cB1>class</span><span class=cB0> CUSBTD </span><span class=cB2>//Not implemented</span><span class=cB0>
+<a name="l12"></a>{
+<a name="l13"></a>  </span><span class=cB9>U32</span><span class=cB0> td[4];
+<a name="l14"></a>};
+<a name="l15"></a>
+<a name="l16"></a></span><span class=cB1>class</span><span class=cB0> CUSB </span><span class=cB2>//Not implemented</span><span class=cB0>
+<a name="l17"></a>{
+<a name="l18"></a>  </span><span class=cB1>U8</span><span class=cB0> num, </span><span class=cB2>//USB dev num</span><span class=cB0>
+<a name="l19"></a>        bus,</span><span class=cBB>dev</span><span class=cB0>,fun;
+<a name="l20"></a>  </span><span class=cB9>U16</span><span class=cB0> ports,pad;
+<a name="l21"></a>  </span><span class=cB9>U32</span><span class=cB0> *frame_lst;
+<a name="l22"></a>};
+<a name="l23"></a>
+<a name="l24"></a></span><span class=cB2>//USB Pkt ID's</span><span class=cB0>
+<a name="l25"></a>#</span><span class=cB1>define</span><span class=cB0> PID_OUT         0xE1
+<a name="l26"></a>#</span><span class=cB1>define</span><span class=cB0> PID_IN          0x69
+<a name="l27"></a>#</span><span class=cB1>define</span><span class=cB0> PID_SOF         0xA5
+<a name="l28"></a>#</span><span class=cB1>define</span><span class=cB0> PID_SETUP       0x2D
+<a name="l29"></a>#</span><span class=cB1>define</span><span class=cB0> PID_DATA0       0xC3
+<a name="l30"></a>#</span><span class=cB1>define</span><span class=cB0> PID_DATA1       0x4B
+<a name="l31"></a>#</span><span class=cB1>define</span><span class=cB0> PID_DATA2       0x87
+<a name="l32"></a>#</span><span class=cB1>define</span><span class=cB0> PID_MDATA       0x0F
+<a name="l33"></a>#</span><span class=cB1>define</span><span class=cB0> PID_ACK         0xD2
+<a name="l34"></a>#</span><span class=cB1>define</span><span class=cB0> PID_NAK         0x5A
+<a name="l35"></a>#</span><span class=cB1>define</span><span class=cB0> PID_STALL       0x1E
+<a name="l36"></a>#</span><span class=cB1>define</span><span class=cB0> PID_NYET        0x96
+<a name="l37"></a>#</span><span class=cB1>define</span><span class=cB0> PID_PRE         0x3C
+<a name="l38"></a>#</span><span class=cB1>define</span><span class=cB0> PID_ERR         0x3C
+<a name="l39"></a>#</span><span class=cB1>define</span><span class=cB0> PID_SPLIT       0x78
+<a name="l40"></a>#</span><span class=cB1>define</span><span class=cB0> PID_PING        0xB4
+<a name="l41"></a>
+<a name="l42"></a></span><span class=cB2>//USB Std Rqsts</span><span class=cB0>
+<a name="l43"></a>#</span><span class=cB1>define</span><span class=cB0> RQ_GET_STAT     0x0
+<a name="l44"></a>#</span><span class=cB1>define</span><span class=cB0> RQ_CLR_FEAT     0x1
+<a name="l45"></a>#</span><span class=cB1>define</span><span class=cB0> RQ_SET_FEAT     0x3
+<a name="l46"></a>#</span><span class=cB1>define</span><span class=cB0> RQ_SET_ADDR     0x5
+<a name="l47"></a>#</span><span class=cB1>define</span><span class=cB0> RQ_SET_DESC     0x7
+<a name="l48"></a>#</span><span class=cB1>define</span><span class=cB0> RQ_GET_CFG      0x8
+<a name="l49"></a>#</span><span class=cB1>define</span><span class=cB0> RQ_SET_CFG      0x9
+<a name="l50"></a>#</span><span class=cB1>define</span><span class=cB0> RQ_GET_INTERFACE 0xA
+<a name="l51"></a>#</span><span class=cB1>define</span><span class=cB0> RQ_SET_INTERFACE 0xB
+<a name="l52"></a>#</span><span class=cB1>define</span><span class=cB0> RQ_SYNC_FRAME   0xC
+<a name="l53"></a>
+<a name="l54"></a></span><span class=cB9>I64</span><span class=cB0> sys_num_usb=0;
+<a name="l55"></a>CUSB sys_usb_devs[USB_NUM];
+<a name="l56"></a></span><span class=cB5>MemSet</span><span class=cB0>(sys_usb_devs,0,USB_NUM*</span><span class=cB1>sizeof</span><span class=cB7>(</span><span class=cB0>CUSB</span><span class=cB7>)</span><span class=cB0>);
+<a name="l57"></a>
+<a name="l58"></a></span><span class=cB1>U0</span><span class=cB0> USBInitOne(</span><span class=cB9>I64</span><span class=cB0> b,</span><span class=cB9>I64</span><span class=cB0> d,</span><span class=cB9>I64</span><span class=cB0> f)
+<a name="l59"></a>{
+<a name="l60"></a>  CUSB *u;
+<a name="l61"></a>  </span><span class=cB1>if</span><span class=cB0> (sys_num_usb&lt;USB_NUM &amp;&amp;
+<a name="l62"></a>        </span><span class=cB5>PCIReadU16</span><span class=cB7>(</span><span class=cB0>b,d,f,0</span><span class=cB7>)</span><span class=cB0>==0x8086) </span><span class=cB7>{</span><span class=cB0>
+<a name="l63"></a>    u=&amp;sys_usb_devs[sys_num_usb++];
+<a name="l64"></a>    u-&gt;num=sys_num_usb;
+<a name="l65"></a>    u-&gt;bus=b;
+<a name="l66"></a>    u-&gt;</span><span class=cBB>dev</span><span class=cB0>=d;
+<a name="l67"></a>    u-&gt;fun=f;
+<a name="l68"></a>    u-&gt;ports=</span><span class=cB5>PCIReadU32</span><span class=cB0>(b,d,f,0x20)&amp;~0x1F;
+<a name="l69"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l70"></a>}
+<a name="l71"></a>
+<a name="l72"></a></span><span class=cB1>U0</span><span class=cB0> USBEndAll()
+<a name="l73"></a>{
+<a name="l74"></a>  sys_num_usb=0;
+<a name="l75"></a>}
+<a name="l76"></a>
+<a name="l77"></a></span><span class=cB1>U0</span><span class=cB0> USBInitAll() </span><span class=cB2>//This is only valid for my ICH10 dev</span><span class=cB0>
+<a name="l78"></a>{
+<a name="l79"></a>  </span><span class=cB1>if</span><span class=cB0> (sys_num_usb)
+<a name="l80"></a>    USBEndAll;
+<a name="l81"></a>  USBInitOne(0,29,0);
+<a name="l82"></a>  USBInitOne(0,29,1);
+<a name="l83"></a>  USBInitOne(0,29,2);
+<a name="l84"></a>  USBInitOne(0,29,3);
+<a name="l85"></a>  USBInitOne(0,26,0);
+<a name="l86"></a>  USBInitOne(0,26,1);
+<a name="l87"></a>  USBInitOne(0,26,2);
+<a name="l88"></a>}
+<a name="l89"></a>
+<a name="l90"></a>CUSBTD *USBAllocTD()
+<a name="l91"></a>{
+<a name="l92"></a>  </span><span class=cB1>return</span><span class=cB0> </span><span class=cB5>MAllocAligned</span><span class=cB0>(</span><span class=cB1>sizeof</span><span class=cB7>(</span><span class=cB0>CUSBTD</span><span class=cB7>)</span><span class=cB0>,0x10,</span><span class=cBB>dev</span><span class=cB0>.uncached_heap);
+<a name="l93"></a>}
+<a name="l94"></a>
+<a name="l95"></a></span><span class=cB1>U0</span><span class=cB0> USBFreeTD(CUSBTD *tmptd)
+<a name="l96"></a>{
+<a name="l97"></a>  </span><span class=cB5>Free</span><span class=cB0>(tmptd);
+<a name="l98"></a>}
+<a name="l99"></a>
+<a name="l100"></a></span><span class=cB9>U32</span><span class=cB0> *USBAllocFrameLst(</span><span class=cB9>I64</span><span class=cB0> usb_num,</span><span class=cB9>I64</span><span class=cB0> size)
+<a name="l101"></a>{ </span><span class=cB2>//aligned to 0x1000</span><span class=cB0>
+<a name="l102"></a>  CUSB *u;
+<a name="l103"></a>  </span><span class=cB1>if</span><span class=cB0> (0&lt;=usb_num&lt;sys_num_usb) </span><span class=cB7>{</span><span class=cB0>
+<a name="l104"></a>    u=&amp;sys_usb_devs[usb_num];
+<a name="l105"></a>    </span><span class=cB5>Free</span><span class=cB0>(u-&gt;frame_lst);
+<a name="l106"></a>    u-&gt;frame_lst=</span><span class=cB5>MAllocAligned</span><span class=cB0>(size*</span><span class=cB1>sizeof</span><span class=cB7>(</span><span class=cB9>U32</span><span class=cB7>)</span><span class=cB0>,0x1000,</span><span class=cBB>dev</span><span class=cB0>.uncached_heap);
+<a name="l107"></a>    </span><span class=cB5>OutU16</span><span class=cB0>(u-&gt;ports+USBP_CMD,0); </span><span class=cB2>//Stop</span><span class=cB0>
+<a name="l108"></a>    </span><span class=cB5>OutU16</span><span class=cB0>(u-&gt;ports+USBP_FRNUM,0);
+<a name="l109"></a>    </span><span class=cB5>OutU32</span><span class=cB0>(u-&gt;ports+USBP_FRBASEADD,u-&gt;frame_lst);
+<a name="l110"></a>    </span><span class=cB1>return</span><span class=cB0> u-&gt;frame_lst;
+<a name="l111"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l112"></a>  </span><span class=cB1>return</span><span class=cB0> </span><span class=cB3>NULL</span><span class=cB0>;
+<a name="l113"></a>}
+</span></div></pre></body>
+</html>

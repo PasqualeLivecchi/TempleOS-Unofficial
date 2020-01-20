@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<html style="background-color:#FFFFFF;">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
+<title>The Temple Operating System</title>
+<meta name="keywords" content="Operating System,64-Bit,64 Bit,Temple,OS,TempleOS,Free,Open Source,Public Domain,x86_64">
+<meta name="generator" content="TempleOS (U) V5.04">
+<style type="text/css">
+.cB0{color:#000000;background-color:#55ffff;}
+.cB1{color:#0000aa;background-color:#55ffff;}
+.cB2{color:#00aa00;background-color:#55ffff;}
+.cB3{color:#00aaaa;background-color:#55ffff;}
+.cB4{color:#aa0000;background-color:#55ffff;}
+.cB5{color:#aa00aa;background-color:#55ffff;}
+.cB6{color:#aa5500;background-color:#55ffff;}
+.cB7{color:#aaaaaa;background-color:#55ffff;}
+.cB9{color:#5555ff;background-color:#55ffff;}
+.cBA{color:#55ff55;background-color:#55ffff;}
+.cBB{color:#55ffff;background-color:#55ffff;}
+.cF0{color:#000000;background-color:#ffffff;}
+.cF1{color:#0000aa;background-color:#ffffff;}
+.cF2{color:#00aa00;background-color:#ffffff;}
+.cF3{color:#00aaaa;background-color:#ffffff;}
+.cF4{color:#aa0000;background-color:#ffffff;}
+.cF5{color:#aa00aa;background-color:#ffffff;}
+.cF6{color:#aa5500;background-color:#ffffff;}
+.cF7{color:#aaaaaa;background-color:#ffffff;}
+.cF8{color:#555555;background-color:#ffffff;}
+.cF9{color:#5555ff;background-color:#ffffff;}
+.cFA{color:#55ff55;background-color:#ffffff;}
+.cFB{color:#55ffff;background-color:#ffffff;}
+.cFC{color:#ff5555;background-color:#ffffff;}
+.cFD{color:#ff55ff;background-color:#ffffff;}
+.cFE{color:#ffff55;background-color:#ffffff;}
+.cFF{color:#ffffff;background-color:#ffffff;}
+</style>
+</head>
+<body style="background-color:#55FFFF; border-style:solid;
+	  border-width:8px; border-color:#0000AA;
+	  margin-left:auto; margin-right:auto; width:800px; ">
+<pre style="font-family:courier;font-size:10pt">
+<div style="margin-left:auto; margin-right:auto; width: 640px;">
+<a name="l1"></a><span class=cB2>//5 has words</span><span class=cB0>
+<a name="l2"></a></span><span class=cB5>
+<a name="l3"></a><u>-] Reward1</span><span class=cB0>
+<a name="l4"></a></u>  </span><span class=cB5>CallExtStr</span><span class=cB0>(</span><span class=cB6>&quot;JukeReward&quot;</span><span class=cB0>,</span><span class=cB6>&quot;&quot;</span><span class=cB5>
+<a name="l5"></a>  <u>-] Reward2</span><span class=cB0>
+<a name="l6"></a></u>    
+<a name="l7"></a>    </span><span class=cB6>&quot;cantilever's Huck's permanence's xerography &quot;</span><span class=cB0>
+<a name="l8"></a>    </span><span class=cB6>&quot;discernible borrow foretells looseness &quot;</span><span class=cB0>
+<a name="l9"></a>    </span><span class=cB6>&quot;civilizations Muawiya's sacrilege's xerography &quot;</span><span class=cB0>
+<a name="l10"></a>    </span><span class=cB6>&quot;billy sedge's indication Hydra's &quot;</span><span class=cB0>
+<a name="l11"></a>    </span><span class=cB6>&quot;discoing Susan august phlegm &quot;</span><span class=cB0>
+<a name="l12"></a>  
+<a name="l13"></a>  );
+<a name="l14"></a></span><span class=cBA>
+<a name="l15"></a>&lt;1&gt;/* Graphics Not Rendered in HTML */</span><span class=cB0>
+<a name="l16"></a>
+<a name="l17"></a>
+<a name="l18"></a>
+<a name="l19"></a>
+<a name="l20"></a>
+<a name="l21"></a>
+<a name="l22"></a>
+<a name="l23"></a>
+<a name="l24"></a></span><span class=cBA>
+<a name="l25"></a>&lt;2&gt;/* Graphics Not Rendered in HTML */</span><span class=cB0>
+<a name="l26"></a>
+<a name="l27"></a>
+<a name="l28"></a>
+<a name="l29"></a>
+<a name="l30"></a>
+<a name="l31"></a>
+<a name="l32"></a>
+<a name="l33"></a>
+<a name="l34"></a></span><span class=cB1>F64</span><span class=cB0> t0=</span><span class=cB5>Beat</span><span class=cB0>;
+<a name="l35"></a>
+<a name="l36"></a></span><span class=cB1>U0</span><span class=cB0> </span><span class=cB5>DrawIt</span><span class=cB0>(</span><span class=cB9>CTask</span><span class=cB0> *,</span><span class=cB9>CDC</span><span class=cB0> *dc)
+<a name="l37"></a>{
+<a name="l38"></a>  </span><span class=cB1>F64</span><span class=cB0> dt=</span><span class=cB5>Beat</span><span class=cB0>-t0,tt=</span><span class=cB5>Saw</span><span class=cB0>(dt,37);
+<a name="l39"></a>  </span><span class=cB1>U8</span><span class=cB0> *tmps;
+<a name="l40"></a>  tmps=</span><span class=cB5>SpriteInterpolate</span><span class=cB0>(tt,</span><span class=cBA>&lt;1&gt;</span><span class=cB0>,</span><span class=cBA>&lt;2&gt;</span><span class=cB0>);
+<a name="l41"></a>  </span><span class=cB5>Sprite3</span><span class=cB0>(dc,200,5,0,tmps);
+<a name="l42"></a>  </span><span class=cB5>Free</span><span class=cB0>(tmps);
+<a name="l43"></a>}
+<a name="l44"></a>
+<a name="l45"></a></span><span class=cB1>U0</span><span class=cB0> Song()
+<a name="l46"></a>{
+<a name="l47"></a>  </span><span class=cB9>CTask</span><span class=cB0> *task;
+<a name="l48"></a>  </span><span class=cB5>SettingsPush</span><span class=cB0>; </span><span class=cB2>//See </span><a href="https://tosrevive.github.io/TempleOS-Unofficial/Wb/Adam/TaskSettings.html#l3"><span class=cB4>SettingsPush</span></a><span class=cB0>
+<a name="l49"></a>  </span><span class=cB5>Fs</span><span class=cB0>-&gt;draw_it=&amp;</span><span class=cB5>DrawIt</span><span class=cB0>;
+<a name="l50"></a>  </span><span class=cB5>Fs</span><span class=cB0>-&gt;task_end_cb=&amp;</span><span class=cB5>SndTaskEndCB</span><span class=cB0>;
+<a name="l51"></a>  </span><span class=cB5>MusicSettingsRst</span><span class=cB0>;
+<a name="l52"></a>  </span><span class=cBB>music</span><span class=cB0>.tempo= 2.480;
+<a name="l53"></a>  </span><span class=cBB>music</span><span class=cB0>.stacatto_factor= 0.714;
+<a name="l54"></a>  </span><span class=cB1>try</span><span class=cB0> </span><span class=cB7>{</span><span class=cB0>
+<a name="l55"></a>    task=</span><span class=cB5>PopUpViewPrint</span><span class=cB0>(
+<a name="l56"></a>        </span><span class=cB6>&quot;</span><a href="http://www.biblegateway.com/passage/?search=Revelation+5:1-9&version=NIV"><span class=cB4>Revelation,5:1-9</span></a><span class=cB6>\n&quot;</span><span class=cB0>);
+<a name="l57"></a>    </span><span class=cB5>TaskWait</span><span class=cB0>(task);
+<a name="l58"></a>    </span><span class=cB5>WinHorz</span><span class=cB0>(</span><span class=cB5>Fs</span><span class=cB0>-&gt;win_left,</span><span class=cB3>TEXT_COLS</span><span class=cB0>-10,task);
+<a name="l59"></a>    </span><span class=cB5>WinVert</span><span class=cB0>(</span><span class=cB5>Fs</span><span class=cB0>-&gt;win_bottom+3,</span><span class=cB5>Fs</span><span class=cB0>-&gt;win_bottom+15,task);
+<a name="l60"></a>    </span><span class=cB1>while</span><span class=cB0> (!</span><span class=cB5>ScanKey</span><span class=cB0>) {
+<a name="l61"></a>      t0=</span><span class=cB5>Beat</span><span class=cB0>;
+<a name="l62"></a>        </span><span class=cB5>Play</span><span class=cB0>(</span><span class=cB6>&quot;5qFsGe.AeDGqDF6sC5e.GeFsEFqE&quot;</span><span class=cB0>,
+<a name="l63"></a>                </span><span class=cB6>&quot;Who \0can \0open?\n\0 \0 \0 \0 \0 \0 \0 \0 \0 \0 \0&quot;</span><span class=cB0>);
+<a name="l64"></a>        </span><span class=cB5>Play</span><span class=cB0>(</span><span class=cB6>&quot;M3/4&quot;</span><span class=cB0>);
+<a name="l65"></a>        </span><span class=cB5>Play</span><span class=cB0>(</span><span class=cB6>&quot;FsEe.DeRM4/4&quot;</span><span class=cB0>,
+<a name="l66"></a>                </span><span class=cB6>&quot;Mind \0is \0jammed.\n\0 \0&quot;</span><span class=cB0>);
+<a name="l67"></a>        </span><span class=cB5>Play</span><span class=cB0>(</span><span class=cB6>&quot;qFsGe.AetDGAqDF6sC5e.GeFsEFqE&quot;</span><span class=cB0>,
+<a name="l68"></a>                </span><span class=cB6>&quot;Got \0a \0Tolkien?\n\0 \0 \0 \0 \0 \0 \0 \0 \0 \0 \0 \0&quot;</span><span class=cB0>);
+<a name="l69"></a>        </span><span class=cB5>Play</span><span class=cB0>(</span><span class=cB6>&quot;M3/4&quot;</span><span class=cB0>);
+<a name="l70"></a>        </span><span class=cB5>Play</span><span class=cB0>(</span><span class=cB6>&quot;EsFe.GeRM4/4&quot;</span><span class=cB0>,
+<a name="l71"></a>                </span><span class=cB6>&quot;Jar \0is \0canned.\n\0 \0&quot;</span><span class=cB0>);
+<a name="l72"></a>        </span><span class=cB5>Play</span><span class=cB0>(</span><span class=cB6>&quot;etCDC4eB5CqEeC4A5CD4sAGAG5qDG&quot;</span><span class=cB0>,
+<a name="l73"></a>                </span><span class=cB6>&quot;$RED$I \0 \0o\0pen.\n\0 \0 \0 \0 \0 \0 \0 \0 \0 \0 \0 \0 \0&quot;</span><span class=cB0>);
+<a name="l74"></a>        </span><span class=cB5>Play</span><span class=cB0>(</span><span class=cB6>&quot;etCDC4eB5CqEeC4A5EDetGFGq.C&quot;</span><span class=cB0>,
+<a name="l75"></a>                </span><span class=cB6>&quot;Just \0 \0spok\0en.$FG$\n\0 \0 \0 \0 \0 \0 \0 \0 \0 \0 \0&quot;</span><span class=cB0>);
+<a name="l76"></a>    }
+<a name="l77"></a>  </span><span class=cB7>}</span><span class=cB0> </span><span class=cB1>catch</span><span class=cB0>
+<a name="l78"></a>    </span><span class=cB5>PutExcept</span><span class=cB0>;
+<a name="l79"></a>  </span><span class=cB5>SettingsPop</span><span class=cB0>;
+<a name="l80"></a>}
+<a name="l81"></a>
+<a name="l82"></a>Song;
+</span></div></pre></body>
+</html>

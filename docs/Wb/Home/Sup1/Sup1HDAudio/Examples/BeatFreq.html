@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html style="background-color:#FFFFFF;">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
+<title>The Temple Operating System</title>
+<meta name="keywords" content="Operating System,64-Bit,64 Bit,Temple,OS,TempleOS,Free,Open Source,Public Domain,x86_64">
+<meta name="generator" content="TempleOS (U) V5.04">
+<style type="text/css">
+.cB0{color:#000000;background-color:#55ffff;}
+.cB1{color:#0000aa;background-color:#55ffff;}
+.cB2{color:#00aa00;background-color:#55ffff;}
+.cB3{color:#00aaaa;background-color:#55ffff;}
+.cB5{color:#aa00aa;background-color:#55ffff;}
+.cB6{color:#aa5500;background-color:#55ffff;}
+.cB7{color:#aaaaaa;background-color:#55ffff;}
+.cB9{color:#5555ff;background-color:#55ffff;}
+.cF0{color:#000000;background-color:#ffffff;}
+.cF1{color:#0000aa;background-color:#ffffff;}
+.cF2{color:#00aa00;background-color:#ffffff;}
+.cF3{color:#00aaaa;background-color:#ffffff;}
+.cF4{color:#aa0000;background-color:#ffffff;}
+.cF5{color:#aa00aa;background-color:#ffffff;}
+.cF6{color:#aa5500;background-color:#ffffff;}
+.cF7{color:#aaaaaa;background-color:#ffffff;}
+.cF8{color:#555555;background-color:#ffffff;}
+.cF9{color:#5555ff;background-color:#ffffff;}
+.cFA{color:#55ff55;background-color:#ffffff;}
+.cFB{color:#55ffff;background-color:#ffffff;}
+.cFC{color:#ff5555;background-color:#ffffff;}
+.cFD{color:#ff55ff;background-color:#ffffff;}
+.cFE{color:#ffff55;background-color:#ffffff;}
+.cFF{color:#ffffff;background-color:#ffffff;}
+</style>
+</head>
+<body style="background-color:#55FFFF; border-style:solid;
+	  border-width:8px; border-color:#0000AA;
+	  margin-left:auto; margin-right:auto; width:800px; ">
+<pre style="font-family:courier;font-size:10pt">
+<div style="margin-left:auto; margin-right:auto; width: 640px;">
+<a name="l1"></a><span class=cB1>Bool</span><span class=cB0> beat_done;
+<a name="l2"></a></span><span class=cB9>I64</span><span class=cB0> start_buf_num;
+<a name="l3"></a></span><span class=cB1>U0</span><span class=cB0> (*fp_task_end_cb)();
+<a name="l4"></a></span><span class=cB1>U0</span><span class=cB0> (*fp_old_fill_buf)(SND_OUT_CONTAINER *buf,</span><span class=cB9>I64</span><span class=cB0> buf_num)=</span><span class=cB3>NULL</span><span class=cB0>;
+<a name="l5"></a>
+<a name="l6"></a></span><span class=cB1>F64</span><span class=cB0> freq1,freq2;
+<a name="l7"></a>
+<a name="l8"></a></span><span class=cB1>U0</span><span class=cB0> BeatFillBuf(SND_OUT_CONTAINER *buf,</span><span class=cB9>I64</span><span class=cB0> buf_num)
+<a name="l9"></a>{ </span><span class=cB2>//Gets called by HD Audio task -- HDAudioTask().</span><span class=cB0>
+<a name="l10"></a>  </span><span class=cB9>I64</span><span class=cB0> j,m;
+<a name="l11"></a>  </span><span class=cB1>F64</span><span class=cB0> t;
+<a name="l12"></a>  </span><span class=cB1>if</span><span class=cB0> (beat_done) </span><span class=cB1>return</span><span class=cB0>;
+<a name="l13"></a>  t=</span><span class=cB5>ToF64</span><span class=cB0>(</span><span class=cB7>(</span><span class=cB0>buf_num-start_buf_num</span><span class=cB7>)</span><span class=cB0>*</span><span class=cB7>(</span><span class=cB0>SND_BUF_LEN/SND_OCHANNELS</span><span class=cB7>)</span><span class=cB0>)/SND_SAMPLE_RATE;
+<a name="l14"></a>  j=0;
+<a name="l15"></a>  </span><span class=cB1>while</span><span class=cB0> (j&lt;SND_BUF_LEN) </span><span class=cB7>{</span><span class=cB0>
+<a name="l16"></a>    m=</span><span class=cB3>I32_MAX</span><span class=cB0>*(</span><span class=cB5>Sin</span><span class=cB7>(</span><span class=cB0>freq1*(2*</span><span class=cB3>pi</span><span class=cB0>)*t</span><span class=cB7>)</span><span class=cB0>+</span><span class=cB5>Sin</span><span class=cB7>(</span><span class=cB0>freq2*(2*</span><span class=cB3>pi</span><span class=cB0>)*t</span><span class=cB7>)</span><span class=cB0>);
+<a name="l17"></a>
+<a name="l18"></a>    </span><span class=cB2>//Samples are 24-bit, placed in upper 24 bits of an I32.</span><span class=cB0>
+<a name="l19"></a>    m*=snd_vol;
+<a name="l20"></a>    buf[j++]=</span><span class=cB5>ToI64</span><span class=cB0>(m)&amp;0xFFFFFF00;       </span><span class=cB2>//Left</span><span class=cB0>
+<a name="l21"></a>    buf[j++]=</span><span class=cB5>ToI64</span><span class=cB0>(m)&amp;0xFFFFFF00;       </span><span class=cB2>//Right</span><span class=cB0>
+<a name="l22"></a>
+<a name="l23"></a>    t+=1.0/SND_SAMPLE_RATE;
+<a name="l24"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l25"></a>}
+<a name="l26"></a>
+<a name="l27"></a></span><span class=cB1>U0</span><span class=cB0> BeatTaskEndCB()
+<a name="l28"></a>{
+<a name="l29"></a>  beat_done=</span><span class=cB3>TRUE</span><span class=cB0>;
+<a name="l30"></a>  fp_snd_fill_buf=fp_old_fill_buf;
+<a name="l31"></a>  </span><span class=cB1>if</span><span class=cB0> (fp_task_end_cb)
+<a name="l32"></a>    (*fp_task_end_cb)();
+<a name="l33"></a>  </span><span class=cB1>else</span><span class=cB0>
+<a name="l34"></a>    </span><span class=cB5>Exit</span><span class=cB0>;
+<a name="l35"></a>}
+<a name="l36"></a>
+<a name="l37"></a></span><span class=cB1>U0</span><span class=cB0> BeatFreq()
+<a name="l38"></a>{
+<a name="l39"></a>  </span><span class=cB1>if</span><span class=cB0> (snd_dev!=SD_HD_AUDIO) </span><span class=cB7>{</span><span class=cB0>
+<a name="l40"></a>    </span><span class=cB6>&quot;Only works for HD Audio.\n&quot;</span><span class=cB0>;
+<a name="l41"></a>    </span><span class=cB1>return</span><span class=cB0>;
+<a name="l42"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l43"></a>  freq1=600.0;
+<a name="l44"></a>  freq2=601.0;
+<a name="l45"></a>  beat_done=</span><span class=cB3>FALSE</span><span class=cB0>;
+<a name="l46"></a>  fp_task_end_cb=</span><span class=cB5>Fs</span><span class=cB0>-&gt;task_end_cb;
+<a name="l47"></a>  </span><span class=cB5>Fs</span><span class=cB0>-&gt;task_end_cb=&amp;BeatTaskEndCB; </span><span class=cB2>//Catch &lt;CTRL-ALT-X&gt; or Kill() task</span><span class=cB0>
+<a name="l48"></a>  start_buf_num=snd_obuf_num;
+<a name="l49"></a>  fp_old_fill_buf=fp_snd_fill_buf;
+<a name="l50"></a>  fp_snd_fill_buf=&amp;BeatFillBuf;
+<a name="l51"></a>  </span><span class=cB1>try</span><span class=cB0> </span><span class=cB7>{</span><span class=cB0>
+<a name="l52"></a>    </span><span class=cB6>&quot;Pick two frequencies within a few Hz of each other to hear beats.\n&quot;</span><span class=cB0>
+<a name="l53"></a>          </span><span class=cB6>&quot;Pick two frequencies a multiple of two for an octave harmonic.\n&quot;</span><span class=cB0>
+<a name="l54"></a>          </span><span class=cB6>&quot;$FG,GREEN$&lt;CTRL-ALT-C&gt;$FG$ to exit.\n&quot;</span><span class=cB0>;
+<a name="l55"></a>    </span><span class=cB1>while</span><span class=cB0> (</span><span class=cB3>TRUE</span><span class=cB0>) {
+<a name="l56"></a>      freq1=PmtF64(</span><span class=cB6>&quot;Freq #1 (%0.2fHz):&quot;</span><span class=cB0>,freq1,20,20000);
+<a name="l57"></a>      freq2=PmtF64(</span><span class=cB6>&quot;Freq #2 (%0.2fHz):&quot;</span><span class=cB0>,freq2,20,20000);
+<a name="l58"></a>    }
+<a name="l59"></a>  </span><span class=cB7>}</span><span class=cB0> </span><span class=cB1>catch</span><span class=cB0> </span><span class=cB7>{</span><span class=cB0> </span><span class=cB2>//Catch &lt;CTRL-ALT-C&gt;, but pass it on to next higher hndlr.</span><span class=cB0>
+<a name="l60"></a>    fp_snd_fill_buf=fp_old_fill_buf;
+<a name="l61"></a>    </span><span class=cB5>Fs</span><span class=cB0>-&gt;task_end_cb=fp_task_end_cb;
+<a name="l62"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l63"></a>  beat_done=</span><span class=cB3>TRUE</span><span class=cB0>;
+<a name="l64"></a>  fp_snd_fill_buf=fp_old_fill_buf;
+<a name="l65"></a>  </span><span class=cB5>Fs</span><span class=cB0>-&gt;task_end_cb=fp_task_end_cb;
+<a name="l66"></a>}
+<a name="l67"></a>
+<a name="l68"></a>BeatFreq;
+</span></div></pre></body>
+</html>

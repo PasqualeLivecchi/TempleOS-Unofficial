@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html style="background-color:#FFFFFF;">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
+<title>The Temple Operating System</title>
+<meta name="keywords" content="Operating System,64-Bit,64 Bit,Temple,OS,TempleOS,Free,Open Source,Public Domain,x86_64">
+<meta name="generator" content="TempleOS (U) V5.04">
+<style type="text/css">
+.cB0{color:#000000;background-color:#55ffff;}
+.cB1{color:#0000aa;background-color:#55ffff;}
+.cB3{color:#00aaaa;background-color:#55ffff;}
+.cB5{color:#aa00aa;background-color:#55ffff;}
+.cB6{color:#aa5500;background-color:#55ffff;}
+.cB7{color:#aaaaaa;background-color:#55ffff;}
+.cB9{color:#5555ff;background-color:#55ffff;}
+.cF0{color:#000000;background-color:#ffffff;}
+.cF1{color:#0000aa;background-color:#ffffff;}
+.cF2{color:#00aa00;background-color:#ffffff;}
+.cF3{color:#00aaaa;background-color:#ffffff;}
+.cF4{color:#aa0000;background-color:#ffffff;}
+.cF5{color:#aa00aa;background-color:#ffffff;}
+.cF6{color:#aa5500;background-color:#ffffff;}
+.cF7{color:#aaaaaa;background-color:#ffffff;}
+.cF8{color:#555555;background-color:#ffffff;}
+.cF9{color:#5555ff;background-color:#ffffff;}
+.cFA{color:#55ff55;background-color:#ffffff;}
+.cFB{color:#55ffff;background-color:#ffffff;}
+.cFC{color:#ff5555;background-color:#ffffff;}
+.cFD{color:#ff55ff;background-color:#ffffff;}
+.cFE{color:#ffff55;background-color:#ffffff;}
+.cFF{color:#ffffff;background-color:#ffffff;}
+</style>
+</head>
+<body style="background-color:#55FFFF; border-style:solid;
+	  border-width:8px; border-color:#0000AA;
+	  margin-left:auto; margin-right:auto; width:800px; ">
+<pre style="font-family:courier;font-size:10pt">
+<div style="margin-left:auto; margin-right:auto; width: 640px;">
+<a name="l1"></a><span class=cB0>#</span><span class=cB1>help_index</span><span class=cB0> </span><span class=cB6>&quot;Install;File/Cmd Line (Typically);Cmd Line (Typically);&quot;</span><span class=cB0>
+<a name="l2"></a></span><span class=cB1>public</span><span class=cB0> </span><span class=cB9>I64</span><span class=cB0> </span><span class=cB5>Mount</span><span class=cB0>(</span><span class=cB1>Bool</span><span class=cB0> repartition=</span><span class=cB3>FALSE</span><span class=cB0>)
+<a name="l3"></a>{
+<a name="l4"></a>  </span><span class=cB9>I64</span><span class=cB0> cnt,res=0,num_hints,drv_let,type,unit,prt_num;
+<a name="l5"></a>  </span><span class=cB1>U8</span><span class=cB0> blks_buf[</span><span class=cB3>STR_LEN</span><span class=cB0>],addr_buf[</span><span class=cB3>STR_LEN</span><span class=cB0>],base0_buf[</span><span class=cB3>STR_LEN</span><span class=cB0>],base1_buf[</span><span class=cB3>STR_LEN</span><span class=cB0>],
+<a name="l6"></a>        *filename=</span><span class=cB3>NULL</span><span class=cB0>,*filename2=</span><span class=cB3>NULL</span><span class=cB0>;
+<a name="l7"></a>  </span><span class=cB9>CATARep</span><span class=cB0> *head=</span><span class=cB3>NULL</span><span class=cB0>,*tmpha;
+<a name="l8"></a>  </span><span class=cB1>Bool</span><span class=cB0> whole_drv;
+<a name="l9"></a>  </span><span class=cB9>CBlkDev</span><span class=cB0> *bd;
+<a name="l10"></a>  </span><span class=cB1>do</span><span class=cB0> </span><span class=cB7>{</span><span class=cB0>
+<a name="l11"></a>    cnt=0;
+<a name="l12"></a>    </span><span class=cB5>DrvRep</span><span class=cB0>;
+<a name="l13"></a>    </span><span class=cB6>&quot;\n****** Mount Drives ******\n&quot;</span><span class=cB0>
+<a name="l14"></a>          </span><span class=cB6>&quot;A-B are RAM drives.\n&quot;</span><span class=cB0>
+<a name="l15"></a>          </span><span class=cB6>&quot;C-L are ATA hard drives.\n&quot;</span><span class=cB0>
+<a name="l16"></a>          </span><span class=cB6>&quot;M-P are ISO file read drives.\n&quot;</span><span class=cB0>
+<a name="l17"></a>          </span><span class=cB6>&quot;Q-S are ISO file write drives.\n&quot;</span><span class=cB0>
+<a name="l18"></a>          </span><span class=cB6>&quot;T-Z are ATAPI CD/DVD drives.\n&quot;</span><span class=cB0>
+<a name="l19"></a>          </span><span class=cB6>&quot;\nDrive Letter (&lt;ENTER&gt; to exit):&quot;</span><span class=cB0>;
+<a name="l20"></a>    drv_let=</span><span class=cB5>Let2Let</span><span class=cB0>(</span><span class=cB5>GetChar</span><span class=cB0>);
+<a name="l21"></a>    </span><span class=cB6>'\n'</span><span class=cB0>;
+<a name="l22"></a>    </span><span class=cB1>if</span><span class=cB0> (type=</span><span class=cB5>Let2BlkDevType</span><span class=cB7>(</span><span class=cB0>drv_let</span><span class=cB7>)</span><span class=cB0>) {
+<a name="l23"></a>      whole_drv=</span><span class=cB3>FALSE</span><span class=cB0>;
+<a name="l24"></a>      unit=0;
+<a name="l25"></a>      prt_num=</span><span class=cB3>I64_MIN</span><span class=cB0>;
+<a name="l26"></a>      </span><span class=cB1>switch</span><span class=cB0> (type) </span><span class=cB7>{</span><span class=cB0>
+<a name="l27"></a>        </span><span class=cB1>case</span><span class=cB0> </span><span class=cB3>BDT_RAM</span><span class=cB0>:
+<a name="l28"></a>          </span><span class=cB6>&quot;Addr of RAM disk (&lt;ENTER&gt; to MAlloc):&quot;</span><span class=cB0>;
+<a name="l29"></a>          </span><span class=cB5>GetS</span><span class=cB0>(addr_buf,</span><span class=cB3>STR_LEN</span><span class=cB0>);
+<a name="l30"></a>        </span><span class=cB1>case</span><span class=cB0> </span><span class=cB3>BDT_ISO_FILE_WRITE</span><span class=cB0>:
+<a name="l31"></a>          </span><span class=cB6>&quot;Blks of 512 bytes:&quot;</span><span class=cB0>;
+<a name="l32"></a>          </span><span class=cB5>GetS</span><span class=cB0>(blks_buf,</span><span class=cB3>STR_LEN</span><span class=cB0>);
+<a name="l33"></a>          </span><span class=cB1>break</span><span class=cB0>;
+<a name="l34"></a>        </span><span class=cB1>case</span><span class=cB0> </span><span class=cB3>BDT_ISO_FILE_READ</span><span class=cB0>:
+<a name="l35"></a>          filename=</span><span class=cB5>GetStr</span><span class=cB0>(</span><span class=cB6>&quot;File Name:&quot;</span><span class=cB0>);
+<a name="l36"></a>          </span><span class=cB1>break</span><span class=cB0>;
+<a name="l37"></a>        </span><span class=cB1>case</span><span class=cB0> </span><span class=cB3>BDT_ATA</span><span class=cB0>:
+<a name="l38"></a>          prt_num=</span><span class=cB5>GetI64</span><span class=cB0>(</span><span class=cB6>&quot;Partition Num (Default=All):&quot;</span><span class=cB0>,prt_num);
+<a name="l39"></a>        </span><span class=cB1>case</span><span class=cB0> </span><span class=cB3>BDT_ATAPI</span><span class=cB0>:
+<a name="l40"></a>          num_hints=</span><span class=cB5>ATARep</span><span class=cB0>(,,&amp;head);
+<a name="l41"></a>          </span><span class=cB1>do</span><span class=cB0> {
+<a name="l42"></a>            </span><span class=cB1>if</span><span class=cB0> (num_hints)
+<a name="l43"></a>              </span><span class=cB6>&quot;Enter dev number or\nport with 0x prefix.\n&quot;</span><span class=cB0>
+<a name="l44"></a>                    </span><span class=cB6>&quot;I/O Port Base0:\n&quot;</span><span class=cB0>;
+<a name="l45"></a>            </span><span class=cB1>else</span><span class=cB0>
+<a name="l46"></a>              </span><span class=cB6>&quot;Include 0x prefix.\nI/O Port Base0:\n&quot;</span><span class=cB0>;
+<a name="l47"></a>            </span><span class=cB5>GetS</span><span class=cB0>(base0_buf,</span><span class=cB3>STR_LEN</span><span class=cB0>);
+<a name="l48"></a>          } </span><span class=cB1>while</span><span class=cB0> (!</span><span class=cB5>Str2I64</span><span class=cB7>(</span><span class=cB0>base0_buf</span><span class=cB7>)</span><span class=cB0>);
+<a name="l49"></a>          </span><span class=cB1>if</span><span class=cB0> (1&lt;=</span><span class=cB5>Str2I64</span><span class=cB7>(</span><span class=cB0>base0_buf</span><span class=cB7>)</span><span class=cB0>&lt;=num_hints) {
+<a name="l50"></a>            tmpha=</span><span class=cB5>ATARepFind</span><span class=cB0>(head,</span><span class=cB5>Str2I64</span><span class=cB7>(</span><span class=cB0>base0_buf</span><span class=cB7>)</span><span class=cB0>);
+<a name="l51"></a>            </span><span class=cB5>StrPrint</span><span class=cB0>(base0_buf,</span><span class=cB6>&quot;0x%X&quot;</span><span class=cB0>,tmpha-&gt;base0);
+<a name="l52"></a>            </span><span class=cB5>StrPrint</span><span class=cB0>(base1_buf,</span><span class=cB6>&quot;0x%X&quot;</span><span class=cB0>,tmpha-&gt;base1);
+<a name="l53"></a>            unit=tmpha-&gt;unit;
+<a name="l54"></a>          } </span><span class=cB1>else</span><span class=cB0> </span><span class=cB1>if</span><span class=cB0> (type!=</span><span class=cB3>BDT_ATAPI</span><span class=cB0> || *base0_buf) {
+<a name="l55"></a>            </span><span class=cB1>if</span><span class=cB0> (type==</span><span class=cB3>BDT_ATAPI</span><span class=cB0>)
+<a name="l56"></a>              </span><span class=cB5>StrCpy</span><span class=cB0>(base1_buf,</span><span class=cB6>&quot;0&quot;</span><span class=cB0>);
+<a name="l57"></a>            </span><span class=cB1>else</span><span class=cB0>
+<a name="l58"></a>              </span><span class=cB1>do</span><span class=cB0> </span><span class=cB7>{</span><span class=cB0>
+<a name="l59"></a>                </span><span class=cB6>&quot;I/O Port Base1:\n&quot;</span><span class=cB0>;
+<a name="l60"></a>                </span><span class=cB5>GetS</span><span class=cB0>(base1_buf,</span><span class=cB3>STR_LEN</span><span class=cB0>);
+<a name="l61"></a>              </span><span class=cB7>}</span><span class=cB0> </span><span class=cB1>while</span><span class=cB0> (!</span><span class=cB5>Str2I64</span><span class=cB7>(</span><span class=cB0>base1_buf</span><span class=cB7>)</span><span class=cB0>);
+<a name="l62"></a>            </span><span class=cB1>do</span><span class=cB0> </span><span class=cB7>{</span><span class=cB0>
+<a name="l63"></a>              </span><span class=cB6>&quot;\t0=Master\n\t1=Slave\nUnit:&quot;</span><span class=cB0>;
+<a name="l64"></a>              unit=</span><span class=cB5>GetChar</span><span class=cB0>-</span><span class=cB6>'0'</span><span class=cB0>;
+<a name="l65"></a>            </span><span class=cB7>}</span><span class=cB0> </span><span class=cB1>while</span><span class=cB0> (!</span><span class=cB7>(</span><span class=cB0>0&lt;=unit&lt;=1</span><span class=cB7>)</span><span class=cB0>);
+<a name="l66"></a>            </span><span class=cB6>'\n'</span><span class=cB0>;
+<a name="l67"></a>          }
+<a name="l68"></a>          </span><span class=cB5>LinkedLstDel</span><span class=cB0>(head);
+<a name="l69"></a>          </span><span class=cB1>break</span><span class=cB0>;
+<a name="l70"></a>      </span><span class=cB7>}</span><span class=cB0>
+<a name="l71"></a>      bd=</span><span class=cB5>BlkDevNextFreeSlot</span><span class=cB0>(drv_let,type);
+<a name="l72"></a>      bd-&gt;unit=unit;
+<a name="l73"></a>      </span><span class=cB1>switch</span><span class=cB0> (type) </span><span class=cB7>{</span><span class=cB0>
+<a name="l74"></a>        </span><span class=cB1>case</span><span class=cB0> </span><span class=cB3>BDT_RAM</span><span class=cB0>:
+<a name="l75"></a>          </span><span class=cB1>if</span><span class=cB0> (!*addr_buf)
+<a name="l76"></a>            bd-&gt;RAM_dsk=0;
+<a name="l77"></a>          </span><span class=cB1>else</span><span class=cB0>
+<a name="l78"></a>            bd-&gt;RAM_dsk=</span><span class=cB5>Str2I64</span><span class=cB0>(addr_buf);
+<a name="l79"></a>        </span><span class=cB1>case</span><span class=cB0> </span><span class=cB3>BDT_ISO_FILE_WRITE</span><span class=cB0>:
+<a name="l80"></a>          </span><span class=cB1>if</span><span class=cB0> (!*blks_buf)
+<a name="l81"></a>            bd-&gt;max_blk=-1;
+<a name="l82"></a>          </span><span class=cB1>else</span><span class=cB0>
+<a name="l83"></a>            bd-&gt;max_blk=</span><span class=cB5>Str2I64</span><span class=cB0>(blks_buf)-1;
+<a name="l84"></a>          bd-&gt;drv_offset=19&lt;&lt;2+(</span><span class=cB3>DVD_BLK_SIZE</span><span class=cB0>*2+</span><span class=cB3>DVD_BOOT_LOADER_SIZE</span><span class=cB0>)/</span><span class=cB3>BLK_SIZE</span><span class=cB0>;
+<a name="l85"></a>          </span><span class=cB1>break</span><span class=cB0>;
+<a name="l86"></a>        </span><span class=cB1>case</span><span class=cB0> </span><span class=cB3>BDT_ISO_FILE_READ</span><span class=cB0>:
+<a name="l87"></a>          filename2=</span><span class=cB5>FileNameAbs</span><span class=cB0>(filename);
+<a name="l88"></a>          bd-&gt;file_dsk_name=</span><span class=cB5>AStrNew</span><span class=cB0>(filename2);
+<a name="l89"></a>          bd-&gt;drv_offset=19&lt;&lt;2+(</span><span class=cB3>DVD_BLK_SIZE</span><span class=cB0>*2+</span><span class=cB3>DVD_BOOT_LOADER_SIZE</span><span class=cB0>)/</span><span class=cB3>BLK_SIZE</span><span class=cB0>;
+<a name="l90"></a>          </span><span class=cB1>break</span><span class=cB0>;
+<a name="l91"></a>        </span><span class=cB1>case</span><span class=cB0> </span><span class=cB3>BDT_ATA</span><span class=cB0>:
+<a name="l92"></a>        </span><span class=cB1>case</span><span class=cB0> </span><span class=cB3>BDT_ATAPI</span><span class=cB0>:
+<a name="l93"></a>          bd-&gt;base0=</span><span class=cB5>Str2I64</span><span class=cB0>(base0_buf);
+<a name="l94"></a>          bd-&gt;base1=</span><span class=cB5>Str2I64</span><span class=cB0>(base1_buf);
+<a name="l95"></a>          </span><span class=cB1>if</span><span class=cB0> (type==</span><span class=cB3>BDT_ATA</span><span class=cB0> &amp;&amp; repartition) {
+<a name="l96"></a>            </span><span class=cB6>&quot;\nReformat WHOLE drive!&quot;</span><span class=cB0>;
+<a name="l97"></a>            whole_drv=</span><span class=cB5>YorN</span><span class=cB0>;
+<a name="l98"></a>          }
+<a name="l99"></a>          </span><span class=cB1>break</span><span class=cB0>;
+<a name="l100"></a>      </span><span class=cB7>}</span><span class=cB0>
+<a name="l101"></a>      </span><span class=cB1>if</span><span class=cB0> (</span><span class=cB7>(</span><span class=cB0>cnt=</span><span class=cB5>BlkDevAdd</span><span class=cB0>(bd,prt_num,whole_drv,</span><span class=cB3>TRUE</span><span class=cB0>)</span><span class=cB7>)</span><span class=cB0> &amp;&amp; whole_drv)
+<a name="l102"></a>        </span><span class=cB5>ExePrint</span><span class=cB0>(</span><span class=cB6>&quot;DskPrt('%C');\n&quot;</span><span class=cB0>,drv_let);
+<a name="l103"></a>    }
+<a name="l104"></a>    res+=cnt;
+<a name="l105"></a>  </span><span class=cB7>}</span><span class=cB0> </span><span class=cB1>while</span><span class=cB0> (cnt);
+<a name="l106"></a>  </span><span class=cB5>Free</span><span class=cB0>(filename);
+<a name="l107"></a>  </span><span class=cB5>Free</span><span class=cB0>(filename2);
+<a name="l108"></a>  </span><span class=cB1>return</span><span class=cB0> res;
+<a name="l109"></a>}
+</span></div></pre></body>
+</html>

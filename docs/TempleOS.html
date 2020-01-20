@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+<html style="background-color:#FFFFFF;">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
+<title>The Temple Operating System</title>
+<meta name="keywords" content="Operating System,64-Bit,64 Bit,Temple,OS,TempleOS,Free,Open Source,Public Domain,x86_64">
+<meta name="generator" content="TempleOS (U) V5.04">
+<style type="text/css">
+.cB0{color:#000000;background-color:#55ffff;}
+.cB4{color:#aa0000;background-color:#55ffff;}
+.cB5{color:#aa00aa;background-color:#55ffff;}
+.cB8{color:#555555;background-color:#55ffff;}
+.cBA{color:#55ff55;background-color:#55ffff;}
+.cF0{color:#000000;background-color:#ffffff;}
+.cF1{color:#0000aa;background-color:#ffffff;}
+.cF2{color:#00aa00;background-color:#ffffff;}
+.cF3{color:#00aaaa;background-color:#ffffff;}
+.cF4{color:#aa0000;background-color:#ffffff;}
+.cF5{color:#aa00aa;background-color:#ffffff;}
+.cF6{color:#aa5500;background-color:#ffffff;}
+.cF7{color:#aaaaaa;background-color:#ffffff;}
+.cF8{color:#555555;background-color:#ffffff;}
+.cF9{color:#5555ff;background-color:#ffffff;}
+.cFA{color:#55ff55;background-color:#ffffff;}
+.cFB{color:#55ffff;background-color:#ffffff;}
+.cFC{color:#ff5555;background-color:#ffffff;}
+.cFD{color:#ff55ff;background-color:#ffffff;}
+.cFE{color:#ffff55;background-color:#ffffff;}
+.cFF{color:#ffffff;background-color:#ffffff;}
+</style>
+</head>
+<body style="background-color:#55FFFF; border-style:solid;
+	  border-width:8px; border-color:#0000AA;
+	  margin-left:auto; margin-right:auto; width:800px; ">
+<pre style="font-family:courier;font-size:10pt"><div style="margin-left:auto; margin-right:auto; width: 640px;">
+<a name="l1"></a><span class=cB5>                          </span><a href="http://templeos.lanceward.net"><h1><center><span class=cB5>The Temple Operating System</center></h1></span></a><span class=cB0>
+<a name="l2"></a></span><a href="http://www.templeos.org"><span class=cB4>Downloads</span></a>
+<a name="l3"></a>
+<a name="l4"></a>Terry's Linux Bash Scripts
+<a name="l5"></a>        </span><a href="https://tosrevive.github.io/TempleOS-Unofficial/Wb/Home/Sup1/Sup1Bin"><span class=cB4>General</span></a><span class=cB4>
+<a name="l6"></a>        </span><a href="https://tosrevive.github.io/TempleOS-Unofficial/Wb/Home/Sup1/Sup1Bin/QEMU"><span class=cB4>QEMU</span></a><span class=cB4>
+<a name="l7"></a>        </span><a href="https://tosrevive.github.io/TempleOS-Unofficial/Wb/Home/Sup1/Sup1Bin/VirtualBox"><span class=cB4>VirtualBox</span></a><span class=cB4>
+<a name="l8"></a>        </span><a href="https://tosrevive.github.io/TempleOS-Unofficial/Wb/Home/Sup1/Sup1Bin/VMware"><span class=cB4>VMware</span></a><span class=cB4>
+<a name="l8b"></a>        </span><a href="https://tosrevive.github.io/TempleOS-Unofficial/Wb/Home/Other"><span class=cB4>Other ISOs/HD images</span></a><span class=cB4>
+<a name="l9"></a>
+<a name="l12"></a></span><a href="https://tosrevive.github.io/TempleOS-Unofficial/Wb/Doc/Welcome.html#l1"><span class=cB4>Introduction</span></a><span class=cB4>                            </span><a href="https://tosrevive.github.io/TempleOS-Unofficial/Wb/Doc/FAQ.html#l1"><span class=cB4>F.A.Q.</span></a><span class=cB4>
+<a name="l13"></a>
+<a name="l14"></a></span><a href="https://tosrevive.github.io/TempleOS-Unofficial/Wb/Doc/Features.html#l1"><span class=cB4>Features</span></a><span class=cB4>                                </span><a href="https://tosrevive.github.io/TempleOS-Unofficial/Wb/Doc/Charter.html#l1"><span class=cB4>The Charter</span></a><span class=cB4>
+<a name="l15"></a>
+<a name="l16"></a></span><a href="LineRep.html#l548"><span class=cB4>Source Code By File</span></a><span class=cB4>                     </span><a href="https://tosrevive.github.io/TempleOS-Unofficial/Wb/"><span class=cB4>Source Code (Raw)</span></a><span class=cB4>
+<a name="l17"></a>
+<a name="l18"></a></span><a href="SymsAlpha.html"><span class=cB4>Source Code By Sym</span></a><span class=cB4>                      </span><a href="SymsAddress.html"><span class=cB4>Source Code By Address</span></a><span class=cB4>
+<a name="l19"></a>        
+<a name="l20"></a></span><a href="https://tosrevive.github.io/TempleOS-Unofficial/Wb/Doc/Credits.html#l1"><span class=cB4>TempleOS Credits</span></a><span class=cB4>                        </span><a href="History.html#l1"><span class=cB4>History of TempleOS</span></a><span class=cB4>
+<a name="l21"></a>
+<span class=cB0>
+<a name="l25"></a>
+<a name="l26"></a>
+<a name="l26"></a>TempleOS is a free, public domain, open source, </span><a href="http://en.wikipedia.org/wiki/Amd64#AMD64"><span class=cB4>x86_64</span></a><span class=cB0>, non-preemptive 
+<a name="l27"></a>multi-tasking, multi-cored, </span><a href="http://en.wikipedia.org/wiki/Ring_(computer_security)"><span class=cB4>ring-0-only</span></a><span class=cB0>, single-address-map (</span><a href="http://en.wikipedia.org/wiki/Identity_(mathematics)"><span class=cB4>identity-mapped</span></a><span class=cB0>), 
+<a name="l28"></a>non-networked, PC operating system.  Paging is, basically, not used.
+<a name="l29"></a>
+<a name="l30"></a>The CIA encourages code obsfucation.  They make it more complicated than 
+<a name="l31"></a>necessary.  TempleOS is, literally, more simple than necessary.  It is 
+<a name="l32"></a>obnoxiously simple... to the point it hurts. 
+<a name="l33"></a>
+<a name="l34"></a>This </span><a href="http://www.ariel.com.au/jokes/The_Evolution_of_a_Programmer.html"><span class=cB0>&quot;Hello World&quot; joke</span></a><span class=cB0>, the </span><a href="http://en.wikipedia.org/wiki/BMP_file_format"><span class=cB0>BMP file format</span></a><span class=cB0> and the </span><a href="http://en.wikipedia.org/wiki/WAV"><span class=cB0>WAV file format</span></a><span class=cB0> show that 
+<a name="l35"></a>the industry is really screwed-up!  That's what TempleOS fixes.  I capped the 
+<a name="l36"></a>line-of-code count at 100,000 and God said it must be perfect, so it will never 
+<a name="l37"></a>be an ugly monstrocity.  It is currently 80,849 lines of unblemished code.  
+<a name="l38"></a>Backward compatibility is not promised.
+<a name="l39"></a>
+<a name="l40"></a>Normally, failure is not an option, but since TempleOS accompanies Windows or 
+<a name="l41"></a>Linux, we exclude certain uses.  There is no reason to duplicate browsing, 
+<a name="l42"></a>multimedia, desktop publishing, etc.  Linux wants to be a secure, multi-user 
+<a name="l43"></a>mainframe.  That's why it has file permissions.  The vision for TempleOS, 
+<a name="l44"></a>however, is a modern, 64-bit Commodore 64.  The C64 was a non-networked, home 
+<a name="l45"></a>computer mostly used for games.  It trained my generation how to program because 
+<a name="l46"></a>it was wide open, completely hackable.  The games were not multimedia works of 
+<a name="l47"></a>art, but generated by non-artist.
+<a name="l48"></a>
+<a name="l49"></a>A troll might ask, &quot;Why not just use </span><a href="http://en.wikipedia.org/wiki/DOS"><span class=cB4>DOS</span></a><span class=cB0>?  It was ring-0-only and 
+<a name="l50"></a>single-address-map.&quot;  </span><a href="http://en.wikipedia.org/wiki/DOS"><span class=cB4>DOS</span></a><span class=cB0> was 16-bit, with segmentation -- awful!  TempleOS is 
+<a name="l51"></a>64-bit, flat, non-segmented and multi-cored.  It has a C64-like shell with </span><span class=cB4>
+<a name="l52"></a></span><a href="https://tosrevive.github.io/TempleOS-Unofficial/Wb/Doc/HolyC.html#l1"><span class=cB4>HolyC</span></a><span class=cB0>, a dialect of C/C++, instead of BASIC.  It was written from scratch, and 
+<a name="l53"></a>not even ASCII was sacred -- it has 8-bit unsigned char source code to support 
+<a name="l54"></a>European languages.  Also, the source code supports binary sprite graphics.
+<a name="l55"></a>
+<a name="l56"></a>A troll might say, &quot;It can crash!&quot;  We used </span><a href="http://en.wikipedia.org/wiki/DOS"><span class=cB4>DOS</span></a><span class=cB0> for years and loved it. 
+<a name="l57"></a>Computers even had a reset switch!  Just think of the power of ring-0, muhahaha! 
+<a name="l58"></a>Think of the speed and simplicity of </span><a href="http://en.wikipedia.org/wiki/Ring_(computer_security)"><span class=cB4>ring-0-only</span></a><span class=cB0> and </span><a href="http://en.wikipedia.org/wiki/Identity_(mathematics)"><span class=cB4>identity-mapping</span></a><span class=cB0>.  It can 
+<a name="l59"></a>change tasks in half a microsecond because it doesn't mess with page tables or 
+<a name="l60"></a>privilege levels.  Inter-process communication is effortless because every task 
+<a name="l61"></a>can access every other task's memory.
+<a name="l62"></a>
+<a name="l63"></a>It's fun having access to everything.  When I was a teenager, I had a book, </span><span class=cB4>
+<a name="l64"></a></span><a href="http://unusedino.de/ec64/technical/project64/mapping_c64.html"><span class=cB4>Mapping the Commodore 64</span></a><span class=cB0>, that told what every location in memory did.  I liked 
+<a name="l65"></a>copying the ROM to RAM and poking around at the ROM BASIC's variables.  
+<a name="l66"></a>Everybody directly poked the hardware ports.
+<a name="l67"></a>
+<a name="l68"></a>TempleOS is simpler than Linux and you can have hours of fun tinkering because 
+<a name="l69"></a>all memory and ports are accessible.  Memory is </span><a href="http://en.wikipedia.org/wiki/Identity_(mathematics)"><span class=cB4>identity-mapped</span></a><span class=cB0> at all times, so 
+<a name="l70"></a>you can modify any task's memory from any other task.  You can access all disk 
+<a name="l71"></a>blocks, too.  I had a blast using a C64 disk block editor to modify directories 
+<a name="l72"></a>to un-delete files, when I was a kid.  Maybe, you want to play with a raw-block 
+<a name="l73"></a>database, or make your own file system?
+<a name="l74"></a></span><span class=cBA>
+<a name="l75"></a></span><object width="640" height="520"><param name="movie" value="https://www.youtube.com/v/AIEJjpVlZu0"></param><param name="allowscriptaccess" value="always"></param><embed src="https://www.youtube.com/v/AIEJjpVlZu0" type="application/x-shockwave-flash" allowscriptaccess="always" width="640" height="520"></embed></object><span class=cB0>
+<a name="l76"></a></span><span class=cBA>
+<a name="l77"></a></span><object width="640" height="520"><param name="movie" value="https://www.youtube.com/v/W_b4zMxfLvA"></param><param name="allowscriptaccess" value="always"></param><embed src="https://www.youtube.com/v/W_b4zMxfLvA" type="application/x-shockwave-flash" allowscriptaccess="always" width="640" height="520"></embed></object><span class=cB0>
+<a name="l78"></a>
+<a name="l79"></a>I wrote all </span><a href="LineRep.html#l565"><span class=cB4>119,667</span></a><span class=cB0> lines of TempleOS over the last 14.7 years, full-time, 
+<a name="l80"></a>including the 64-bit compiler.  It was called, at various times, &quot;</span><a href="http://web.archive.org/web/*/http://www.simstructure.hare.com/*"><span class=cB4>Hoppy</span></a><span class=cB0>&quot;, &quot;</span><span class=cB4>
+<a name="l81"></a></span><a href="http://wayback.archive.org/web/*/http://www.justrighteous.org/*"><span class=cB4>The J Operating System</span></a><span class=cB0>&quot;, &quot;</span><a href="http://web.archive.org/web/*/http://www.losethos.com/*"><span class=cB4>LoseThos</span></a><span class=cB0>&quot; and &quot;</span><a href="http://web.archive.org/web/*/http://www.sparrowos.com/*"><span class=cB4>SparrowOS</span></a><span class=cB0>&quot;.  Here are my </span><span class=cB4>
+<a name="l82"></a></span><a href="http://templeos.lanceward.net/files/ASU_Transcripts.pdf"><span class=cB4>college transcripts</span></a><span class=cB0>.  I've been a professional operating system developer since 
+<a name="l83"></a>1990 when I was hired to work on Ticketmaster's VAX OS.
+<a name="l84"></a>
+<a name="l85"></a></span><span class=cB8>
+<a name="l86"></a>* &quot;Commodore 64&quot; is a trademark owned by Polabe Holding NV.
+<a name="l87"></a>* &quot;Linux&quot; is a trademark owned by Linus Torvalds.
+<a name="l88"></a>* &quot;Windows&quot; and &quot;DOS&quot; are trademarks owned by MicroSoft Corp.
+</span></div></pre></body>
+</html>

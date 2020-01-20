@@ -1,0 +1,206 @@
+<!DOCTYPE HTML>
+<html style="background-color:#FFFFFF;">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
+<title>The Temple Operating System</title>
+<meta name="keywords" content="Operating System,64-Bit,64 Bit,Temple,OS,TempleOS,Free,Open Source,Public Domain,x86_64">
+<meta name="generator" content="TempleOS (U) V5.04">
+<style type="text/css">
+.cB0{color:#000000;background-color:#55ffff;}
+.cB1{color:#0000aa;background-color:#55ffff;}
+.cB2{color:#00aa00;background-color:#55ffff;}
+.cB3{color:#00aaaa;background-color:#55ffff;}
+.cB5{color:#aa00aa;background-color:#55ffff;}
+.cB6{color:#aa5500;background-color:#55ffff;}
+.cB7{color:#aaaaaa;background-color:#55ffff;}
+.cB9{color:#5555ff;background-color:#55ffff;}
+.cBB{color:#55ffff;background-color:#55ffff;}
+.cF0{color:#000000;background-color:#ffffff;}
+.cF1{color:#0000aa;background-color:#ffffff;}
+.cF2{color:#00aa00;background-color:#ffffff;}
+.cF3{color:#00aaaa;background-color:#ffffff;}
+.cF4{color:#aa0000;background-color:#ffffff;}
+.cF5{color:#aa00aa;background-color:#ffffff;}
+.cF6{color:#aa5500;background-color:#ffffff;}
+.cF7{color:#aaaaaa;background-color:#ffffff;}
+.cF8{color:#555555;background-color:#ffffff;}
+.cF9{color:#5555ff;background-color:#ffffff;}
+.cFA{color:#55ff55;background-color:#ffffff;}
+.cFB{color:#55ffff;background-color:#ffffff;}
+.cFC{color:#ff5555;background-color:#ffffff;}
+.cFD{color:#ff55ff;background-color:#ffffff;}
+.cFE{color:#ffff55;background-color:#ffffff;}
+.cFF{color:#ffffff;background-color:#ffffff;}
+</style>
+</head>
+<body style="background-color:#55FFFF; border-style:solid;
+	  border-width:8px; border-color:#0000AA;
+	  margin-left:auto; margin-right:auto; width:800px; ">
+<pre style="font-family:courier;font-size:10pt">
+<div style="margin-left:auto; margin-right:auto; width: 640px;">
+<a name="l1"></a><span class=cB5>Cd</span><span class=cB0>(</span><span class=cB3>__DIR__</span><span class=cB0>);;
+<a name="l2"></a>#</span><span class=cB1>include</span><span class=cB0> </span><span class=cB6>&quot;FileRaw&quot;</span><span class=cB0>
+<a name="l3"></a>
+<a name="l4"></a></span><span class=cB1>class</span><span class=cB0> CArcCompress1
+<a name="l5"></a>{
+<a name="l6"></a>  </span><span class=cB9>U32</span><span class=cB0>   compressed_size,expanded_size;
+<a name="l7"></a>  </span><span class=cB9>U32</span><span class=cB0>   compression_type,xsum,pad[4];
+<a name="l8"></a>  </span><span class=cB1>U0</span><span class=cB0>    body;
+<a name="l9"></a>};
+<a name="l10"></a>
+<a name="l11"></a></span><span class=cB1>public</span><span class=cB0> </span><span class=cB1>U0</span><span class=cB0> CvtCmp1(</span><span class=cB1>U8</span><span class=cB0> *in_name,</span><span class=cB1>U8</span><span class=cB0> *out_name)
+<a name="l12"></a>{</span><span class=cB2>//Compression V1.0 --&gt; V3.0</span><span class=cB0>
+<a name="l13"></a>  </span><span class=cB9>I64</span><span class=cB0> size;
+<a name="l14"></a>  CArcCompress1 *in_buf=FileReadRaw(in_name,&amp;size);
+<a name="l15"></a>  </span><span class=cB9>CArcCompress</span><span class=cB0>  *out_buf=</span><span class=cB5>MAlloc</span><span class=cB0>(size);
+<a name="l16"></a>  out_buf-&gt;compressed_size=in_buf-&gt;compressed_size+
+<a name="l17"></a>        </span><span class=cB1>sizeof</span><span class=cB0>(</span><span class=cB9>CArcCompress</span><span class=cB0>)-</span><span class=cB1>sizeof</span><span class=cB0>(CArcCompress1);
+<a name="l18"></a>  out_buf-&gt;expanded_size=in_buf-&gt;expanded_size;
+<a name="l19"></a>  out_buf-&gt;compression_type=in_buf-&gt;compression_type+1;
+<a name="l20"></a>  </span><span class=cB5>MemCpy</span><span class=cB0>(&amp;out_buf-&gt;body,&amp;in_buf-&gt;body,
+<a name="l21"></a>        out_buf-&gt;compressed_size-</span><span class=cB1>sizeof</span><span class=cB7>(</span><span class=cB9>CArcCompress</span><span class=cB7>)</span><span class=cB0>);
+<a name="l22"></a>  FileWriteRaw(out_name,out_buf,out_buf-&gt;compressed_size);
+<a name="l23"></a>  </span><span class=cB5>Free</span><span class=cB0>(in_buf);
+<a name="l24"></a>  </span><span class=cB5>Free</span><span class=cB0>(out_buf);
+<a name="l25"></a>}
+<a name="l26"></a>
+<a name="l27"></a></span><span class=cB1>public</span><span class=cB0> </span><span class=cB1>U0</span><span class=cB0> CvtCmp2(</span><span class=cB1>U8</span><span class=cB0> *in_name,</span><span class=cB1>U8</span><span class=cB0> *out_name)
+<a name="l28"></a>{</span><span class=cB2>//Compression V2.0 --&gt; V3.0</span><span class=cB0>
+<a name="l29"></a>  </span><span class=cB9>I64</span><span class=cB0> size;
+<a name="l30"></a>  </span><span class=cB1>U8</span><span class=cB0> *in_buf=FileReadRaw(in_name,&amp;size),*out_buf=</span><span class=cB5>MAlloc</span><span class=cB0>(size-3);
+<a name="l31"></a>  </span><span class=cB5>MemCpy</span><span class=cB0>(out_buf,in_buf,</span><span class=cB1>sizeof</span><span class=cB7>(</span><span class=cB9>CArcCompress</span><span class=cB7>)</span><span class=cB0>);
+<a name="l32"></a>  out_buf(</span><span class=cB9>CArcCompress</span><span class=cB0> *)-&gt;compressed_size-=3;
+<a name="l33"></a>  out_buf(</span><span class=cB9>CArcCompress</span><span class=cB0> *)-&gt;compression_type++;
+<a name="l34"></a>  </span><span class=cB5>MemCpy</span><span class=cB0>(&amp;out_buf</span><span class=cB7>(</span><span class=cB9>CArcCompress</span><span class=cB0> *</span><span class=cB7>)</span><span class=cB0>-&gt;body,
+<a name="l35"></a>        </span><span class=cB7>(</span><span class=cB0>&amp;in_buf(</span><span class=cB9>CArcCompress</span><span class=cB0> *)-&gt;body</span><span class=cB7>)(</span><span class=cB1>U8</span><span class=cB0> *</span><span class=cB7>)</span><span class=cB0>+3,
+<a name="l36"></a>        size-</span><span class=cB1>sizeof</span><span class=cB7>(</span><span class=cB9>CArcCompress</span><span class=cB7>)</span><span class=cB0>-3);
+<a name="l37"></a>  FileWriteRaw(out_name,out_buf,size-3);
+<a name="l38"></a>  </span><span class=cB5>Free</span><span class=cB0>(in_buf);
+<a name="l39"></a>  </span><span class=cB5>Free</span><span class=cB0>(out_buf);
+<a name="l40"></a>}
+<a name="l41"></a>
+<a name="l42"></a></span><span class=cB1>public</span><span class=cB0> </span><span class=cB1>U0</span><span class=cB0> UnzipCmp150(</span><span class=cB1>U8</span><span class=cB0> *files_find_mask=</span><span class=cB6>&quot;*z&quot;</span><span class=cB0>,</span><span class=cB1>U8</span><span class=cB0> *fu_flags=</span><span class=cB3>NULL</span><span class=cB0>)
+<a name="l43"></a>{
+<a name="l44"></a>  </span><span class=cB1>U8</span><span class=cB0> name[</span><span class=cB3>STR_LEN</span><span class=cB0>],</span><span class=cBB>ext</span><span class=cB0>[</span><span class=cB3>STR_LEN</span><span class=cB0>];
+<a name="l45"></a>  </span><span class=cB9>CDirEntry</span><span class=cB0> *tmpde,*tmpde1;
+<a name="l46"></a>  </span><span class=cB9>I64</span><span class=cB0> i,fuf_flags=0;
+<a name="l47"></a>  </span><span class=cB5>ScanFlags</span><span class=cB0>(&amp;fuf_flags,</span><span class=cB5>Define</span><span class=cB7>(</span><span class=cB6>&quot;ST_FILE_UTIL_FLAGS&quot;</span><span class=cB7>)</span><span class=cB0>,</span><span class=cB6>&quot;+r+f+F+O&quot;</span><span class=cB0>);
+<a name="l48"></a>  </span><span class=cB5>ScanFlags</span><span class=cB0>(&amp;fuf_flags,</span><span class=cB5>Define</span><span class=cB7>(</span><span class=cB6>&quot;ST_FILE_UTIL_FLAGS&quot;</span><span class=cB7>)</span><span class=cB0>,fu_flags);
+<a name="l49"></a>  tmpde=tmpde1=</span><span class=cB5>FilesFind</span><span class=cB0>(files_find_mask,fuf_flags);
+<a name="l50"></a>  </span><span class=cB1>while</span><span class=cB0> (tmpde) </span><span class=cB7>{</span><span class=cB0>
+<a name="l51"></a>    </span><span class=cB6>&quot;%s\n&quot;</span><span class=cB0>,tmpde-&gt;full_name;
+<a name="l52"></a>    </span><span class=cB5>StrCpy</span><span class=cB0>(name,tmpde-&gt;full_name);
+<a name="l53"></a>    </span><span class=cB5>StrLastRem</span><span class=cB0>(name,</span><span class=cB6>&quot;.&quot;</span><span class=cB0>,</span><span class=cBB>ext</span><span class=cB0>);
+<a name="l54"></a>    i=</span><span class=cB5>LstMatch</span><span class=cB0>(</span><span class=cBB>ext</span><span class=cB0>,</span><span class=cB6>&quot;asz\0cpz\0hpz\0dtz\0biz\0mpz\0muz\0txz\0auz\0glz\0&quot;</span><span class=cB0>);
+<a name="l55"></a>    </span><span class=cB1>if</span><span class=cB0> (i&gt;=0) {
+<a name="l56"></a>      </span><span class=cB5>CatPrint</span><span class=cB0>(name,</span><span class=cB6>&quot;.%s.Z&quot;</span><span class=cB0>,
+<a name="l57"></a>            </span><span class=cB5>LstSub</span><span class=cB7>(</span><span class=cB0>i,</span><span class=cB6>&quot;ASM\0CPP\0HPP\0DAT\0BIN\0MAP\0TXT\0TXT\0AUT\0TXT\0&quot;</span><span class=cB7>)</span><span class=cB0>);
+<a name="l58"></a>      </span><span class=cB6>&quot;$BLACK$%s$FG$\n&quot;</span><span class=cB0>,name;
+<a name="l59"></a>      </span><span class=cB1>if</span><span class=cB0> (</span><span class=cB5>FileFind</span><span class=cB7>(</span><span class=cB0>name</span><span class=cB7>)</span><span class=cB0>)
+<a name="l60"></a>        </span><span class=cB6>&quot;$RED$Collision:%s$FG$\n&quot;</span><span class=cB0>,name;
+<a name="l61"></a>      </span><span class=cB1>else</span><span class=cB0> </span><span class=cB7>{</span><span class=cB0>
+<a name="l62"></a>        CvtCmp1(tmpde-&gt;full_name,name);
+<a name="l63"></a>        </span><span class=cB5>Del</span><span class=cB0>(tmpde-&gt;full_name);
+<a name="l64"></a>      </span><span class=cB7>}</span><span class=cB0>
+<a name="l65"></a>    } </span><span class=cB1>else</span><span class=cB0> {
+<a name="l66"></a>      i=</span><span class=cB5>LstMatch</span><span class=cB0>(</span><span class=cBB>ext</span><span class=cB0>,</span><span class=cB6>&quot;bic\0&quot;</span><span class=cB0>);
+<a name="l67"></a>      </span><span class=cB1>if</span><span class=cB0> (i&gt;=0) </span><span class=cB7>{</span><span class=cB0>
+<a name="l68"></a>        </span><span class=cB5>CatPrint</span><span class=cB0>(name,</span><span class=cB6>&quot;.%s&quot;</span><span class=cB0>,</span><span class=cB5>LstSub</span><span class=cB7>(</span><span class=cB0>i,</span><span class=cB6>&quot;BIN\0&quot;</span><span class=cB7>)</span><span class=cB0>);
+<a name="l69"></a>        </span><span class=cB6>&quot;$BLACK$%s$FG$\n&quot;</span><span class=cB0>,name;
+<a name="l70"></a>        </span><span class=cB1>if</span><span class=cB0> (</span><span class=cB5>FileFind</span><span class=cB7>(</span><span class=cB0>name</span><span class=cB7>)</span><span class=cB0>)
+<a name="l71"></a>          </span><span class=cB6>&quot;$RED$Collision:%s$FG$\n&quot;</span><span class=cB0>,name;
+<a name="l72"></a>        </span><span class=cB1>else</span><span class=cB0> {
+<a name="l73"></a>          </span><span class=cB5>Move</span><span class=cB0>(tmpde-&gt;full_name,name);
+<a name="l74"></a>          </span><span class=cB5>Del</span><span class=cB0>(tmpde-&gt;full_name);
+<a name="l75"></a>        }
+<a name="l76"></a>      </span><span class=cB7>}</span><span class=cB0> </span><span class=cB1>else</span><span class=cB0>
+<a name="l77"></a>        </span><span class=cB6>&quot;$RED$%s$FG$\n&quot;</span><span class=cB0>,tmpde-&gt;full_name;
+<a name="l78"></a>    }
+<a name="l79"></a>    tmpde=tmpde-&gt;next;
+<a name="l80"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l81"></a>  </span><span class=cB5>DirTreeDel</span><span class=cB0>(tmpde1);
+<a name="l82"></a>}
+<a name="l83"></a>
+<a name="l84"></a></span><span class=cB1>public</span><span class=cB0> </span><span class=cB1>U0</span><span class=cB0> UnzipCmp250(</span><span class=cB1>U8</span><span class=cB0> *files_find_mask=</span><span class=cB6>&quot;*z&quot;</span><span class=cB0>,</span><span class=cB1>U8</span><span class=cB0> *fu_flags=</span><span class=cB3>NULL</span><span class=cB0>)
+<a name="l85"></a>{
+<a name="l86"></a>  </span><span class=cB1>U8</span><span class=cB0> name[</span><span class=cB3>STR_LEN</span><span class=cB0>],</span><span class=cBB>ext</span><span class=cB0>[</span><span class=cB3>STR_LEN</span><span class=cB0>];
+<a name="l87"></a>  </span><span class=cB9>CDirEntry</span><span class=cB0> *tmpde,*tmpde1;
+<a name="l88"></a>  </span><span class=cB9>I64</span><span class=cB0> i,fuf_flags=0;
+<a name="l89"></a>  </span><span class=cB5>ScanFlags</span><span class=cB0>(&amp;fuf_flags,</span><span class=cB5>Define</span><span class=cB7>(</span><span class=cB6>&quot;ST_FILE_UTIL_FLAGS&quot;</span><span class=cB7>)</span><span class=cB0>,</span><span class=cB6>&quot;+r+f+F+O&quot;</span><span class=cB0>);
+<a name="l90"></a>  </span><span class=cB5>ScanFlags</span><span class=cB0>(&amp;fuf_flags,</span><span class=cB5>Define</span><span class=cB7>(</span><span class=cB6>&quot;ST_FILE_UTIL_FLAGS&quot;</span><span class=cB7>)</span><span class=cB0>,fu_flags);
+<a name="l91"></a>  tmpde=tmpde1=</span><span class=cB5>FilesFind</span><span class=cB0>(files_find_mask,fuf_flags);
+<a name="l92"></a>  </span><span class=cB1>while</span><span class=cB0> (tmpde) </span><span class=cB7>{</span><span class=cB0>
+<a name="l93"></a>    </span><span class=cB6>&quot;%s\n&quot;</span><span class=cB0>,tmpde-&gt;full_name;
+<a name="l94"></a>    </span><span class=cB5>StrCpy</span><span class=cB0>(name,tmpde-&gt;full_name);
+<a name="l95"></a>    </span><span class=cB5>StrLastRem</span><span class=cB0>(name,</span><span class=cB6>&quot;.&quot;</span><span class=cB0>,</span><span class=cBB>ext</span><span class=cB0>);
+<a name="l96"></a>    i=</span><span class=cB5>LstMatch</span><span class=cB0>(</span><span class=cBB>ext</span><span class=cB0>,</span><span class=cB6>&quot;asz\0cpz\0hpz\0dtz\0biz\0mpz\0muz\0txz\0&quot;</span><span class=cB0>
+<a name="l97"></a>          </span><span class=cB6>&quot;auz\0glz\0apz\0spz\0&quot;</span><span class=cB0>);
+<a name="l98"></a>    </span><span class=cB1>if</span><span class=cB0> (i&gt;=0) {
+<a name="l99"></a>      </span><span class=cB5>CatPrint</span><span class=cB0>(name,</span><span class=cB6>&quot;.%s.Z&quot;</span><span class=cB0>,
+<a name="l100"></a>            </span><span class=cB5>LstSub</span><span class=cB7>(</span><span class=cB0>i,</span><span class=cB6>&quot;ASM\0CPP\0HPP\0DAT\0BIN\0MAP\0TXT\0TXT\0&quot;</span><span class=cB0>
+<a name="l101"></a>            </span><span class=cB6>&quot;IN\0TXT\0CPP\0CPP\0&quot;</span><span class=cB7>)</span><span class=cB0>);
+<a name="l102"></a>      </span><span class=cB6>&quot;$BLACK$%s$FG$\n&quot;</span><span class=cB0>,name;
+<a name="l103"></a>      </span><span class=cB1>if</span><span class=cB0> (</span><span class=cB5>FileFind</span><span class=cB7>(</span><span class=cB0>name</span><span class=cB7>)</span><span class=cB0>)
+<a name="l104"></a>        </span><span class=cB6>&quot;$RED$Collision:%s$FG$\n&quot;</span><span class=cB0>,name;
+<a name="l105"></a>      </span><span class=cB1>else</span><span class=cB0> </span><span class=cB7>{</span><span class=cB0>
+<a name="l106"></a>        CvtCmp2(tmpde-&gt;full_name,name);
+<a name="l107"></a>        </span><span class=cB5>Del</span><span class=cB0>(tmpde-&gt;full_name);
+<a name="l108"></a>      </span><span class=cB7>}</span><span class=cB0>
+<a name="l109"></a>    } </span><span class=cB1>else</span><span class=cB0> {
+<a name="l110"></a>      i=</span><span class=cB5>LstMatch</span><span class=cB0>(</span><span class=cBB>ext</span><span class=cB0>,</span><span class=cB6>&quot;bic\0dat\0&quot;</span><span class=cB0>);
+<a name="l111"></a>      </span><span class=cB1>if</span><span class=cB0> (i&gt;=0) </span><span class=cB7>{</span><span class=cB0>
+<a name="l112"></a>        </span><span class=cB5>CatPrint</span><span class=cB0>(name,</span><span class=cB6>&quot;.%s&quot;</span><span class=cB0>,</span><span class=cB5>LstSub</span><span class=cB7>(</span><span class=cB0>i,</span><span class=cB6>&quot;BIN\0DAT\0&quot;</span><span class=cB7>)</span><span class=cB0>);
+<a name="l113"></a>        </span><span class=cB6>&quot;$BLACK$%s$FG$\n&quot;</span><span class=cB0>,name;
+<a name="l114"></a>        </span><span class=cB1>if</span><span class=cB0> (</span><span class=cB5>FileFind</span><span class=cB7>(</span><span class=cB0>name</span><span class=cB7>)</span><span class=cB0>)
+<a name="l115"></a>          </span><span class=cB6>&quot;$RED$Collision:%s$FG$\n&quot;</span><span class=cB0>,name;
+<a name="l116"></a>        </span><span class=cB1>else</span><span class=cB0> {
+<a name="l117"></a>          </span><span class=cB5>Move</span><span class=cB0>(tmpde-&gt;full_name,name);
+<a name="l118"></a>          </span><span class=cB5>Del</span><span class=cB0>(tmpde-&gt;full_name);
+<a name="l119"></a>        }
+<a name="l120"></a>      </span><span class=cB7>}</span><span class=cB0> </span><span class=cB1>else</span><span class=cB0>
+<a name="l121"></a>        </span><span class=cB6>&quot;$RED$%s$FG$\n&quot;</span><span class=cB0>,tmpde-&gt;full_name;
+<a name="l122"></a>    }
+<a name="l123"></a>    tmpde=tmpde-&gt;next;
+<a name="l124"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l125"></a>  </span><span class=cB5>DirTreeDel</span><span class=cB0>(tmpde1);
+<a name="l126"></a>}
+<a name="l127"></a>
+<a name="l128"></a></span><span class=cB1>Bool</span><span class=cB0> IsDotz(</span><span class=cB1>U8</span><span class=cB0> *filename)
+<a name="l129"></a>{</span><span class=cB2>//Does name end in .Z?</span><span class=cB0>
+<a name="l130"></a>  </span><span class=cB9>I64</span><span class=cB0> i=</span><span class=cB5>StrLen</span><span class=cB0>(filename);
+<a name="l131"></a>  </span><span class=cB1>if</span><span class=cB0> (i&gt;6 &amp;&amp; filename[i-1]==</span><span class=cB6>'z'</span><span class=cB0> &amp;&amp; filename[i-2]==</span><span class=cB6>'.'</span><span class=cB0> &amp;&amp; filename[i-6]==</span><span class=cB6>'.'</span><span class=cB0>)
+<a name="l132"></a>    </span><span class=cB1>return</span><span class=cB0> </span><span class=cB3>TRUE</span><span class=cB0>;
+<a name="l133"></a>  </span><span class=cB1>else</span><span class=cB0>
+<a name="l134"></a>    </span><span class=cB1>return</span><span class=cB0> </span><span class=cB3>FALSE</span><span class=cB0>;
+<a name="l135"></a>}
+<a name="l136"></a>
+<a name="l137"></a></span><span class=cB1>public</span><span class=cB0> </span><span class=cB1>U0</span><span class=cB0> UnzipCmp270(</span><span class=cB1>U8</span><span class=cB0> *files_find_mask=</span><span class=cB6>&quot;*.Z&quot;</span><span class=cB0>,</span><span class=cB1>U8</span><span class=cB0> *fu_flags=</span><span class=cB3>NULL</span><span class=cB0>)
+<a name="l138"></a>{
+<a name="l139"></a>  </span><span class=cB1>U8</span><span class=cB0> buf[</span><span class=cB3>STR_LEN</span><span class=cB0>],name[</span><span class=cB3>STR_LEN</span><span class=cB0>];
+<a name="l140"></a>  </span><span class=cB9>CDirEntry</span><span class=cB0> *tmpde,*tmpde1;
+<a name="l141"></a>  </span><span class=cB9>I64</span><span class=cB0> fuf_flags=0;
+<a name="l142"></a>  </span><span class=cB5>ScanFlags</span><span class=cB0>(&amp;fuf_flags,</span><span class=cB5>Define</span><span class=cB7>(</span><span class=cB6>&quot;ST_FILE_UTIL_FLAGS&quot;</span><span class=cB7>)</span><span class=cB0>,</span><span class=cB6>&quot;+r+f+F+O&quot;</span><span class=cB0>);
+<a name="l143"></a>  </span><span class=cB5>ScanFlags</span><span class=cB0>(&amp;fuf_flags,</span><span class=cB5>Define</span><span class=cB7>(</span><span class=cB6>&quot;ST_FILE_UTIL_FLAGS&quot;</span><span class=cB7>)</span><span class=cB0>,fu_flags);
+<a name="l144"></a>  tmpde=tmpde1=</span><span class=cB5>FilesFind</span><span class=cB0>(files_find_mask,fuf_flags);
+<a name="l145"></a>  </span><span class=cB1>while</span><span class=cB0> (tmpde) </span><span class=cB7>{</span><span class=cB0>
+<a name="l146"></a>    </span><span class=cB5>StrCpy</span><span class=cB0>(buf,tmpde-&gt;full_name);
+<a name="l147"></a>    </span><span class=cB5>StrLastRem</span><span class=cB0>(buf,</span><span class=cB6>&quot;/&quot;</span><span class=cB0>,name);
+<a name="l148"></a>    </span><span class=cB5>StrUtil</span><span class=cB0>(name,</span><span class=cB3>SUF_TO_UPPER</span><span class=cB0>);
+<a name="l149"></a>    </span><span class=cB5>CatPrint</span><span class=cB0>(buf,</span><span class=cB6>&quot;/%s&quot;</span><span class=cB0>,name);
+<a name="l150"></a>    </span><span class=cB6>&quot;%s\n&quot;</span><span class=cB0>,tmpde-&gt;full_name;
+<a name="l151"></a>    </span><span class=cB1>if</span><span class=cB0> (</span><span class=cB5>FileFind</span><span class=cB7>(</span><span class=cB0>buf</span><span class=cB7>)</span><span class=cB0>)
+<a name="l152"></a>      </span><span class=cB6>&quot;$RED$Collision:%s$FG$\n&quot;</span><span class=cB0>,buf;
+<a name="l153"></a>    </span><span class=cB1>else</span><span class=cB0> </span><span class=cB1>if</span><span class=cB0> (IsDotz</span><span class=cB7>(</span><span class=cB0>tmpde-&gt;full_name</span><span class=cB7>)</span><span class=cB0>) {
+<a name="l154"></a>      </span><span class=cB6>&quot;$BLACK$%s$FG$\n&quot;</span><span class=cB0>,buf;
+<a name="l155"></a>      CvtCmp2(tmpde-&gt;full_name,buf);
+<a name="l156"></a>      </span><span class=cB5>Del</span><span class=cB0>(tmpde-&gt;full_name);
+<a name="l157"></a>    } </span><span class=cB1>else</span><span class=cB0> {
+<a name="l158"></a>      </span><span class=cB6>&quot;$BLACK$%s$FG$\n&quot;</span><span class=cB0>,buf;
+<a name="l159"></a>      </span><span class=cB5>Move</span><span class=cB0>(tmpde-&gt;full_name,buf);
+<a name="l160"></a>    }
+<a name="l161"></a>    tmpde=tmpde-&gt;next;
+<a name="l162"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l163"></a>  </span><span class=cB5>DirTreeDel</span><span class=cB0>(tmpde1);
+<a name="l164"></a>}
+</span></div></pre></body>
+</html>

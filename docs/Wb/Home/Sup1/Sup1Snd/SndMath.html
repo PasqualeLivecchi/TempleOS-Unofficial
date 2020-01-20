@@ -1,0 +1,289 @@
+<!DOCTYPE HTML>
+<html style="background-color:#FFFFFF;">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
+<title>The Temple Operating System</title>
+<meta name="keywords" content="Operating System,64-Bit,64 Bit,Temple,OS,TempleOS,Free,Open Source,Public Domain,x86_64">
+<meta name="generator" content="TempleOS (U) V5.04">
+<style type="text/css">
+.cB0{color:#000000;background-color:#55ffff;}
+.cB1{color:#0000aa;background-color:#55ffff;}
+.cB2{color:#00aa00;background-color:#55ffff;}
+.cB3{color:#00aaaa;background-color:#55ffff;}
+.cB5{color:#aa00aa;background-color:#55ffff;}
+.cB6{color:#aa5500;background-color:#55ffff;}
+.cB7{color:#aaaaaa;background-color:#55ffff;}
+.cB9{color:#5555ff;background-color:#55ffff;}
+.cF0{color:#000000;background-color:#ffffff;}
+.cF1{color:#0000aa;background-color:#ffffff;}
+.cF2{color:#00aa00;background-color:#ffffff;}
+.cF3{color:#00aaaa;background-color:#ffffff;}
+.cF4{color:#aa0000;background-color:#ffffff;}
+.cF5{color:#aa00aa;background-color:#ffffff;}
+.cF6{color:#aa5500;background-color:#ffffff;}
+.cF7{color:#aaaaaa;background-color:#ffffff;}
+.cF8{color:#555555;background-color:#ffffff;}
+.cF9{color:#5555ff;background-color:#ffffff;}
+.cFA{color:#55ff55;background-color:#ffffff;}
+.cFB{color:#55ffff;background-color:#ffffff;}
+.cFC{color:#ff5555;background-color:#ffffff;}
+.cFD{color:#ff55ff;background-color:#ffffff;}
+.cFE{color:#ffff55;background-color:#ffffff;}
+.cFF{color:#ffffff;background-color:#ffffff;}
+</style>
+</head>
+<body style="background-color:#55FFFF; border-style:solid;
+	  border-width:8px; border-color:#0000AA;
+	  margin-left:auto; margin-right:auto; width:800px; ">
+<pre style="font-family:courier;font-size:10pt">
+<div style="margin-left:auto; margin-right:auto; width: 640px;">
+<a name="l1"></a><span class=cB0>#</span><span class=cB1>help_index</span><span class=cB0> </span><span class=cB6>&quot;Snd/Math;Math&quot;</span><span class=cB0>
+<a name="l2"></a></span><span class=cB1>public</span><span class=cB0> </span><span class=cB1>F64</span><span class=cB0> </span><span class=cB5>Saw</span><span class=cB0>(</span><span class=cB1>F64</span><span class=cB0> t,</span><span class=cB1>F64</span><span class=cB0> period)
+<a name="l3"></a>{</span><span class=cB2>//Sawtooth. 0.0 - 1.0 think &quot;(Sin+1)/2&quot;</span><span class=cB0>
+<a name="l4"></a>  </span><span class=cB1>if</span><span class=cB0> (period) </span><span class=cB7>{</span><span class=cB0>
+<a name="l5"></a>    </span><span class=cB1>if</span><span class=cB0> (t&gt;=0.0)
+<a name="l6"></a>      </span><span class=cB1>return</span><span class=cB0> t%period/period;
+<a name="l7"></a>    </span><span class=cB1>else</span><span class=cB0>
+<a name="l8"></a>      </span><span class=cB1>return</span><span class=cB0> 1.0+t%period/period;
+<a name="l9"></a>  </span><span class=cB7>}</span><span class=cB0> </span><span class=cB1>else</span><span class=cB0>
+<a name="l10"></a>    </span><span class=cB1>return</span><span class=cB0> 0.0;
+<a name="l11"></a>}
+<a name="l12"></a>
+<a name="l13"></a></span><span class=cB1>public</span><span class=cB0> </span><span class=cB1>F64</span><span class=cB0> </span><span class=cB5>FullSaw</span><span class=cB0>(</span><span class=cB1>F64</span><span class=cB0> t,</span><span class=cB1>F64</span><span class=cB0> period)
+<a name="l14"></a>{</span><span class=cB2>//Plus&amp;Minus Sawtooth. 1.0 - -1.0 think &quot;Sin&quot;</span><span class=cB0>
+<a name="l15"></a>  </span><span class=cB1>if</span><span class=cB0> (period) </span><span class=cB7>{</span><span class=cB0>
+<a name="l16"></a>    </span><span class=cB1>if</span><span class=cB0> (t&gt;=0.0)
+<a name="l17"></a>      </span><span class=cB1>return</span><span class=cB0> 2.0*(t%period/period)-1.0;
+<a name="l18"></a>    </span><span class=cB1>else</span><span class=cB0>
+<a name="l19"></a>      </span><span class=cB1>return</span><span class=cB0> 2.0*(t%period/period)+1.0;
+<a name="l20"></a>  </span><span class=cB7>}</span><span class=cB0> </span><span class=cB1>else</span><span class=cB0>
+<a name="l21"></a>    </span><span class=cB1>return</span><span class=cB0> 0.0;
+<a name="l22"></a>}
+<a name="l23"></a>
+<a name="l24"></a></span><span class=cB1>public</span><span class=cB0> </span><span class=cB1>F64</span><span class=cB0> </span><span class=cB5>Caw</span><span class=cB0>(</span><span class=cB1>F64</span><span class=cB0> t,</span><span class=cB1>F64</span><span class=cB0> period)
+<a name="l25"></a>{</span><span class=cB2>//Cawtooth. 1.0 - 0.0 think &quot;(Cos+1)/2&quot;</span><span class=cB0>
+<a name="l26"></a>  </span><span class=cB1>if</span><span class=cB0> (period) </span><span class=cB7>{</span><span class=cB0>
+<a name="l27"></a>    </span><span class=cB1>if</span><span class=cB0> (t&gt;=0.0)
+<a name="l28"></a>      </span><span class=cB1>return</span><span class=cB0> 1.0-t%period/period;
+<a name="l29"></a>    </span><span class=cB1>else</span><span class=cB0>
+<a name="l30"></a>      </span><span class=cB1>return</span><span class=cB0> -(t%period)/period;
+<a name="l31"></a>  </span><span class=cB7>}</span><span class=cB0> </span><span class=cB1>else</span><span class=cB0>
+<a name="l32"></a>    </span><span class=cB1>return</span><span class=cB0> 1.0;
+<a name="l33"></a>}
+<a name="l34"></a>
+<a name="l35"></a></span><span class=cB1>public</span><span class=cB0> </span><span class=cB1>F64</span><span class=cB0> </span><span class=cB5>FullCaw</span><span class=cB0>(</span><span class=cB1>F64</span><span class=cB0> t,</span><span class=cB1>F64</span><span class=cB0> period)
+<a name="l36"></a>{</span><span class=cB2>//Plus&amp;Minus Cawtooth. 1.0 - -1.0 think &quot;Cos&quot;</span><span class=cB0>
+<a name="l37"></a>  </span><span class=cB1>if</span><span class=cB0> (period) </span><span class=cB7>{</span><span class=cB0>
+<a name="l38"></a>    </span><span class=cB1>if</span><span class=cB0> (t&gt;=0.0)
+<a name="l39"></a>      </span><span class=cB1>return</span><span class=cB0> -2.0*(t%period/period)+1.0;
+<a name="l40"></a>    </span><span class=cB1>else</span><span class=cB0>
+<a name="l41"></a>      </span><span class=cB1>return</span><span class=cB0> -2.0*(t%period/period)-1.0;
+<a name="l42"></a>  </span><span class=cB7>}</span><span class=cB0> </span><span class=cB1>else</span><span class=cB0>
+<a name="l43"></a>    </span><span class=cB1>return</span><span class=cB0> 1.0;
+<a name="l44"></a>}
+<a name="l45"></a>
+<a name="l46"></a></span><span class=cB1>public</span><span class=cB0> </span><span class=cB1>F64</span><span class=cB0> </span><span class=cB5>Tri</span><span class=cB0>(</span><span class=cB1>F64</span><span class=cB0> t,</span><span class=cB1>F64</span><span class=cB0> period)
+<a name="l47"></a>{</span><span class=cB2>//Triangle waveform. 0.0 - 1.0 - 0.0</span><span class=cB0>
+<a name="l48"></a>  </span><span class=cB1>if</span><span class=cB0> (period) </span><span class=cB7>{</span><span class=cB0>
+<a name="l49"></a>    t=2.0*(</span><span class=cB5>Abs</span><span class=cB7>(</span><span class=cB0>t</span><span class=cB7>)</span><span class=cB0>%period)/period;
+<a name="l50"></a>    </span><span class=cB1>if</span><span class=cB0> (t&lt;=1.0)
+<a name="l51"></a>      </span><span class=cB1>return</span><span class=cB0> t;
+<a name="l52"></a>    </span><span class=cB1>else</span><span class=cB0>
+<a name="l53"></a>      </span><span class=cB1>return</span><span class=cB0> 2.0-t;
+<a name="l54"></a>  </span><span class=cB7>}</span><span class=cB0> </span><span class=cB1>else</span><span class=cB0>
+<a name="l55"></a>    </span><span class=cB1>return</span><span class=cB0> 0.0;
+<a name="l56"></a>}
+<a name="l57"></a>
+<a name="l58"></a></span><span class=cB1>public</span><span class=cB0> </span><span class=cB1>F64</span><span class=cB0> </span><span class=cB5>FullTri</span><span class=cB0>(</span><span class=cB1>F64</span><span class=cB0> t,</span><span class=cB1>F64</span><span class=cB0> period)
+<a name="l59"></a>{</span><span class=cB2>//Plus&amp;Minus Triangle waveform. 0.0 - 1.0 - 0.0 - -1.0 -0.0</span><span class=cB0>
+<a name="l60"></a>  </span><span class=cB1>if</span><span class=cB0> (period) </span><span class=cB7>{</span><span class=cB0>
+<a name="l61"></a>    t=4.0*(t%period)/period;
+<a name="l62"></a>    </span><span class=cB1>if</span><span class=cB0> (t&lt;=-1.0) {
+<a name="l63"></a>      </span><span class=cB1>if</span><span class=cB0> (t&lt;=-3.0)
+<a name="l64"></a>        </span><span class=cB1>return</span><span class=cB0> t+4.0;
+<a name="l65"></a>      </span><span class=cB1>else</span><span class=cB0>
+<a name="l66"></a>        </span><span class=cB1>return</span><span class=cB0> -2.0-t;
+<a name="l67"></a>    } </span><span class=cB1>else</span><span class=cB0> {
+<a name="l68"></a>      </span><span class=cB1>if</span><span class=cB0> (t&lt;=1.0)
+<a name="l69"></a>        </span><span class=cB1>return</span><span class=cB0> t;
+<a name="l70"></a>      </span><span class=cB1>else</span><span class=cB0> </span><span class=cB1>if</span><span class=cB0> (t&lt;=3.0)
+<a name="l71"></a>        </span><span class=cB1>return</span><span class=cB0> 2.0-t;
+<a name="l72"></a>      </span><span class=cB1>else</span><span class=cB0>
+<a name="l73"></a>        </span><span class=cB1>return</span><span class=cB0> t-4.0;
+<a name="l74"></a>    }
+<a name="l75"></a>  </span><span class=cB7>}</span><span class=cB0> </span><span class=cB1>else</span><span class=cB0>
+<a name="l76"></a>    </span><span class=cB1>return</span><span class=cB0> 0.0;
+<a name="l77"></a>}
+<a name="l78"></a>
+<a name="l79"></a>#</span><span class=cB1>help_index</span><span class=cB0> </span><span class=cB6>&quot;Snd/Math&quot;</span><span class=cB0>
+<a name="l80"></a>
+<a name="l81"></a></span><span class=cB1>public</span><span class=cB0> </span><span class=cB1>I8</span><span class=cB0> </span><span class=cB5>Note2Ona</span><span class=cB0>(</span><span class=cB9>I64</span><span class=cB0> note,</span><span class=cB9>I64</span><span class=cB0> octave=4)
+<a name="l82"></a>{</span><span class=cB2>//Note to ona. Mid C is ona=51, note=3 and octave=4.</span><span class=cB0>
+<a name="l83"></a>  </span><span class=cB1>if</span><span class=cB0> (note&lt;3)
+<a name="l84"></a>    </span><span class=cB1>return</span><span class=cB0> (octave+1)*12+note;
+<a name="l85"></a>  </span><span class=cB1>else</span><span class=cB0>
+<a name="l86"></a>    </span><span class=cB1>return</span><span class=cB0> octave*12+note;
+<a name="l87"></a>}
+<a name="l88"></a>
+<a name="l89"></a></span><span class=cB1>public</span><span class=cB0> </span><span class=cB1>I8</span><span class=cB0> </span><span class=cB5>Ona2Note</span><span class=cB0>(</span><span class=cB1>I8</span><span class=cB0> ona)
+<a name="l90"></a>{</span><span class=cB2>//Ona to note in octave. Mid C is ona=51, note=3 and octave=4.</span><span class=cB0>
+<a name="l91"></a>  </span><span class=cB1>return</span><span class=cB0> ona%12;
+<a name="l92"></a>}
+<a name="l93"></a>
+<a name="l94"></a></span><span class=cB1>public</span><span class=cB0> </span><span class=cB1>I8</span><span class=cB0> </span><span class=cB5>Ona2Octave</span><span class=cB0>(</span><span class=cB1>I8</span><span class=cB0> ona)
+<a name="l95"></a>{</span><span class=cB2>//Ona to octave. Mid C is ona=51, note=3 and octave=4.</span><span class=cB0>
+<a name="l96"></a>  </span><span class=cB9>I64</span><span class=cB0> note=ona%12,octave=ona/12;
+<a name="l97"></a>  </span><span class=cB1>if</span><span class=cB0> (note&lt;3)
+<a name="l98"></a>    </span><span class=cB1>return</span><span class=cB0> octave-1;
+<a name="l99"></a>  </span><span class=cB1>else</span><span class=cB0>
+<a name="l100"></a>    </span><span class=cB1>return</span><span class=cB0> octave;
+<a name="l101"></a>}
+<a name="l102"></a>
+<a name="l103"></a></span><span class=cB1>F64</span><span class=cB0> SinPhaseCont(</span><span class=cB1>F64</span><span class=cB0> last_y,</span><span class=cB1>F64</span><span class=cB0> last_dydt,
+<a name="l104"></a>                    </span><span class=cB1>F64</span><span class=cB0> current_amp,</span><span class=cB1>F64</span><span class=cB0> phase_offset)
+<a name="l105"></a>{</span><span class=cB2>//Next sample of sin waveform.</span><span class=cB0>
+<a name="l106"></a>  </span><span class=cB1>F64</span><span class=cB0> phase;
+<a name="l107"></a>  phase=last_y/current_amp;
+<a name="l108"></a>  </span><span class=cB1>if</span><span class=cB0> (phase&gt;1.0) phase=1.0;
+<a name="l109"></a>  </span><span class=cB1>if</span><span class=cB0> (phase&lt;-1.0) phase=-1.0;
+<a name="l110"></a>  </span><span class=cB1>if</span><span class=cB0> (last_dydt&lt;0)
+<a name="l111"></a>    phase=</span><span class=cB3>pi</span><span class=cB0>-</span><span class=cB5>ASin</span><span class=cB0>(phase);
+<a name="l112"></a>  </span><span class=cB1>else</span><span class=cB0>
+<a name="l113"></a>    phase=</span><span class=cB5>ASin</span><span class=cB0>(phase);
+<a name="l114"></a>  </span><span class=cB1>return</span><span class=cB0> phase-phase_offset;
+<a name="l115"></a>}
+<a name="l116"></a>
+<a name="l117"></a></span><span class=cB1>public</span><span class=cB0> CSndWaveCtrl *SndWaveCtrlNew(</span><span class=cB9>I64</span><span class=cB0> sample_rate=8000,</span><span class=cB9>I64</span><span class=cB0> sample_bits=24,
+<a name="l118"></a>  </span><span class=cB9>I64</span><span class=cB0> channels=2,</span><span class=cB9>CTask</span><span class=cB0> *mem_task=</span><span class=cB3>NULL</span><span class=cB0>)
+<a name="l119"></a>{</span><span class=cB2>//MAlloc ctrl struct for generating waveforms.</span><span class=cB0>
+<a name="l120"></a>  CSndWaveCtrl *swc=</span><span class=cB5>CAlloc</span><span class=cB0>(</span><span class=cB1>sizeof</span><span class=cB7>(</span><span class=cB0>CSndWaveCtrl</span><span class=cB7>)</span><span class=cB0>,mem_task);
+<a name="l121"></a>  swc-&gt;freq_multiplier=1.0;
+<a name="l122"></a>  swc-&gt;amp_multiplier=1.0;
+<a name="l123"></a>  swc-&gt;sample_rate=sample_rate;
+<a name="l124"></a>  swc-&gt;sample_bits=sample_bits;
+<a name="l125"></a>  swc-&gt;channels=channels;
+<a name="l126"></a>  swc-&gt;last_dydt=1.0;
+<a name="l127"></a>  </span><span class=cB1>return</span><span class=cB0> swc;
+<a name="l128"></a>}
+<a name="l129"></a>
+<a name="l130"></a></span><span class=cB1>public</span><span class=cB0> </span><span class=cB1>U0</span><span class=cB0> SndWaveCtrlDel(CSndWaveCtrl *swc)
+<a name="l131"></a>{</span><span class=cB2>//Free waveform ctrl.</span><span class=cB0>
+<a name="l132"></a>  </span><span class=cB5>Free</span><span class=cB0>(swc);
+<a name="l133"></a>}
+<a name="l134"></a>
+<a name="l135"></a>#</span><span class=cB1>define</span><span class=cB0> WF_NULL                 0
+<a name="l136"></a>#</span><span class=cB1>define</span><span class=cB0> WF_SQUARE               1
+<a name="l137"></a>#</span><span class=cB1>define</span><span class=cB0> WF_SINE                 2
+<a name="l138"></a>#</span><span class=cB1>define</span><span class=cB0> WF_TRI                  3
+<a name="l139"></a>#</span><span class=cB1>define</span><span class=cB0> WF_SAWTOOTH             4
+<a name="l140"></a>#</span><span class=cB1>define</span><span class=cB0> WF_NOISE                5
+<a name="l141"></a>#</span><span class=cB1>define</span><span class=cB0> WF_WAVEFORMS_NUM        6
+<a name="l142"></a>
+<a name="l143"></a></span><span class=cB1>public</span><span class=cB0> </span><span class=cB1>U0</span><span class=cB0> SndWaveAddBuf(CSndWaveCtrl *swc,</span><span class=cB1>U8</span><span class=cB0> *buf,</span><span class=cB9>I64</span><span class=cB0> num_samples,
+<a name="l144"></a>  </span><span class=cB1>F64</span><span class=cB0> _freq,</span><span class=cB9>I64</span><span class=cB0> _waveform=WF_SQUARE,</span><span class=cB1>F64</span><span class=cB0> _amp=1.0,</span><span class=cB1>F64</span><span class=cB0> _left=1.0, </span><span class=cB1>F64</span><span class=cB0> _right=1.0)
+<a name="l145"></a>{</span><span class=cB2>//Add waveform to buffer.</span><span class=cB0>
+<a name="l146"></a></span><span class=cB2>//num_samples is multiplied by channels to get buf_len.</span><span class=cB0>
+<a name="l147"></a>  </span><span class=cB2>//left,right range from 0.0-1.0</span><span class=cB0>
+<a name="l148"></a>  </span><span class=cB2>//Supports 16,24 and 32 bits</span><span class=cB0>
+<a name="l149"></a>  </span><span class=cB9>I64</span><span class=cB0> </span><span class=cB1>reg</span><span class=cB0> i,</span><span class=cB1>reg</span><span class=cB0> j,</span><span class=cB1>reg</span><span class=cB0> k;
+<a name="l150"></a>  </span><span class=cB1>F64</span><span class=cB0> a,f,amp,</span><span class=cB1>reg</span><span class=cB0> phase;
+<a name="l151"></a>  </span><span class=cB1>if</span><span class=cB0> (!swc) </span><span class=cB1>return</span><span class=cB0>;
+<a name="l152"></a>  _freq*=swc-&gt;freq_multiplier;
+<a name="l153"></a>  _amp*=swc-&gt;amp_multiplier;
+<a name="l154"></a>  </span><span class=cB1>if</span><span class=cB0> (!_freq||!_amp) </span><span class=cB7>{</span><span class=cB0>
+<a name="l155"></a>    swc-&gt;last_y=swc-&gt;phase=0;
+<a name="l156"></a>    swc-&gt;last_dydt=1.0;
+<a name="l157"></a>  </span><span class=cB7>}</span><span class=cB0> </span><span class=cB1>else</span><span class=cB0> </span><span class=cB7>{</span><span class=cB0>
+<a name="l158"></a>    phase=swc-&gt;phase;
+<a name="l159"></a>    i=0;
+<a name="l160"></a>    amp=</span><span class=cB5>Min</span><span class=cB0>(</span><span class=cB3>I32_MAX</span><span class=cB0>,</span><span class=cB3>I32_MAX</span><span class=cB0>*_amp);
+<a name="l161"></a>    f=2*</span><span class=cB3>pi</span><span class=cB0>/swc-&gt;sample_rate*_freq;
+<a name="l162"></a>    </span><span class=cB1>switch</span><span class=cB0> (_waveform) {
+<a name="l163"></a>      </span><span class=cB1>case</span><span class=cB0> WF_NOISE:
+<a name="l164"></a>        a=2.0/</span><span class=cB3>pi</span><span class=cB0>*amp;
+<a name="l165"></a>        </span><span class=cB1>break</span><span class=cB0>;
+<a name="l166"></a>      </span><span class=cB1>case</span><span class=cB0> WF_SAWTOOTH:
+<a name="l167"></a>        a=amp/</span><span class=cB3>pi</span><span class=cB0>;
+<a name="l168"></a>        </span><span class=cB1>break</span><span class=cB0>;
+<a name="l169"></a>      </span><span class=cB1>case</span><span class=cB0> WF_SINE:
+<a name="l170"></a>        phase=SinPhaseCont(swc-&gt;last_y,swc-&gt;last_dydt,amp,0.0);
+<a name="l171"></a>        </span><span class=cB1>break</span><span class=cB0>;
+<a name="l172"></a>    }
+<a name="l173"></a>    </span><span class=cB1>while</span><span class=cB0> (phase&lt;0)
+<a name="l174"></a>      phase+=2*</span><span class=cB3>pi</span><span class=cB0>;
+<a name="l175"></a>    </span><span class=cB1>while</span><span class=cB0> (phase&gt;=2*</span><span class=cB3>pi</span><span class=cB0>)
+<a name="l176"></a>      phase-=2*</span><span class=cB3>pi</span><span class=cB0>;
+<a name="l177"></a>    num_samples*=swc-&gt;channels;
+<a name="l178"></a>    </span><span class=cB1>while</span><span class=cB0> (i&lt;num_samples) {
+<a name="l179"></a>      </span><span class=cB1>switch</span><span class=cB0> (_waveform) </span><span class=cB7>{</span><span class=cB0>
+<a name="l180"></a>        </span><span class=cB1>case</span><span class=cB0> WF_SQUARE:
+<a name="l181"></a>          </span><span class=cB1>if</span><span class=cB0> (phase&gt;=</span><span class=cB3>pi</span><span class=cB0>)
+<a name="l182"></a>            j=-amp;
+<a name="l183"></a>          </span><span class=cB1>else</span><span class=cB0>
+<a name="l184"></a>            j=amp;
+<a name="l185"></a>          </span><span class=cB1>break</span><span class=cB0>;
+<a name="l186"></a>        </span><span class=cB1>case</span><span class=cB0> WF_SINE:
+<a name="l187"></a>          j=amp*</span><span class=cB5>Sin</span><span class=cB0>(phase);
+<a name="l188"></a>          </span><span class=cB1>break</span><span class=cB0>;
+<a name="l189"></a>        </span><span class=cB1>case</span><span class=cB0> WF_TRI:
+<a name="l190"></a>          </span><span class=cB1>if</span><span class=cB0> (phase&gt;=</span><span class=cB3>pi</span><span class=cB0>) {
+<a name="l191"></a>            swc-&gt;last_y=swc-&gt;next_y;
+<a name="l192"></a>            swc-&gt;next_y=-amp*</span><span class=cB5>Sign</span><span class=cB0>(swc-&gt;last_y)+.00001;
+<a name="l193"></a>            phase-=</span><span class=cB3>pi</span><span class=cB0>;
+<a name="l194"></a>          }
+<a name="l195"></a>          j=(swc-&gt;last_y*</span><span class=cB7>(</span><span class=cB3>pi</span><span class=cB0>-phase</span><span class=cB7>)</span><span class=cB0>+swc-&gt;next_y*phase)/</span><span class=cB3>pi</span><span class=cB0>;
+<a name="l196"></a>          </span><span class=cB1>break</span><span class=cB0>;
+<a name="l197"></a>        </span><span class=cB1>case</span><span class=cB0> WF_SAWTOOTH:
+<a name="l198"></a>          j=a*(phase-</span><span class=cB3>pi</span><span class=cB0>);
+<a name="l199"></a>          </span><span class=cB1>break</span><span class=cB0>;
+<a name="l200"></a>        </span><span class=cB1>case</span><span class=cB0> WF_NOISE:
+<a name="l201"></a>          </span><span class=cB1>if</span><span class=cB0> (phase&lt;</span><span class=cB3>pi</span><span class=cB0>) {
+<a name="l202"></a>            </span><span class=cB1>if</span><span class=cB0> (phase&lt;f) </span><span class=cB7>{</span><span class=cB0>
+<a name="l203"></a>              swc-&gt;last_y=swc-&gt;next_y;
+<a name="l204"></a>              swc-&gt;next_y=a*</span><span class=cB5>RandI16</span><span class=cB0>/</span><span class=cB3>U16_MAX</span><span class=cB0>;
+<a name="l205"></a>            </span><span class=cB7>}</span><span class=cB0>
+<a name="l206"></a>            j=swc-&gt;last_y*(</span><span class=cB3>pi</span><span class=cB0>-phase)+swc-&gt;next_y*phase;
+<a name="l207"></a>          } </span><span class=cB1>else</span><span class=cB0> {
+<a name="l208"></a>            </span><span class=cB1>if</span><span class=cB0> (phase-</span><span class=cB3>pi</span><span class=cB0>&lt;f) </span><span class=cB7>{</span><span class=cB0>
+<a name="l209"></a>              swc-&gt;last_y=swc-&gt;next_y;
+<a name="l210"></a>              swc-&gt;next_y=a*</span><span class=cB5>RandI16</span><span class=cB0>/</span><span class=cB3>U16_MAX</span><span class=cB0>;
+<a name="l211"></a>            </span><span class=cB7>}</span><span class=cB0>
+<a name="l212"></a>            j=swc-&gt;last_y*(2.0*</span><span class=cB3>pi</span><span class=cB0>-phase)+swc-&gt;next_y*(phase-</span><span class=cB3>pi</span><span class=cB0>);
+<a name="l213"></a>          }
+<a name="l214"></a>          </span><span class=cB1>break</span><span class=cB0>;
+<a name="l215"></a>      </span><span class=cB7>}</span><span class=cB0>
+<a name="l216"></a></span><span class=cB2>//left channel</span><span class=cB0>
+<a name="l217"></a>      k=j*_left;
+<a name="l218"></a>      </span><span class=cB1>if</span><span class=cB0> (swc-&gt;sample_bits==16) </span><span class=cB7>{</span><span class=cB0>
+<a name="l219"></a>        k&gt;&gt;=16;
+<a name="l220"></a>        buf(</span><span class=cB9>I16</span><span class=cB0> *)[i++]+=k;
+<a name="l221"></a>      </span><span class=cB7>}</span><span class=cB0> </span><span class=cB1>else</span><span class=cB0> </span><span class=cB7>{</span><span class=cB0>
+<a name="l222"></a>        </span><span class=cB1>if</span><span class=cB0> (swc-&gt;sample_bits==24)
+<a name="l223"></a>          k&amp;=0xFFFFFF00;
+<a name="l224"></a>        buf(</span><span class=cB9>I32</span><span class=cB0> *)[i++]+=k;
+<a name="l225"></a>      </span><span class=cB7>}</span><span class=cB0>
+<a name="l226"></a></span><span class=cB2>//right channel</span><span class=cB0>
+<a name="l227"></a>      </span><span class=cB1>if</span><span class=cB0> (swc-&gt;channels==2) </span><span class=cB7>{</span><span class=cB0>
+<a name="l228"></a>        k=j*_right;
+<a name="l229"></a>        </span><span class=cB1>if</span><span class=cB0> (swc-&gt;sample_bits==16) {
+<a name="l230"></a>          k&gt;&gt;=16;
+<a name="l231"></a>          buf(</span><span class=cB9>I16</span><span class=cB0> *)[i++]+=k;
+<a name="l232"></a>        } </span><span class=cB1>else</span><span class=cB0> {
+<a name="l233"></a>          </span><span class=cB1>if</span><span class=cB0> (swc-&gt;sample_bits==24)
+<a name="l234"></a>            k&amp;=0xFFFFFF00;
+<a name="l235"></a>          buf(</span><span class=cB9>I32</span><span class=cB0> *)[i++]+=k;
+<a name="l236"></a>        }
+<a name="l237"></a>      </span><span class=cB7>}</span><span class=cB0>
+<a name="l238"></a>      phase+=f;
+<a name="l239"></a>      </span><span class=cB1>while</span><span class=cB0> (phase&gt;=2*</span><span class=cB3>pi</span><span class=cB0>)
+<a name="l240"></a>        phase-=2*</span><span class=cB3>pi</span><span class=cB0>;
+<a name="l241"></a>    }
+<a name="l242"></a>    </span><span class=cB1>if</span><span class=cB0> (_waveform==WF_SINE) {
+<a name="l243"></a>      swc-&gt;last_y=amp*</span><span class=cB5>Sin</span><span class=cB0>(phase);
+<a name="l244"></a>      swc-&gt;last_dydt=</span><span class=cB5>Cos</span><span class=cB0>(phase);
+<a name="l245"></a>    }
+<a name="l246"></a>    swc-&gt;phase=phase;
+<a name="l247"></a>  </span><span class=cB7>}</span><span class=cB0>
+<a name="l248"></a>}
+</span></div></pre></body>
+</html>
